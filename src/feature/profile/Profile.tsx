@@ -1,16 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-// import {Icon} from '@rneui/base';
 
-const HomeScreen = () => {
+const Profile = () => {
   return (
     <View>
-      <Text>HomeScreen</Text>
-      {/* <Icon /> */}
+      <Text>Profile</Text>
     </View>
   );
 };
 
-export default HomeScreen;
+export default Profile;
 
 const styles = StyleSheet.create({});

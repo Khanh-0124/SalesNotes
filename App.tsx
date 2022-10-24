@@ -12,6 +12,8 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import HomeScreen from './src/feature/home/HomeScreen';
 import SettingScreen from './src/feature/setting/SettingScreen';
+import Profile from './src/feature/profile/Profile';
+
 import {Icon} from '@rneui/base';
 const Tabs = AnimatedTabBarNavigator();
 
@@ -45,7 +47,21 @@ const App = () => {
             tabBarIcon: ({focused, color, size}) => (
               <Icon
                 name="Home"
-                
+                size={size ? size : 24}
+                color={focused ? color : '#222222'}
+                focused={focused}
+                color={'#ccc'}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            tabBarIcon: ({focused, color, size}) => (
+              <Icon
+                name="Home"
                 size={size ? size : 24}
                 color={focused ? color : '#222222'}
                 focused={focused}
