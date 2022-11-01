@@ -7,12 +7,21 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-native",
-    "lib": [ "es2017" ],
-    "types": [ "react-native", "jest" ],
+    "lib": ["es2017"],
+    "types": ["react-native", "jest"],
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,
     "target": "esnext",
+    "paths": {
+      // "*": ["src/*"],
+      // "tests": ["tests/*"],
+      "components/*": ["./src/components/*"],
+      "assets/*": ["./src/assets/*"],
+      "feature/*": ["./src/feature/*"],
+      "navigation/*": ["./src/navigation/*"],
+      "utilities/*": ["./src/utilities/*"]
+    },
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Completeness */
@@ -27,8 +36,12 @@
   "target": "esnext",
   "baseUrl": ".",
   "paths": {
-    "*": [ "src/*" ],
-    "tests": [ "tests/*" ],
-    "@components/*": [ "src/components/*" ],
-  },
+    "*": ["src/*"],
+    "tests": ["tests/*"],
+    "components/*": ["./src/components/*"],
+    "assets/*": ["./src/components/*"],
+    "feature/*": ["./src/components/*"],
+    "navigation/*": ["./src/components/*"],
+    "utilities/*": ["./src/components/*"]
+  }
 }

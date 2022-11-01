@@ -9,8 +9,9 @@ import {
   ViewStyle,
   TouchableOpacity,
 } from 'react-native';
-import {Header as HeaderRNE, HeaderProps, Icon} from '@rneui/themed';
+import {Header as HeaderRNE, HeaderProps} from '@rneui/themed';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 type HeaderComponentProps = {
   title: string;
@@ -35,14 +36,16 @@ const Header: React.FunctionComponent<HeaderComponentProps> = props => {
   return (
     <SafeAreaProvider>
       <HeaderRNE
-        leftComponent={{
-          icon: 'menu',
-          color: '#fff',
-        }}
+        leftComponent={
+          <View style={{flexDirection: 'row'}}>
+            <Icon name="home" size={24} />
+            <Text>Khanh</Text>
+          </View>
+        }
         rightComponent={
           <View style={styles.headerRight}>
             <TouchableOpacity onPress={docsNavigate}>
-              <Icon name="description" color="white" />
+              <Icon name="" color="white" />
             </TouchableOpacity>
             <TouchableOpacity
               style={{marginLeft: 10}}
@@ -51,7 +54,7 @@ const Header: React.FunctionComponent<HeaderComponentProps> = props => {
             </TouchableOpacity>
           </View>
         }
-        centerComponent={{text: 'header', style: styles.heading}}
+        // centerComponent={{text: 'Khánh', style: styles.heading}}
       />
     </SafeAreaProvider>
   );

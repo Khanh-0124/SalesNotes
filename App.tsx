@@ -1,80 +1,61 @@
-import {Text, View} from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
+import RootApp from './src/navigation/scene/RooNavigation';
+import { LogBox } from 'react-native';
 
-// Typescript
-import {
-  AnimatedTabBarNavigator,
-  DotSize, // optional
-  TabElementDisplayOptions, // optional
-  TabButtonLayout, // optional
-  IAppearanceOptions, // optional
-} from 'react-native-animated-nav-tab-bar';
-import {NavigationContainer} from '@react-navigation/native';
-import HomeScreen from './src/feature/home/HomeScreen';
-import SettingScreen from './src/feature/setting/SettingScreen';
-import Profile from './src/feature/profile/Profile';
-
-import {Icon} from '@rneui/base';
-const Tabs = AnimatedTabBarNavigator();
+LogBox.ignoreLogs(['RCTBridge required dispatch_sync to load REAModule']);
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Tabs.Navigator
-        tabBarOptions={{
-          activeTintColor: '#2F7C6E',
-          inactiveTintColor: '#222222',
-        }}>
-        <Tabs.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({focused, color, size}) => (
-              <Icon
-                name="Home"
-                size={size ? size : 24}
-                color={focused ? color : '#222222'}
-                focused={focused}
-                color={'#ccc'}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="Setting"
-          component={SettingScreen}
-          options={{
-            tabBarIcon: ({focused, color, size}) => (
-              <Icon
-                name="Home"
-                size={size ? size : 24}
-                color={focused ? color : '#222222'}
-                focused={focused}
-                color={'#ccc'}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarIcon: ({focused, color, size}) => (
-              <Icon
-                name="Home"
-                size={size ? size : 24}
-                color={focused ? color : '#222222'}
-                focused={focused}
-                color={'#ccc'}
-              />
-            ),
-          }}
-        />
-      </Tabs.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <RootApp />
+    </SafeAreaView>
   );
 };
 
 export default App;
 
-// const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+// import React from 'react';
+// import {View} from 'react-native';
+// import {Button, Headline} from 'react-native-paper';
+// import {createStackNavigator} from '@react-navigation/stack';
+
+// import {
+//   ThemeContextProvider,
+//   useTheme,
+// } from './src/utilities/context/ThemeContext';
+
+// const Test2 = () => {
+//   const {toggleThemeType, themeType, isDarkTheme, theme} = useTheme();
+
+//   return (
+//     <View style={{marginTop: 200}}>
+//       <Button mode="contained" onPress={toggleThemeType}>
+//         Toggle Theme
+//       </Button>
+//       <Headline>{themeType}</Headline>
+//       <Headline>isDarkTheme: {`${isDarkTheme}`}</Headline>
+//       <Headline>Primary: {theme.colors.primary}</Headline>
+//     </View>
+//   );
+// };
+
+// const Stack = createStackNavigator();
+
+// const App = () => {
+//   return (
+//     <ThemeContextProvider>
+//       <Stack.Navigator>
+//         <Stack.Screen name="Test2" component={Test2} />
+//       </Stack.Navigator>
+//     </ThemeContextProvider>
+//   );
+// };
+
+// export default App;

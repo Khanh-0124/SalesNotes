@@ -1,26 +1,30 @@
 import React, {useState} from 'react';
+import {View, StyleProp, Text, StyleSheet} from 'react-native';
 import {CheckBox, Icon} from '@rneui/themed';
+import {normalize, WIDTH} from '../../assets/global/layout';
 
-type CheckboxComponentProps = {};
+type CheckboxComponentProps = {
+  title: string;
+  onPress: () => void;
+  check: boolean;
+};
 
-const CheckboxComponent: React.FunctionComponent<
-  CheckboxComponentProps
-> = () => {
-  const [check1, setCheck1] = useState(false);
-  const [check2, setCheck2] = useState(false);
-  const [check3, setCheck3] = useState(false);
-  const [check4, setCheck4] = useState(false);
-
+const CheckboxComponent: React.FunctionComponent<CheckboxComponentProps> = ({
+  title,
+  onPress,
+  check = false,
+}) => {
+  // const [check1, setCheck1] = useState(false);
+  // const [check2+, setCheck2] = useState(false);
+  // const [check3, setCheck3] = useState(false);
+  // const [check4, setCheck4] = useState(false);
   return (
     <>
-      <CheckBox
-        center
-        title="Click Here"
-        checked={check1}
-        onPress={() => setCheck1(!check1)}
-      />
-
-      <CheckBox
+      <View style={styles.check}>
+        <CheckBox checked={check} size={WIDTH * 0.05} onPress={onPress} />
+        <Text style={styles.rememberText}>{title}</Text>
+      </View>
+      {/* <CheckBox
         center
         title="Click Here"
         checkedIcon="dot-circle-o"
@@ -63,9 +67,23 @@ const CheckboxComponent: React.FunctionComponent<
         }
         checked={check4}
         onPress={() => setCheck4(!check4)}
-      />
+      /> */}
     </>
   );
 };
 
 export default CheckboxComponent;
+
+const styles = StyleSheet.create({
+  check: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rememberText: {
+    fontSize: normalize(16),
+    color: 'black',
+    position: 'absolute',
+    right: WIDTH > 390 ? WIDTH * -0.22 : WIDTH * -0.25,
+  },
+});
