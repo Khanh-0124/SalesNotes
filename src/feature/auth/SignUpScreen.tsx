@@ -12,8 +12,9 @@ import InputComponent from 'components/base/Input';
 import CheckboxComponent from 'components/base/CheckBox';
 import { COLORS } from 'assets/global/colors';
 import * as Footer from 'feature/auth/components/index';
-import { normalize } from 'assets/global/layout';
+import { normalize, WIDTH } from 'assets/global/layout';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { Icon } from '@rneui/themed';
 import { ThemeContextProvider, useTheme } from 'utilities/context/ThemeContext';
 
 interface NavigationType {
@@ -26,15 +27,41 @@ const SignUp = ({ navigation }: NavigationType) => {
     <View style={styles.container}>
       <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Svg.TitleLogin style={{ alignSelf: 'center' }} />
-        <Text style={styles.TitleStyle}>Hi, Wecome to sale note! 👋</Text>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.goBack()}>
+            <Icon
+              name="chevron-back-circle-sharp"
+              type="ionicon"
+              size={normalize(28)}
+              color={COLORS.primary}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              fontSize: normalize(25),
+              color: COLORS.primary,
+              fontWeight: 'bold',
+              marginLeft: WIDTH * 0.03,
+            }}>
+            Sign Up
+          </Text>
+        </View>
+        {/* <Svg.TitleLogin style={{ alignSelf: 'center' }} /> */}
+        {/* <Text style={styles.TitleStyle}>Hi, Wecome to sale note! 👋</Text>
         <Text style={{ fontSize: normalize(16), color: 'black' }}>
           Hello again, you’ve been missed!
-        </Text>
+        </Text> */}
 
-        <View style={{ marginTop: 10 }}>
+        <View style={{ marginTop: 0 }}>
+          <InputComponent title={'Name'} CustomStyleInput={styles.inputStyle} />
           <InputComponent
             title={'Email'}
+            CustomStyleInput={styles.inputStyle}
+          />
+          <InputComponent
+            title={'Phone'}
             CustomStyleInput={styles.inputStyle}
           />
           <InputComponent
@@ -43,23 +70,11 @@ const SignUp = ({ navigation }: NavigationType) => {
             CustomStyleInput={styles.inputStyle}
           />
         </View>
-        <View style={styles.viewChose}>
-          <CheckboxComponent
-            title={'Remember Me'}
-            onPress={() => setCheck(!check)}
-            check={check}
-          />
-          <TouchableOpacity activeOpacity={0.6} onPress={toggleThemeType}>
-            <Text style={{ color: COLORS.red1, fontSize: normalize(16) }}>
-              Forgot Password
-            </Text>
-          </TouchableOpacity>
-        </View>
         {/* footer */}
-        <Footer.FooterAuth />
+        <Footer.FooterAuth title="SIGN UP" />
         <View
           style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20 }}>
-          <Text style={styles.textFoot}>You have don't account?</Text>
+          <Text style={styles.textFoot}>You have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text style={{ fontSize: normalize(16), color: COLORS.primary }}>
               {' '}
