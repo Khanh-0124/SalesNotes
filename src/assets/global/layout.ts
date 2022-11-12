@@ -1,4 +1,4 @@
-import {Dimensions, Platform, PixelRatio} from 'react-native';
+import { Dimensions, Platform, PixelRatio } from 'react-native';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -12,4 +12,4 @@ export function normalize(size: number) {
     return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
   }
 }
-export {WIDTH, HEIGHT};
+export { WIDTH, HEIGHT };

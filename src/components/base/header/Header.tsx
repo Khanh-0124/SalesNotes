@@ -9,8 +9,8 @@ import {
   ViewStyle,
   TouchableOpacity,
 } from 'react-native';
-import {Header as HeaderRNE, HeaderProps} from '@rneui/themed';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import { Header as HeaderRNE, HeaderProps } from '@rneui/themed';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 type HeaderComponentProps = {
@@ -37,7 +37,7 @@ const Header: React.FunctionComponent<HeaderComponentProps> = props => {
     <SafeAreaProvider>
       <HeaderRNE
         leftComponent={
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Icon name="home" size={24} />
             <Text>Khanh</Text>
           </View>
@@ -46,11 +46,6 @@ const Header: React.FunctionComponent<HeaderComponentProps> = props => {
           <View style={styles.headerRight}>
             <TouchableOpacity onPress={docsNavigate}>
               <Icon name="" color="white" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{marginLeft: 10}}
-              onPress={playgroundNavigate}>
-              <Icon type="antdesign" name="rocket1" color="white" />
             </TouchableOpacity>
           </View>
         }

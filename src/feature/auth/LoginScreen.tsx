@@ -14,10 +14,7 @@ import { COLORS } from 'assets/global/colors';
 import * as Footer from './components/index';
 import { normalize } from 'assets/global/layout';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
-import {
-  ThemeContextProvider,
-  useTheme,
-} from '../../../src/utilities/context/ThemeContext';
+import { ThemeContextProvider, useTheme } from 'utilities/context/ThemeContext';
 
 interface NavigationType {
   navigation: NavigationProp<ParamListBase>;

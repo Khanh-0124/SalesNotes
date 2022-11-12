@@ -29,10 +29,10 @@ const App = () => {
         labelStyle: {},
       }}>
       <Tabs.Screen
-        name="Home"
+        name="Thu chi"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({ focused, color, size }) => (
             <Icon
               name="home"
               size={size ? size : 24}
@@ -46,7 +46,7 @@ const App = () => {
         name="home"
         component={SettingScreen}
         options={{
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({ focused, color, size }) => (
             <Icon
               name="settings"
               size={size ? size : 24}
@@ -60,7 +60,7 @@ const App = () => {
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({ focused, color, size }) => (
             <Icon
               name="person"
               size={size ? size : 24}

@@ -13,7 +13,7 @@ import {
 const RootNavigator = () => {
   // const dispatch = useDispatch();
   // const Load = useSelector((state: any) => state.task.tai);
-  const Load = false;
+  const Load = true;
   // useEffect(() => {
   //   auth.onAuthStateChanged(user => {
   //     if (user) {
