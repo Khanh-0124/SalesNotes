@@ -11,7 +11,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import SpeedDialButton from 'components/common/SpeedDial';
 import HeaderHome from 'components/base/header/HeaderHome';
 import { COLORS } from 'assets/global/colors';
-import { ListStatis, ListFeatureBox } from './components/index';
+import {
+  ListStatis,
+  ListFeatureBox,
+  OrderComponent,
+  Contact,
+} from './components/index';
 import SlideBoxImage from 'components/common/SlideBoxImage';
 
 const HomeScreen = () => {
@@ -23,6 +28,8 @@ const HomeScreen = () => {
         <ListStatis />
         <ListFeatureBox />
         <SlideBoxImage />
+        <OrderComponent />
+        <Contact />
       </ScrollView>
       {/* <View style={{ height: 200, backgroundColor: 'pink' }} /> */}
       <SpeedDialButton />
