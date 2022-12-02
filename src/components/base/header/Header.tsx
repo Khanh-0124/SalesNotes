@@ -39,7 +39,7 @@ const Header: React.FunctionComponent<HeaderComponentProps> = props => {
         leftComponent={
           <View style={{ flexDirection: 'row' }}>
             <Icon name="home" size={24} />
-            <Text>Khanh</Text>
+            <Text style={{ color: '#333' }}>{props.title}</Text>
           </View>
         }
         rightComponent={

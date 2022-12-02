@@ -15,7 +15,7 @@ const Contact = () => {
         <View style={styles.viewText}>
           <Text style={styles.title}>Bạn cần hỗ trợ?</Text>
           <Text style={styles.text}>
-            {`Hướng dẫn giải đáp thắc mắc \nhặc báo cáo sự cố`}
+            {`Hướng dẫn giải đáp thắc mắc \nhoặc báo cáo sự cố`}
           </Text>
         </View>
       </View>
