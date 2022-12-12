@@ -4,6 +4,7 @@ import { COLORS } from 'assets/global/colors';
 import { HEIGHT, WIDTH } from 'assets/global/layout';
 import { normalize } from 'assets/global/layout';
 import IconHeader from './components/IconHeader';
+import { ScaledSheet } from 'react-native-size-matters';
 
 const HeaderHome = () => {
   return (
@@ -14,7 +15,7 @@ const HeaderHome = () => {
           style={styles.image}
         />
         <View style={{ flexDirection: 'column', marginLeft: WIDTH * 0.02 }}>
-          <Text style={styles.textName}>Khanh</Text>
+          <Text style={styles.textName}>Khánh</Text>
           <Text style={styles.text}>Thông tin cửa hàng</Text>
         </View>
         <View style={{ flex: 2 }} />
@@ -26,7 +27,7 @@ const HeaderHome = () => {
 
 export default HeaderHome;
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     height: HEIGHT < 500 ? HEIGHT * 0.3 : HEIGHT * 0.09,
     width: WIDTH,
@@ -40,19 +41,17 @@ const styles = StyleSheet.create({
     flex: 4,
   },
   textName: {
-    fontSize: normalize(15),
+    fontSize: '15@s',
     color: '#fff',
     fontWeight: 'bold',
   },
   text: {
-    fontSize: normalize(13),
+    fontSize: '13@s',
     color: '#fff',
   },
   leftHeader: {
     flexDirection: 'row',
     flex: 5,
-    // backgroundColor: 'pink',
-    // justifyContent: 'space-around',
   },
   image: {
     width: WIDTH * 0.1,

@@ -18,11 +18,15 @@ import {
   Contact,
 } from './components/index';
 import SlideBoxImage from 'components/common/SlideBoxImage';
+import StatusBarComponent from 'components/base/StatusBar';
 
 const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBarComponent
+        bgColor={COLORS.primary}
+        colorContent={'light-content'}
+      />
       <HeaderHome />
       <ScrollView>
         <ListStatis />
