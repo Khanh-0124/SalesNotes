@@ -6,7 +6,7 @@ import * as Svg from 'assets/icons/svg/index';
 import * as layout from 'assets/global/layout';
 import { ThemeContextProvider, useTheme } from 'utilities/context/ThemeContext';
 
-const FooterAuth = () => {
+const FooterAuth = ({ title = 'LOGIN' }: { title?: string }) => {
   const { toggleThemeType, themeType, isDarkTheme, theme } = useTheme();
   return (
     <View>
@@ -16,10 +16,9 @@ const FooterAuth = () => {
           activeOpacity={0.5}
           onPress={() => {
             toggleThemeType;
-            // navigation.navigate('Test2');
             console.log('a');
           }}>
-          <Text style={styles.titleButton}>LOGIN</Text>
+          <Text style={styles.titleButton}>{title}</Text>
         </TouchableOpacity>
         <Svg.Width width={'100%'} style={styles.otherWith} />
         {/* View social button */}
