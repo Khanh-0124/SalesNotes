@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import * as Svg from 'assets/icons/svg/index';
-import InputComponent from 'components/base/Input';
+import InputComponent from 'components/base/header/input/Input';
 import CheckboxComponent from 'components/base/CheckBox';
 import { COLORS } from 'assets/global/colors';
 import * as Footer from 'feature/auth/components/index';
