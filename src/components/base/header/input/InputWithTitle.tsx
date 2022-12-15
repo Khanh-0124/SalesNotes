@@ -8,7 +8,7 @@ interface InputTypeProp {
   placeholder: string;
   flex?: number;
   editable?: boolean;
-  drop_down?: boolean;
+  leftIcon?: any;
   onPress?: () => void;
 }
 const InputWithTitle = memo(function InputWithTitle({
@@ -17,7 +17,7 @@ const InputWithTitle = memo(function InputWithTitle({
   placeholder,
   flex,
   editable = true,
-  drop_down = false,
+  leftIcon,
   onPress,
 }: InputTypeProp) {
   // const [nameproduct, setNameproduct] = useState('');
@@ -36,12 +36,9 @@ const InputWithTitle = memo(function InputWithTitle({
         editable={editable}
         onPressIn={onPress}
       />
-      {drop_down ? (
+      {leftIcon ? (
         <Pressable onPress={onPress}>
-          <Image
-            source={require('assets/icons/png/ic_down_arrow.png')}
-            style={styles.iconDrop}
-          />
+          <Image source={leftIcon} style={styles.iconDrop} />
         </Pressable>
       ) : null}
     </View>
@@ -52,7 +49,6 @@ export default InputWithTitle;
 
 const styles = ScaledSheet.create({
   container: {
-    paddingHorizontal: '15@s',
     marginTop: '10@s',
   },
   title: {

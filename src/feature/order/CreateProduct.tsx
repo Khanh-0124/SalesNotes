@@ -15,7 +15,11 @@ const CreateProduct = memo(function CreateProduct() {
       onPress={Keyboard.dismiss}
       accessible={false}
       style={styles.container}>
-      <HeaderBase title={'Tạo sản phẩm'} />
+      <HeaderBase
+        title={'Tạo sản phẩm'}
+        bgColor={COLORS.primary}
+        color={COLORS.white1}
+      />
       <ScrollView>
         <View style={styles.STouchImage}>
           <TakePhotos
@@ -27,7 +31,12 @@ const CreateProduct = memo(function CreateProduct() {
             camera={require('assets/icons/png/ic_add_photo.png')}
           />
         </View>
-        <View style={{ backgroundColor: COLORS.white1, paddingVertical: 10 }}>
+        <View
+          style={{
+            backgroundColor: COLORS.white1,
+            paddingVertical: 10,
+            paddingHorizontal: 16,
+          }}>
           <InputWithTitle
             title="Tên sản phẩm"
             request
@@ -44,6 +53,7 @@ const CreateProduct = memo(function CreateProduct() {
               placeholder="0.000"
               flex={1}
             />
+            <View style={{ width: 25 }} />
             <InputWithTitle title="Giá vốn" placeholder="0.000" flex={1} />
           </View>
           {/* BottomSheet */}

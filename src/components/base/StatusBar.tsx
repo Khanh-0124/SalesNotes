@@ -6,11 +6,8 @@ interface StatusbarType {
   bgColor: string;
   colorContent: StatusBarStyle | null | undefined;
 }
-const StatusBarComponent = useCallback(
-  ({ bgColor, colorContent }: StatusbarType) => {
-    return <StatusBar backgroundColor={bgColor} barStyle={colorContent} />;
-  },
-  [],
-);
+const StatusBarComponent = ({ bgColor, colorContent }: StatusbarType) => {
+  return <StatusBar backgroundColor={bgColor} barStyle={colorContent} />;
+};
 
 export default StatusBarComponent;

@@ -72,7 +72,6 @@ const styles = ScaledSheet.create({
     color: COLORS.primary,
   },
   content: {
-    padding: '20@s',
     borderTopColor: '#F6F6F6',
     borderTopWidth: '15@s',
   },

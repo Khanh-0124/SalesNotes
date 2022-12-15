@@ -25,7 +25,7 @@ const BottomSheetComponent: React.FunctionComponent<
         title="Danh mục"
         placeholder="Chọn 1 hoặc nhiều danh mục"
         editable={false}
-        drop_down={true}
+        leftIcon={require('assets/icons/png/ic_down_arrow.png')}
         onPress={useCallback(() => {
           setIsVisible(true);
         }, [])}
