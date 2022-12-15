@@ -41,7 +41,7 @@ const ListStatis = () => {
         <Text style={styles.text}>Hôm nay</Text>
         <TouchableOpacity style={styles.reportStyle} activeOpacity={0.4}>
           <Svg.TrendHome width={sizeIcon} height={sizeIcon} />
-          <Text style={styles.textLeft}>{'Báo cáo lãi lỗ'}</Text>
+          <Text style={styles.textLeft}>{'Xem lãi lỗ'}</Text>
         </TouchableOpacity>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
