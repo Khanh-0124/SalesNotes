@@ -101,11 +101,11 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-plugins {
-    id 'com.android.application'
-  // Add the Google services Gradle plugin
-    id 'com.google.gms.google-services'
-}
+//plugins {
+//    id 'com.android.application'
+//  // Add the Google services Gradle plugin
+//    id 'com.google.gms.google-services'
+//}
 /**
  * The preferred build flavor of JavaScriptCore.
  *
