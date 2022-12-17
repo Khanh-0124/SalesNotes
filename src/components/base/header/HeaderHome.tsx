@@ -1,23 +1,35 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { TouchableOpacity, Text, View, Image, Pressable } from 'react-native';
 import React from 'react';
 import { COLORS } from 'assets/global/colors';
 import { HEIGHT, WIDTH } from 'assets/global/layout';
 import { normalize } from 'assets/global/layout';
 import IconHeader from './components/IconHeader';
 import { ScaledSheet } from 'react-native-size-matters';
+import { useNavigation } from '@react-navigation/native';
+
+interface DrawerNaviType {
+  openDrawer: () => void;
+}
 
 const HeaderHome = () => {
+  const navigation = useNavigation<DrawerNaviType>();
   return (
     <View style={styles.container}>
       <View style={styles.leftHeader}>
-        <Image
-          source={require('assets/photos/store.png')}
-          style={styles.image}
-        />
-        <View style={{ flexDirection: 'column', marginLeft: WIDTH * 0.02 }}>
-          <Text style={styles.textName}>Khánh</Text>
-          <Text style={styles.text}>Thông tin cửa hàng</Text>
-        </View>
+        <Pressable
+          onPress={() => navigation.openDrawer()}
+          style={{ flexDirection: 'row' }}>
+          <Image
+            source={require('assets/photos/store.png')}
+            style={styles.image}
+          />
+          <View style={{ flexDirection: 'column', marginLeft: WIDTH * 0.02 }}>
+            <Text style={styles.textName}>Khánh</Text>
+            <TouchableOpacity>
+              <Text style={styles.text}>Thông tin cửa hàng</Text>
+            </TouchableOpacity>
+          </View>
+        </Pressable>
         <View style={{ flex: 2 }} />
         <IconHeader />
       </View>

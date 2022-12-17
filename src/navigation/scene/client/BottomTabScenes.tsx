@@ -24,7 +24,7 @@ import {
 // import {Icon} from '@rneui/base';
 const Tabs = AnimatedTabBarNavigator();
 
-const App = () => {
+const BottomTabScenes = () => {
   return (
     <Tabs.Navigator
       tabBarOptions={{
@@ -111,6 +111,6 @@ const App = () => {
   );
 };
 
-export default App;
+export default BottomTabScenes;
 
 // const styles = StyleSheet.create({});

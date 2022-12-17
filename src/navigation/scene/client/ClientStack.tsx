@@ -3,12 +3,21 @@ import React from 'react';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import BottomTabs from './BottomTabScenes';
 import { NotifiScreen, CreateOrderScreen, CreateProduct } from 'feature/index';
+import DrawerNav from 'navigation/drawer/DrawerNav';
 
 const Stack = createStackNavigator();
 
 const ClientStack = () => {
   return (
-    <Stack.Navigator initialRouteName="BottomTab">
+    <Stack.Navigator initialRouteName="DrawerNav">
+      <Stack.Screen
+        name="DrawerNav"
+        component={DrawerNav}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
       <Stack.Screen
         name="BottomTab"
         component={BottomTabs}
