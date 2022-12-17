@@ -2,6 +2,8 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
 import RootApp from './src/navigation/scene/RooNavigation';
 import { LogBox } from 'react-native';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
 
 LogBox.ignoreLogs(['RCTBridge required dispatch_sync to load REAModule']);
 LogBox.ignoreLogs([
@@ -10,9 +12,11 @@ LogBox.ignoreLogs([
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <RootApp />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.container}>
+        <RootApp />
+      </SafeAreaView>
+    </Provider>
   );
 };
 
