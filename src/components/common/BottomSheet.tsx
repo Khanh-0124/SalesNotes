@@ -1,7 +1,16 @@
-import React, {useState} from 'react';
-import {BottomSheet, Button, ListItem} from '@rneui/themed';
-import {StyleSheet} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import React, { useState, useCallback } from 'react';
+import { BottomSheet, Button, Icon, ListItem } from '@rneui/themed';
+import {
+  KeyboardAvoidingView,
+  View,
+  Text,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ScaledSheet } from 'react-native-size-matters';
+import { COLORS } from 'assets/global/colors';
+import InputWithTitle from 'components/base/header/input/InputWithTitle';
 
 type BottomSheetComponentProps = {};
 
@@ -9,43 +18,80 @@ const BottomSheetComponent: React.FunctionComponent<
   BottomSheetComponentProps
 > = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const list = [
-    {title: 'List Item 1'},
-    {title: 'List Item 2'},
-    {
-      title: 'Cancel',
-      containerStyle: {backgroundColor: 'red'},
-      titleStyle: {color: 'white'},
-      onPress: () => setIsVisible(false),
-    },
-  ];
 
   return (
     <SafeAreaProvider>
-      <Button
-        title="Open Bottom Sheet"
-        onPress={() => setIsVisible(true)}
-        buttonStyle={styles.button}
+      <InputWithTitle
+        title="Danh mục"
+        placeholder="Chọn 1 hoặc nhiều danh mục"
+        editable={false}
+        leftIcon={require('assets/icons/png/ic_down_arrow.png')}
+        onPress={useCallback(() => {
+          setIsVisible(true);
+        }, [])}
       />
-      <BottomSheet modalProps={{}} isVisible={isVisible}>
-        {list.map((l, i) => (
+      <BottomSheet
+        modalProps={{ animationType: 'slide' }}
+        isVisible={isVisible}
+        containerStyle={{}}
+        backdropStyle={{ backgroundColor: '#333' + 9 }}
+        onBackdropPress={() => setIsVisible(false)}>
+        {/* {list.map((l, i) => (
           <ListItem
             key={i}
             containerStyle={l.containerStyle}
             onPress={l.onPress}>
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-            </ListItem.Content>
+            <ListItem.Content></ListItem.Content>
           </ListItem>
-        ))}
+        ))} */}
+        <KeyboardAvoidingView>
+          <Pressable onPress={() => setIsVisible(false)} style={{}}>
+            <View style={styles.buttonSheet}>
+              <View style={styles.pullButtonSheet} />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View />
+                <Text style={styles.title}>Danh mục</Text>
+                <Icon
+                  name="close"
+                  size={24}
+                  color={'black'}
+                  style={{ marginRight: 15 }}
+                />
+              </View>
+            </View>
+          </Pressable>
+        </KeyboardAvoidingView>
       </BottomSheet>
     </SafeAreaProvider>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   button: {
-    margin: 10,
+    margin: 15,
+  },
+  buttonSheet: {
+    height: '300@s',
+    backgroundColor: COLORS.white1,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: '15@s',
+    fontWeight: '600',
+    marginLeft: 39,
+  },
+  pullButtonSheet: {
+    width: '60@s',
+    backgroundColor: COLORS.gray1,
+    height: '5@s',
+    borderRadius: 50,
+    alignSelf: 'center',
+    marginTop: '10@s',
+    marginBottom: '5@s',
   },
 });
 

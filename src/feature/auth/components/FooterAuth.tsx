@@ -6,7 +6,13 @@ import * as Svg from 'assets/icons/svg/index';
 import * as layout from 'assets/global/layout';
 import { ThemeContextProvider, useTheme } from 'utilities/context/ThemeContext';
 
-const FooterAuth = ({ title = 'LOGIN' }: { title?: string }) => {
+const FooterAuth = ({
+  title = 'LOGIN',
+  handleSubmit,
+}: {
+  title?: string;
+  handleSubmit?: any;
+}) => {
   const { toggleThemeType, themeType, isDarkTheme, theme } = useTheme();
   return (
     <View>
@@ -14,10 +20,7 @@ const FooterAuth = ({ title = 'LOGIN' }: { title?: string }) => {
         <TouchableOpacity
           style={styles.buttonLogin}
           activeOpacity={0.5}
-          onPress={() => {
-            toggleThemeType;
-            console.log('a');
-          }}>
+          onPress={handleSubmit}>
           <Text style={styles.titleButton}>{title}</Text>
         </TouchableOpacity>
         <Svg.Width width={'100%'} style={styles.otherWith} />

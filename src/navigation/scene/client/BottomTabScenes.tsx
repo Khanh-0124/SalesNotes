@@ -1,6 +1,7 @@
-import {Text, View} from 'react-native';
+import { Text, View, Image } from 'react-native';
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Icon } from '@rneui/themed';
 // import 'react-native-gesture-handler';
 
 // Typescript
@@ -11,15 +12,19 @@ import {
   TabButtonLayout, // optional
   IAppearanceOptions, // optional
 } from 'react-native-animated-nav-tab-bar';
-import HomeScreen from '../../../feature/home/HomeScreen';
-import SettingScreen from '../../../feature/setting/SettingScreen';
-import Profile from '../../../feature/profile/Profile';
-import {COLORS} from '../../../assets/global/colors';
+import { COLORS } from 'assets/global/colors';
+import {
+  WarehouseScreen,
+  HomeScreen,
+  OnlineSale,
+  Profile,
+  Paybook,
+} from 'feature/index';
 
 // import {Icon} from '@rneui/base';
 const Tabs = AnimatedTabBarNavigator();
 
-const App = () => {
+const BottomTabScenes = () => {
   return (
     <Tabs.Navigator
       tabBarOptions={{
@@ -29,12 +34,12 @@ const App = () => {
         labelStyle: {},
       }}>
       <Tabs.Screen
-        name="Thu chi"
+        name="Quản lý"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
-              name="home"
+              name="store"
               size={size ? size : 24}
               color={focused ? '#fff' : '#ccc'}
               focused={focused}
@@ -43,12 +48,13 @@ const App = () => {
         }}
       />
       <Tabs.Screen
-        name="home"
-        component={SettingScreen}
+        name="Kho Hàng"
+        component={WarehouseScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
-              name="settings"
+              name="home-assistant"
+              type="material-community"
               size={size ? size : 24}
               color={focused ? '#fff' : '#ccc'}
               focused={focused}
@@ -57,7 +63,38 @@ const App = () => {
         }}
       />
       <Tabs.Screen
-        name="Profile"
+        name="Bán Online"
+        component={OnlineSale}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+              name="store-settings"
+              type="material-community"
+              size={size ? size : 24}
+              color={focused ? '#fff' : '#ccc'}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="Sổ nợ"
+        component={Paybook}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+              name="book"
+              size={size ? size : 24}
+              type="foundation"
+              color={focused ? '#fff' : '#ccc'}
+              focused={focused}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Cá nhân"
         component={Profile}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
@@ -74,6 +111,6 @@ const App = () => {
   );
 };
 
-export default App;
+export default BottomTabScenes;
 
 // const styles = StyleSheet.create({});

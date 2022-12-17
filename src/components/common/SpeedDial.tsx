@@ -31,7 +31,7 @@ const SpeedDialButton = () => {
         onPress={handleCreateOrder}
       />
       <SpeedDial.Action
-        icon={{ name: 'delete', color: '#fff' }}
+        icon={{ name: 'edit', color: '#fff' }}
         title="Tạo giao dịch thu chi"
         color={COLORS.primary}
         onPress={() => console.log('Delete Something')}

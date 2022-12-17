@@ -5,58 +5,92 @@ import {
   ScrollView,
   TouchableOpacity,
   StatusBar,
+  Button,
 } from 'react-native';
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import * as Svg from 'assets/icons/svg/index';
-import InputComponent from 'components/base/Input';
+import InputComponent from 'components/base/header/input/Input';
 import CheckboxComponent from 'components/base/CheckBox';
 import { COLORS } from 'assets/global/colors';
 import * as Footer from './components/index';
 import { normalize } from 'assets/global/layout';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
-import { ThemeContextProvider, useTheme } from 'utilities/context/ThemeContext';
+import { handleLogin } from '../../servers/firebase/auth/auth';
+import { useSelector, useDispatch } from 'react-redux';
+import { ParamLoginInterface } from '../auth/type';
+import auth from '@react-native-firebase/auth';
+import { changeStateAuth } from '../../redux/userSlice';
 
 interface NavigationType {
   navigation: NavigationProp<ParamListBase>;
 }
+
 const LoginScreen = ({ navigation }: NavigationType) => {
+  // console.log(useSelector(state) => )
+  const dispath = useDispatch();
   const [check, setCheck] = React.useState(false);
-  const { toggleThemeType, themeType, isDarkTheme, theme } = useTheme();
+  const [user, setUser] = useState();
+  const [paramsCustom, setParamsCustom] = useState<ParamLoginInterface>({
+    username: 'khanh@gmail.com',
+    password: 'khanh2001',
+  });
+  const onTextChange = useCallback((keyName: string, value: string) => {
+    setParamsCustom(state => ({ ...state, [keyName]: value }));
+  }, []);
+
+  const handleSubmit = () => {
+    handleLogin(paramsCustom.username, paramsCustom.password);
+    auth().onAuthStateChanged((user: any) => {
+      if (user) {
+        dispath(
+          changeStateAuth({
+            change: true,
+          }),
+        );
+      }
+    });
+  };
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Svg.TitleLogin style={{ alignSelf: 'center' }} />
-        <Text style={styles.TitleStyle}>Hi, Wecome to sale note! 👋</Text>
-        <Text style={{ fontSize: normalize(16), color: 'black' }}>
-          Hello again, you’ve been missed!
+        <Text style={styles.TitleStyle}>
+          Xin chào!, Chào mừng đến với Sales Notes 👋
         </Text>
+        <Text style={styles.SText}>{`Đăng nhập để sử dụng dịch vụ`}</Text>
 
         <View style={{ marginTop: 10 }}>
           <InputComponent
-            title={'Email'}
+            title={'Tên người dùng'}
+            value={paramsCustom.username}
+            keyName={'username'}
             CustomStyleInput={styles.inputStyle}
+            onTextChange={onTextChange}
           />
           <InputComponent
-            title={'Password'}
+            title={'Mật khẩu'}
+            value={paramsCustom.password}
+            keyName={'password'}
             secureTextEntry={true}
             CustomStyleInput={styles.inputStyle}
+            onTextChange={onTextChange}
           />
         </View>
         <View style={styles.viewChose}>
           <CheckboxComponent
-            title={'Remember Me'}
+            title={'Ghi nhớ tài khoản'}
             onPress={() => setCheck(!check)}
             check={check}
           />
-          <TouchableOpacity activeOpacity={0.6} onPress={toggleThemeType}>
+          <TouchableOpacity activeOpacity={0.6}>
             <Text style={{ color: COLORS.red1, fontSize: normalize(16) }}>
-              Forgot Password
+              {`Quên mật khẩu`}
             </Text>
           </TouchableOpacity>
         </View>
         {/* footer */}
-        <Footer.FooterAuth />
+        <Footer.FooterAuth handleSubmit={handleSubmit} />
         <View
           style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20 }}>
           <Text style={styles.textFoot}>You have don't account?</Text>
@@ -84,6 +118,12 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: normalize(26),
+  },
+  SText: {
+    fontSize: normalize(18),
+    color: 'black',
+    marginTop: 10,
+    fontWeight: '600',
   },
   inputStyle: {
     borderColor: '#ccc',
