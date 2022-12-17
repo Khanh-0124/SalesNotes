@@ -7,11 +7,11 @@ export const userSlice = createSlice({
     phone: '0912352670',
     avtUrl:
       'https://secure.gravatar.com/avatar/4aa440c98afa8ea4e547c36783e4385b?s=256&d=mm&r=g',
-    authStateChanged: false,
+    authStateChanged: null,
   },
   reducers: {
     changeStateAuth: (state, action) => {
-      state.authStateChanged = action.payload.authStateChanged;
+      state.authStateChanged = action.payload.change;
     },
   },
 });

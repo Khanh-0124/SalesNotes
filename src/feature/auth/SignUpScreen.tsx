@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import * as Svg from 'assets/icons/svg/index';
 import InputComponent from 'components/base/header/input/Input';
 import CheckboxComponent from 'components/base/CheckBox';
@@ -19,16 +19,25 @@ import { ThemeContextProvider, useTheme } from 'utilities/context/ThemeContext';
 import { handleSignup } from '../../servers/firebase/auth/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeStateAuth } from '../../redux/userSlice';
+import { ParamRegisterInterface } from '../auth/type';
 
 interface NavigationType {
   navigation: NavigationProp<ParamListBase>;
 }
 const SignUp = ({ navigation }: NavigationType) => {
   const dispath = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [paramsCustom, setParamsCustom] = useState<ParamRegisterInterface>({
+    fullname: 'khanh',
+    email: 'khanhvu@gmail.com',
+    password: 'khanh2001',
+    re_password: 'khanh2001',
+    phone: '0912352670',
+  });
+  const onTextChange = useCallback((keyName: string, value: string) => {
+    setParamsCustom(state => ({ ...state, [keyName]: value }));
+  }, []);
   const submit = () => {
-    handleSignup(email, password);
+    handleSignup(paramsCustom.email, paramsCustom.password);
     dispath(
       changeStateAuth({
         authStateChanged: true,
@@ -62,23 +71,42 @@ const SignUp = ({ navigation }: NavigationType) => {
         </View>
 
         <View style={{ marginTop: 0 }}>
-          <InputComponent title={'Name'} CustomStyleInput={styles.inputStyle} />
+          <InputComponent
+            title={'Họ tên'}
+            value={paramsCustom.fullname}
+            keyName={'fullname'}
+            onTextChange={onTextChange}
+            CustomStyleInput={styles.inputStyle}
+          />
           <InputComponent
             title={'Email'}
-            CustomStyleInput={styles.inputStyle}
-            textOnChange={mail => setEmail(mail)}
-            value={email}
-          />
-          <InputComponent
-            title={'Phone'}
+            value={paramsCustom.email}
+            keyName={'email'}
+            onTextChange={onTextChange}
             CustomStyleInput={styles.inputStyle}
           />
           <InputComponent
-            title={'Password'}
+            title={'Số điện thoại'}
+            value={paramsCustom.phone}
+            keyName={'phone'}
+            onTextChange={onTextChange}
+            CustomStyleInput={styles.inputStyle}
+          />
+          <InputComponent
+            title={'Nhập mật khẩu'}
             secureTextEntry={true}
+            value={paramsCustom.password}
+            keyName={'password'}
+            onTextChange={onTextChange}
             CustomStyleInput={styles.inputStyle}
-            textOnChange={pass => setPassword(pass)}
-            value={password}
+          />
+          <InputComponent
+            title={'Nhập lại mật khẩu'}
+            secureTextEntry={true}
+            value={paramsCustom.re_password}
+            keyName={'re_password'}
+            onTextChange={onTextChange}
+            CustomStyleInput={styles.inputStyle}
           />
         </View>
         {/* footer */}

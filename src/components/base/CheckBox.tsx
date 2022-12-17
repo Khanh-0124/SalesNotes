@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
     fontSize: normalize(16),
     color: 'black',
     position: 'absolute',
-    right: WIDTH > 390 ? WIDTH * -0.22 : WIDTH * -0.25,
+    right: WIDTH > 390 ? WIDTH * -0.27 : WIDTH * -0.25,
   },
 });
