@@ -6,18 +6,25 @@ import { COLORS } from 'assets/global/colors';
 import { ScaledSheet } from 'react-native-size-matters';
 import HeaderSearchWithScanner from 'components/common/HeaderSearchWithScanner';
 import WrapperContent from './components/WrapperContent';
+import SearchBarWithLeftIcon from 'components/common/searchs/SearchBarWithLeftIcon';
+import { useNavigation } from '@react-navigation/native';
 
 const sizeIcon = normalize(16);
 
 const WarehouseScreen = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <SearchBarWithLeftIcon />
       <ScrollView>
         {/* header */}
         <View style={{ backgroundColor: '#fff', padding: 15 }}>
           <View style={styles.wapperTitle}>
             <Text>{`3 mã sản phẩm`}</Text>
-            <TouchableOpacity style={styles.reportStyle} activeOpacity={0.4}>
+            <TouchableOpacity
+              style={styles.reportStyle}
+              activeOpacity={0.4}
+              onPress={() => navigation.navigate('WareHouse')}>
               <Svg.TrendHome width={sizeIcon} height={sizeIcon} />
               <Text style={styles.textLeft}>{`Báo cáo`}</Text>
             </TouchableOpacity>

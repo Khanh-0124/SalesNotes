@@ -5,16 +5,26 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useState, useReducer, useRef } from 'react';
 import {
   DrawerContentScrollView,
   DrawerItemList,
+  useDrawerProgress,
 } from '@react-navigation/drawer';
 import { COLORS } from 'assets/global/colors';
 import { colors } from './constant';
 import { constant } from './constant';
 import Icon from './Icons';
-import { ProjectsArray } from './arrays';
+import { ProfileMenu, ProjectsArray } from './arrays';
+import HeaderDrawerCustom from './HeaderDrawerCustom';
+import FooterDrawerCustom from './FooterDrawerCustom';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useDerivedValue,
+  withSpring,
+  interpolateNode,
+} from 'react-native-reanimated';
 
 interface DrawerItemType {
   label: string;
@@ -76,20 +86,85 @@ const ProjectItem = ({ label, type, name, color }: DrawerItemType) => {
   );
 };
 
-const ProfileItem = () => {
-  return <></>;
+const ProfileItem = ({ label, type, name, color }: DrawerItemType) => {
+  return (
+    <TouchableOpacity
+      style={[styles.row, { margin: constant.SPACING / 4 }]}
+      onPress={{}}>
+      <Icon type={type} name={name} color={colors.dark} />
+      <Text style={[styles.label]}>{label}</Text>
+    </TouchableOpacity>
+  );
 };
 
 const CustomDrawer1 = (props: any) => {
   const { state, descriptors, navigation } = props;
+  const [show, toggleProfile] = useReducer(s => !s, false);
+  const scrollRef = useRef(null);
+  const fun = () => {
+    show
+      ? scrollRef.current.scrollTo({
+          y: 0,
+          animated: true,
+        })
+      : scrollRef.current.scrollToEnd({
+          animated: true,
+        });
+    toggleProfile();
+  };
+  const progress = useDerivedValue(() => {
+    return show ? withSpring(1) : withSpring(0);
+  });
+
+  // animation style profile array
+  const menuStyles = useAnimatedStyle(() => {
+    const scaleY = interpolate(progress.value, [0, 1], [0, 1]);
+    return {
+      transform: [
+        {
+          scaleY,
+        },
+      ],
+    };
+  });
+
+  //  animation view drwer
+  const drawerProgress = useDrawerProgress();
+  const animationWrapperDrawer = useAnimatedStyle(() => {
+    const translateX = interpolate(progress.value, [0, 1], [0, 1]);
+    return {
+      transform: [
+        {
+          translateX,
+        },
+      ],
+    };
+  });
+  // (type: string) => {
+  //   const val = type === 'top' ? -100 : 100;
+  //   const scaleY = interpolate(drawerProgress.value, [0, 1], [val, 1]);
+  //   const opacity = interpolate(drawerProgress.value, [0, 1], [0, 1]);
+  //   return {
+  //     transform: [
+  //       {
+  //         translateY,
+  //       },
+  //     ],
+  //     opacity,
+  //   };
+  // };
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={[styles.wrapper, styles.marginTop]}>
-        <Text>Header</Text>
-      </View>
+      <Animated.View style={[styles.wrapper, styles.marginTop]}>
+        <HeaderDrawerCustom />
+      </Animated.View>
       {/* Drawer List Item */}
-      <DrawerContentScrollView {...props} style={[styles.marginVertical]}>
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        {...props}
+        ref={scrollRef}
+        style={[styles.marginVertical, animationWrapperDrawer]}>
         <View style={styles.viewScreenArray}>
           {state.routes.map((route, index) => {
             const isFocused = state.index === index;
@@ -138,15 +213,37 @@ const CustomDrawer1 = (props: any) => {
             />
           ))}
         </View>
+
+        {/* profile menu */}
+        <Animated.View
+          style={[
+            styles.viewScreenArray,
+            styles.marginVertical,
+            { backgroundColor: COLORS.primary },
+            menuStyles,
+          ]}>
+          <Text>{`Cá nhân`}</Text>
+          <View style={styles.line} />
+          {ProfileMenu.map((_, i) => (
+            <ProfileItem
+              key={i}
+              label={_.label}
+              type={_.iconType}
+              name={_.icon}
+              notification={0}
+              color={_.color}
+            />
+          ))}
+        </Animated.View>
         {/* <DrawerItemList {...props} /> */}
-      </DrawerContentScrollView>
+      </Animated.ScrollView>
       {/* footer */}
-      <View style={[styles.wrapper, styles.marginBottom]}>
-        <Text>Footer</Text>
-      </View>
+      <Animated.View style={[styles.wrapper, styles.marginBottom]}>
+        <FooterDrawerCustom onPress={fun} />
+      </Animated.View>
     </View>
   );
-};
+};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 export default CustomDrawer1;
 

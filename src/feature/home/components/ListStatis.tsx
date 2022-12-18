@@ -11,8 +11,10 @@ import { normalize, WIDTH } from 'assets/global/layout';
 import * as Svg from 'assets/icons/svg/index';
 const sizeIcon = normalize(20);
 import ItemSlide from './ItemSlide';
+import { useNavigation } from '@react-navigation/native';
 
 const ListStatis = () => {
+  const navigation = useNavigation();
   const listItemsSlide = [
     {
       id: 1,
@@ -39,7 +41,10 @@ const ListStatis = () => {
           paddingHorizontal: WIDTH * 0.03,
         }}>
         <Text style={styles.text}>Hôm nay</Text>
-        <TouchableOpacity style={styles.reportStyle} activeOpacity={0.4}>
+        <TouchableOpacity
+          style={styles.reportStyle}
+          activeOpacity={0.4}
+          onPress={() => navigation.navigate('ReportScreen')}>
           <Svg.TrendHome width={sizeIcon} height={sizeIcon} />
           <Text style={styles.textLeft}>{'Xem lãi lỗ'}</Text>
         </TouchableOpacity>

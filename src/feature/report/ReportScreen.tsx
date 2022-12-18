@@ -1,29 +1,31 @@
-import {
-  Text,
-  View,
-  SafeAreaView,
-  Button,
-  useWindowDimensions,
-} from 'react-native';
-import React, { useState } from 'react';
-import { ScaledSheet } from 'react-native-size-matters';
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import React from 'react';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { COLORS } from 'assets/global/colors';
-import StatusBarComponent from 'components/base/StatusBar';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { GeneralNoti, RemindNotfi } from 'feature/notification/index';
+import {
+  Store,
+  ProfitAndLoss,
+  WareHouse,
+  RevenueAndExpenditure,
+} from './tabview/index';
 
 const renderScene = SceneMap({
-  first: GeneralNoti,
-  second: RemindNotfi,
+  first: ProfitAndLoss,
+  second: Store,
+  third: WareHouse,
+  fourth: RevenueAndExpenditure,
 });
-const NotifiScreen = React.memo(function NotifiScreen() {
+
+const ReportScreen = () => {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'first', title: 'Chung' },
-    { key: 'second', title: 'Nhắc nợ' },
+    { key: 'first', title: 'Lãi lỗ' },
+    { key: 'second', title: 'Cửa hàng' },
+    { key: 'third', title: 'Kho hàng' },
+    { key: 'fourth', title: 'Thu chi' },
   ]);
   const renderTabBar = (props: any) => (
     <TabBar
@@ -44,15 +46,11 @@ const NotifiScreen = React.memo(function NotifiScreen() {
   );
   return (
     <View style={styles.container}>
-      <StatusBarComponent
-        bgColor={COLORS.primary}
-        colorContent={'light-content'}
-      />
       <HeaderBase
-        title={'Thông báo'}
-        bgColor={COLORS.primary}
-        color={COLORS.white1}
+        title="Báo cáo"
         isIconLeft={false}
+        bgColor={COLORS.white1}
+        color={COLORS.black1}
       />
 
       <TabView
@@ -64,13 +62,10 @@ const NotifiScreen = React.memo(function NotifiScreen() {
       />
     </View>
   );
-});
+};
 
-export default NotifiScreen;
+export default ReportScreen;
 
-const styles = ScaledSheet.create({
-  textAnimation: { fontSize: 28, color: 'red', fontWeight: 'bold' },
-  container: {
-    flex: 1,
-  },
+const styles = StyleSheet.create({
+  container: { flex: 1 },
 });

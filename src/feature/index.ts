@@ -6,6 +6,7 @@ import HomeScreen from './home/HomeScreen';
 import OnlineSale from './onlinesale/OnlineSaleScreen';
 import Profile from './profile/Profile';
 import Paybook from './paybook/Paybook';
+import ReportScreen from './report/ReportScreen';
 
 export {
   NotifiScreen,
@@ -16,4 +17,5 @@ export {
   OnlineSale,
   Profile,
   Paybook,
+  ReportScreen,
 };
