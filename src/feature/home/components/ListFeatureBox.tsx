@@ -1,11 +1,19 @@
 import { Text, View, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { dataBox } from 'assets/global/data';
 import { HEIGHT, WIDTH } from 'assets/global/layout';
 import { COLORS } from 'assets/global/colors';
 import { ScaledSheet } from 'react-native-size-matters';
+import { useNavigation } from '@react-navigation/native';
+import { NavigateType } from 'utilities/type/type';
 
 const ListFeatureBox = () => {
+  const navigation = useNavigation<NavigateType>();
+  const handleSubmit = useCallback((id: number) => {
+    if (id === 1) {
+      navigation.navigate('CreateOrderScreen');
+    }
+  }, []);
   return (
     <View
       style={{
@@ -20,6 +28,7 @@ const ListFeatureBox = () => {
         <TouchableOpacity
           activeOpacity={0.7}
           key={item.id}
+          onPress={() => handleSubmit(item.id)}
           style={[styles.viewBox]}>
           {item.amount !== 0 ? (
             <View style={styles.iconNotify}>

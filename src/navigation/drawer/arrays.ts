@@ -10,7 +10,7 @@ export const ScreensArray = [
     type: Icons.Feather,
     icon: 'home',
     component: BottomTabScenes,
-    notification: 0,
+    notification: 12,
   },
   {
     route: 'Inbox',
