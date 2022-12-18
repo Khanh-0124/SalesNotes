@@ -3,6 +3,7 @@ import React from 'react';
 import HeaderWithMultiIcon from 'components/common/HeaderWithMultiIcon';
 import { ScaledSheet } from 'react-native-size-matters';
 import { COLORS } from 'assets/global/colors';
+import { GridOder } from './index';
 
 const CreateOrderScreen = () => {
   return (
@@ -15,7 +16,7 @@ const CreateOrderScreen = () => {
         thirdRightIcon={require('assets/icons/png/ic_thunderbolt.png')}
         lastIcon={require('assets/icons/png/ic_more.png')}
       />
-      <Text>Tất cả</Text>
+      <GridOder />
     </View>
   );
 };

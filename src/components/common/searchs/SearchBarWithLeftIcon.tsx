@@ -53,6 +53,7 @@ const styles = ScaledSheet.create({
     backgroundColor: COLORS.primary,
     alignItems: 'center',
     padding: '10@s',
+    alignSelf: 'center',
   },
   SInput: {
     width: '90%',
