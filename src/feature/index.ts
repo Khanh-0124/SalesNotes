@@ -7,6 +7,7 @@ import OnlineSale from './onlinesale/OnlineSaleScreen';
 import Profile from './profile/Profile';
 import Paybook from './paybook/Paybook';
 import ReportScreen from './report/ReportScreen';
+import CameraFiles from './camera/CameraScreen';
 
 export {
   NotifiScreen,
@@ -18,4 +19,5 @@ export {
   Profile,
   Paybook,
   ReportScreen,
+  CameraFiles,
 };

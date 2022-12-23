@@ -1,5 +1,5 @@
 import { Text, View, ScrollView, Keyboard } from 'react-native';
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { TakePhotos } from './components';
 import { COLORS } from 'assets/global/colors';
@@ -9,9 +9,13 @@ import { ScaledSheet } from 'react-native-size-matters';
 import BottomSheetComponent from 'components/common/BottomSheet';
 import CollapsibleComponents from 'components/common/collapsible/CollapsibleComponents';
 import { WINDOW_HEIGHT } from '../../utilities';
+import { navigateToCameraFile } from '../../utilities/navigation';
 
 const CreateProduct = memo(function CreateProduct() {
   const [show, setShow] = useState(false);
+  const TakePhotoFromCamera = useCallback(() => {
+    navigateToCameraFile();
+  }, []);
   return (
     <View
       onPress={Keyboard.dismiss}
@@ -27,10 +31,12 @@ const CreateProduct = memo(function CreateProduct() {
           <TakePhotos
             title={'Tải ảnh lên'}
             photo={require('assets/icons/png/ic_add_image.png')}
+            onPress={TakePhotoFromCamera}
           />
           <TakePhotos
             title={'Chụp ảnh'}
             camera={require('assets/icons/png/ic_add_photo.png')}
+            onPress={TakePhotoFromCamera}
           />
         </View>
         <View

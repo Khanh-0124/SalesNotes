@@ -12,6 +12,7 @@ import {
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
 import { Theme as PaperTheme } from 'react-native-paper/lib/typescript/types';
+import { defaultScreenOptions, navigationRef } from '../navigation';
 
 export type Theme = NavigationTheme &
   PaperTheme & {
@@ -76,7 +77,7 @@ export const ThemeContextProvider = ({
   );
 
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer theme={theme} ref={navigationRef}>
       <PaperProvider theme={theme}>
         <ThemeContext.Provider
           value={{

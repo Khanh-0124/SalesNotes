@@ -7,6 +7,7 @@ import {
   CreateOrderScreen,
   CreateProduct,
   ReportScreen,
+  CameraFiles,
 } from 'feature/index';
 import DrawerNav from 'navigation/drawer/DrawerNav';
 import { WareHouse } from 'feature/report/tabview';
@@ -67,6 +68,14 @@ const ClientStack = () => {
       <Stack.Screen
         name="WareHouse"
         component={WareHouse}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
+      <Stack.Screen
+        name="CameraFiles"
+        component={CameraFiles}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

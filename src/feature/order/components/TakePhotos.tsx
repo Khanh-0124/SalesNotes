@@ -1,5 +1,5 @@
 import { Text, View, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { memo } from 'react';
 import { ScaledSheet } from 'react-native-size-matters';
 import { COLORS } from 'assets/global/colors';
 
@@ -7,17 +7,21 @@ interface TakePhotoProps {
   title: string;
   photo?: any;
   camera?: any;
+  onPress(): void;
 }
-const TakePhotos = ({ title, photo, camera }: TakePhotoProps) => {
+const TakePhotos = ({ title, photo, camera, onPress }: TakePhotoProps) => {
   return (
-    <TouchableOpacity activeOpacity={0.5} style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      style={styles.container}
+      onPress={onPress}>
       <Image source={photo | camera} style={styles.icon} />
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
-export default TakePhotos;
+export default memo(TakePhotos);
 
 const styles = ScaledSheet.create({
   container: {
