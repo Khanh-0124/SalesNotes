@@ -8,8 +8,10 @@ import ButtonBase from 'components/base/buttons/ButtonBase';
 import { ScaledSheet } from 'react-native-size-matters';
 import BottomSheetComponent from 'components/common/BottomSheet';
 import CollapsibleComponents from 'components/common/collapsible/CollapsibleComponents';
+import { WINDOW_HEIGHT } from '../../utilities';
 
 const CreateProduct = memo(function CreateProduct() {
+  const [show, setShow] = useState(false);
   return (
     <View
       onPress={Keyboard.dismiss}
@@ -56,8 +58,15 @@ const CreateProduct = memo(function CreateProduct() {
             <View style={{ width: 25 }} />
             <InputWithTitle title="Giá vốn" placeholder="0.000" flex={1} />
           </View>
-          {/* BottomSheet */}
-          <BottomSheetComponent />
+          <InputWithTitle
+            title="Danh mục"
+            placeholder="Chọn 1 hoặc nhiều danh mục"
+            editable={false}
+            leftIcon={require('assets/icons/png/ic_down_arrow.png')}
+            onPress={() => {
+              setShow(true);
+            }}
+          />
         </View>
         <CollapsibleComponents title="Thêm thông tin" />
         <CollapsibleComponents title="Thông tin bán Online" />
@@ -67,7 +76,14 @@ const CreateProduct = memo(function CreateProduct() {
         <ButtonBase title="Tạo thêm" />
         <ButtonBase title="Hoàn tất" background={true} />
       </View>
-      {/* Collapsible */}
+      {show ? (
+        <BottomSheetComponent
+          bottom={0}
+          title="Danh mục"
+          height={WINDOW_HEIGHT * 0.6}
+          onPress={() => setShow(false)}
+        />
+      ) : null}
     </View>
   );
 });

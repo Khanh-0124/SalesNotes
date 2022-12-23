@@ -15,7 +15,7 @@ import { COLORS } from 'assets/global/colors';
 import * as Footer from './components/index';
 import { normalize } from 'assets/global/layout';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
-import { handleLogin } from '../../servers/firebase/auth/auth';
+import { handleLogin } from 'servers/firebase/auth/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { ParamLoginInterface } from '../auth/type';
 import auth from '@react-native-firebase/auth';
@@ -38,8 +38,8 @@ const LoginScreen = ({ navigation }: NavigationType) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
 
-  const handleSubmit = () => {
-    handleLogin(paramsCustom.username, paramsCustom.password);
+  useEffect(() => {
+    // handleLogin(paramsCustom.username, paramsCustom.password);
     auth().onAuthStateChanged((user: any) => {
       if (user) {
         dispath(
@@ -49,7 +49,8 @@ const LoginScreen = ({ navigation }: NavigationType) => {
         );
       }
     });
-  };
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
@@ -90,7 +91,11 @@ const LoginScreen = ({ navigation }: NavigationType) => {
           </TouchableOpacity>
         </View>
         {/* footer */}
-        <Footer.FooterAuth handleSubmit={handleSubmit} />
+        <Footer.FooterAuth
+          handleSubmit={() =>
+            handleLogin(paramsCustom.username, paramsCustom.password)
+          }
+        />
         <View
           style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20 }}>
           <Text style={styles.textFoot}>You have don't account?</Text>

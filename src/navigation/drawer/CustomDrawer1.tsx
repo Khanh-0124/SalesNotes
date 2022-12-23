@@ -25,6 +25,10 @@ import Animated, {
   withSpring,
   interpolateNode,
 } from 'react-native-reanimated';
+import { handleLogin } from 'servers/firebase/auth/auth';
+import auth from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
+import { changeStateAuth } from '../../redux/userSlice';
 
 interface DrawerItemType {
   label: string;
@@ -87,10 +91,24 @@ const ProjectItem = ({ label, type, name, color }: DrawerItemType) => {
 };
 
 const ProfileItem = ({ label, type, name, color }: DrawerItemType) => {
+  const dispath = useDispatch();
+  const handleSubmit = (label: string) => {
+    if (label === 'Logout') {
+      auth()
+        .signOut()
+        .then(() =>
+          dispath(
+            changeStateAuth({
+              change: false,
+            }),
+          ),
+        );
+    }
+  };
   return (
     <TouchableOpacity
       style={[styles.row, { margin: constant.SPACING / 4 }]}
-      onPress={{}}>
+      onPress={() => handleSubmit(label)}>
       <Icon type={type} name={name} color={colors.dark} />
       <Text style={[styles.label]}>{label}</Text>
     </TouchableOpacity>
@@ -243,7 +261,7 @@ const CustomDrawer1 = (props: any) => {
       </Animated.View>
     </View>
   );
-};;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+};
 
 export default CustomDrawer1;
 

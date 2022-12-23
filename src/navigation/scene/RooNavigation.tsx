@@ -1,10 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import AuthNavigator from './auth/AuthNavigation';
 import ClientStack from './client/ClientStack';
-import {
-  ThemeContextProvider,
-  useTheme,
-} from '../../utilities/context/ThemeContext';
+import { ThemeContextProvider, useTheme } from 'utilities/context/ThemeContext';
 import { useSelector } from 'react-redux';
 
 const RootNavigator = () => {

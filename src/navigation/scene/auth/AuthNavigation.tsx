@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import {
   ThemeContextProvider,
   useTheme,
-} from '../../../../src/utilities/context/ThemeContext';
+} from 'src/utilities/context/ThemeContext';
 const Stack = createStackNavigator();
 const AuthNavigation = () => {
   return (

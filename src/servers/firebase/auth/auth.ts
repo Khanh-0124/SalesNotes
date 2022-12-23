@@ -43,4 +43,12 @@ const handleSignup = (email: string, password: string) => {
     });
 };
 
-export { handleSignup, handleLogin };
+// Logout
+
+
+const handleSingout = () => {
+  auth()
+    .signOut()
+}
+
+export { handleSignup, handleLogin, handleSingout };

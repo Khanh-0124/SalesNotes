@@ -1,98 +1,186 @@
-import React, { useState, useCallback } from 'react';
-import { BottomSheet, Button, Icon, ListItem } from '@rneui/themed';
+import React, { useRef, useState } from 'react';
 import {
-  KeyboardAvoidingView,
+  Animated,
+  PanResponder,
+  Platform,
+  StyleSheet,
   View,
+  Image,
   Text,
   TouchableOpacity,
-  Pressable,
 } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ScaledSheet } from 'react-native-size-matters';
+import { WINDOW_HEIGHT } from '../../utilities';
 import { COLORS } from 'assets/global/colors';
-import InputWithTitle from 'components/base/header/input/InputWithTitle';
 
-type BottomSheetComponentProps = {};
+const BOTTOM_SHEET_MAX_HEIGHT = WINDOW_HEIGHT * 0.6;
+const BOTTOM_SHEET_MIN_HEIGHT = WINDOW_HEIGHT * 0.1;
+const MAX_UPWARD_TRANSLATE_Y =
+  BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT; // negative number;
+const MAX_DOWNWARD_TRANSLATE_Y = 0;
+const DRAG_THRESHOLD = 50;
 
-const BottomSheetComponent: React.FunctionComponent<
-  BottomSheetComponentProps
-> = () => {
-  const [isVisible, setIsVisible] = useState(false);
+interface BottomSheetType {
+  height?: number;
+  bottom?: number;
+  title?: string;
+  onPress?: () => void;
+}
+const DraggableBottomSheet = ({
+  height = BOTTOM_SHEET_MAX_HEIGHT,
+  bottom = BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT,
+  title,
+  onPress,
+}: BottomSheetType) => {
+  const animatedValue = useRef(new Animated.Value(0)).current;
+  const lastGestureDy = useRef(0);
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderGrant: () => {
+        animatedValue.setOffset(lastGestureDy.current);
+      },
+      onPanResponderMove: (e, gesture) => {
+        animatedValue.setValue(gesture.dy);
+      },
+      onPanResponderRelease: (e, gesture) => {
+        animatedValue.flattenOffset();
+        lastGestureDy.current += gesture.dy;
+
+        if (gesture.dy > 0) {
+          // dragging down
+          if (gesture.dy <= DRAG_THRESHOLD) {
+            springAnimation('up');
+          } else {
+            springAnimation('down');
+          }
+        } else {
+          // dragging up
+          if (gesture.dy >= -DRAG_THRESHOLD) {
+            springAnimation('down');
+          } else {
+            springAnimation('up');
+          }
+        }
+      },
+    }),
+  ).current;
+
+  const springAnimation = (direction: 'up' | 'down') => {
+    console.log('direction', direction);
+    lastGestureDy.current =
+      direction === 'down' ? MAX_DOWNWARD_TRANSLATE_Y : MAX_UPWARD_TRANSLATE_Y;
+    Animated.spring(animatedValue, {
+      toValue: lastGestureDy.current,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const bottomSheetAnimation = {
+    transform: [
+      {
+        translateY: animatedValue.interpolate({
+          inputRange: [MAX_UPWARD_TRANSLATE_Y, MAX_DOWNWARD_TRANSLATE_Y],
+          outputRange: [MAX_UPWARD_TRANSLATE_Y, MAX_DOWNWARD_TRANSLATE_Y],
+          extrapolate: 'clamp',
+        }),
+      },
+    ],
+  };
 
   return (
-    <SafeAreaProvider>
-      <InputWithTitle
-        title="Danh mục"
-        placeholder="Chọn 1 hoặc nhiều danh mục"
-        editable={false}
-        leftIcon={require('assets/icons/png/ic_down_arrow.png')}
-        onPress={useCallback(() => {
-          setIsVisible(true);
-        }, [])}
-      />
-      <BottomSheet
-        modalProps={{ animationType: 'slide' }}
-        isVisible={isVisible}
-        containerStyle={{}}
-        backdropStyle={{ backgroundColor: '#333' + 9 }}
-        onBackdropPress={() => setIsVisible(false)}>
-        {/* {list.map((l, i) => (
-          <ListItem
-            key={i}
-            containerStyle={l.containerStyle}
-            onPress={l.onPress}>
-            <ListItem.Content></ListItem.Content>
-          </ListItem>
-        ))} */}
-        <KeyboardAvoidingView>
-          <Pressable onPress={() => setIsVisible(false)} style={{}}>
-            <View style={styles.buttonSheet}>
-              <View style={styles.pullButtonSheet} />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}>
-                <View />
-                <Text style={styles.title}>Danh mục</Text>
-                <Icon
-                  name="close"
-                  size={24}
-                  color={'black'}
-                  style={{ marginRight: 15 }}
-                />
-              </View>
-            </View>
-          </Pressable>
-        </KeyboardAvoidingView>
-      </BottomSheet>
-    </SafeAreaProvider>
+    <View>
+      <View style={styles.container}>
+        <Animated.View
+          style={[
+            styles.bottomSheet,
+            bottom === BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT
+              ? bottomSheetAnimation
+              : null,
+            {
+              height: height,
+              bottom: bottom,
+            },
+          ]}>
+          <View style={styles.draggableArea} {...panResponder.panHandlers}>
+            <View style={styles.dragHandle} />
+          </View>
+          <View style={styles.header}>
+            <View style={{ width: 42 }} />
+            <Text style={styles.title}>{title}</Text>
+            <TouchableOpacity style={styles.wrapperX} onPress={onPress}>
+              <Image
+                source={require('assets/icons/png/ic_x.png')}
+                style={styles.iconX}
+              />
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      </View>
+    </View>
   );
 };
 
-const styles = ScaledSheet.create({
-  button: {
-    margin: 15,
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    zIndex: 1,
   },
-  buttonSheet: {
-    height: '300@s',
-    backgroundColor: COLORS.white1,
+  bottomSheet: {
+    position: 'absolute',
+    width: '100%',
+    height: BOTTOM_SHEET_MAX_HEIGHT,
+    ...Platform.select({
+      android: { elevation: 3 },
+      ios: {
+        shadowColor: '#a8bed2',
+        shadowOpacity: 1,
+        shadowRadius: 6,
+        shadowOffset: {
+          width: 2,
+          height: 2,
+        },
+      },
+    }),
+    backgroundColor: 'white',
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
+  },
+  draggableArea: {
+    width: 132,
+    height: 32,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dragHandle: {
+    width: 100,
+    height: 6,
+    backgroundColor: '#d3d3d3',
+    borderRadius: 10,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 25,
   },
   title: {
-    textAlign: 'center',
-    fontSize: '15@s',
-    fontWeight: '600',
-    marginLeft: 39,
+    fontWeight: '500',
+    color: COLORS.black1,
+    fontSize: 18,
   },
-  pullButtonSheet: {
-    width: '60@s',
-    backgroundColor: COLORS.gray1,
-    height: '5@s',
-    borderRadius: 50,
-    alignSelf: 'center',
-    marginTop: '10@s',
-    marginBottom: '5@s',
+  iconX: {
+    height: 16,
+    width: 16,
+    // marginBottom: 20,
+  },
+  wrapperX: {
+    width: 40,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    padding: 10,
   },
 });
 
-export default BottomSheetComponent;
+export default DraggableBottomSheet;
