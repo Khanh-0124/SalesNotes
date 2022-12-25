@@ -6,17 +6,21 @@ import {
   Image,
   TouchableOpacity,
   StatusBar,
+  NativeTouchEvent,
 } from 'react-native';
-import React, { memo, useCallback, useEffect, useRef } from 'react';
-import { Camera, useCameraDevices } from 'react-native-vision-camera';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { Camera, Point, useCameraDevices } from 'react-native-vision-camera';
 import { COLORS } from 'assets/global/colors';
 import HeaderTransparent from 'components/common/HeaderTransparentWithIcon';
 import { WINDOW_HEIGHT } from 'utilities/index';
 import { goBack } from 'utilities/navigation';
+import { TakePhotoFromCamera } from './TakePhotoFromCamera';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const CameraFiles = () => {
-  const devices = useCameraDevices();
+  const devices = useCameraDevices('wide-angle-camera');
   const device = devices.back;
+  const [uriFile, setUriFile] = useState('');
   useEffect(() => {
     requestCameraPermission();
   }, []);
@@ -27,6 +31,34 @@ const CameraFiles = () => {
   }, []);
 
   const camera = useRef<Camera>(null);
+
+  const [camLocation, setCamLocation] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+
+  const touchII = async (event: NativeTouchEvent) => {
+    let point: Point = {
+      x: Math.round(event.pageX - camLocation.x),
+      y: Math.round(event.pageY - camLocation.y),
+    };
+    await camera?.current
+      ?.focus(point)
+      .then(() => {
+        console.log('Focus succeeded');
+      })
+      .catch(reason => {
+        console.log('Focus failed!', reason);
+      });
+  };
+
+  const handelTakeImageFromCamera = useCallback(async () => {
+    await TakePhotoFromCamera(camera).then((res: any) =>
+      setUriFile(`file://${res.path}`),
+    );
+  }, []);
+
+  console.log(uriFile);
   if (device == null)
     return (
       <>
@@ -57,6 +89,11 @@ const CameraFiles = () => {
           enableZoomGesture
           ref={camera}
           photo={true}
+          onLayout={event => {
+            const layout = event.nativeEvent.layout;
+            setCamLocation({ x: layout.x, y: layout.y });
+          }}
+          onTouchEnd={x => device.supportsFocus && touchII(x.nativeEvent)}
         />
       </View>
       <View style={styles.wrapperFooter}>
@@ -66,7 +103,7 @@ const CameraFiles = () => {
             style={styles.imageSelector}
           />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handelTakeImageFromCamera}>
           <Image
             source={require('assets/icons/png/ic_touch_camre.png')}
             style={styles.touchCamera}
