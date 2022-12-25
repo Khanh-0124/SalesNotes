@@ -1,5 +1,5 @@
-import { Text, View, ScrollView, Keyboard } from 'react-native';
-import React, { memo, useCallback, useState } from 'react';
+import { Text, View, ScrollView, Keyboard, Image } from 'react-native';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { TakePhotos } from './components';
 import { COLORS } from 'assets/global/colors';
@@ -9,13 +9,15 @@ import { ScaledSheet } from 'react-native-size-matters';
 import BottomSheetComponent from 'components/common/BottomSheet';
 import CollapsibleComponents from 'components/common/collapsible/CollapsibleComponents';
 import { WINDOW_HEIGHT } from '../../utilities';
-import { navigateToCameraFile } from '../../utilities/navigation';
+import { navigateToCameraFile } from 'utilities/navigation';
+import { useSelector } from 'react-redux';
 
 const CreateProduct = memo(function CreateProduct() {
   const [show, setShow] = useState(false);
   const TakePhotoFromCamera = useCallback(() => {
     navigateToCameraFile();
   }, []);
+  const listImages = useSelector(state => state.images.listImages);
   return (
     <View
       onPress={Keyboard.dismiss}
@@ -28,16 +30,31 @@ const CreateProduct = memo(function CreateProduct() {
       />
       <ScrollView>
         <View style={styles.STouchImage}>
-          <TakePhotos
-            title={'Tải ảnh lên'}
-            photo={require('assets/icons/png/ic_add_image.png')}
-            onPress={TakePhotoFromCamera}
-          />
-          <TakePhotos
-            title={'Chụp ảnh'}
-            camera={require('assets/icons/png/ic_add_photo.png')}
-            onPress={TakePhotoFromCamera}
-          />
+          <View>
+            <TakePhotos
+              title={'Tải ảnh lên'}
+              photo={require('assets/icons/png/ic_add_image.png')}
+              onPress={TakePhotoFromCamera}
+            />
+            <TakePhotos
+              title={'Chụp ảnh'}
+              camera={require('assets/icons/png/ic_add_photo.png')}
+              onPress={TakePhotoFromCamera}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
+            {listImages.map(item => (
+              <View key={item.id}>
+                <Image
+                  source={{ uri: item.uri }}
+                  style={{ height: 90, width: 90, marginLeft: 5 }}
+                />
+              </View>
+            ))}
+          </View>
         </View>
         <View
           style={{
@@ -100,7 +117,12 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
   },
-  STouchImage: { backgroundColor: COLORS.gray2, padding: 20 },
+  STouchImage: {
+    backgroundColor: COLORS.gray2,
+    padding: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   SButton: {
     flexDirection: 'row',
     justifyContent: 'space-between',

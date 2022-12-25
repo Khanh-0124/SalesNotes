@@ -13,14 +13,16 @@ import { Camera, Point, useCameraDevices } from 'react-native-vision-camera';
 import { COLORS } from 'assets/global/colors';
 import HeaderTransparent from 'components/common/HeaderTransparentWithIcon';
 import { WINDOW_HEIGHT } from 'utilities/index';
-import { goBack } from 'utilities/navigation';
+import { goBack, navigateToProductScreen } from 'utilities/navigation';
 import { TakePhotoFromCamera } from './TakePhotoFromCamera';
-import ImagePicker from 'react-native-image-crop-picker';
+import { useDispatch } from 'react-redux';
+import { addImage } from '../../redux/imageSlice';
+import uuid from 'react-native-uuid';
 
 const CameraFiles = () => {
   const devices = useCameraDevices('wide-angle-camera');
   const device = devices.back;
-  const [uriFile, setUriFile] = useState('');
+  const dispatch = useDispatch();
   useEffect(() => {
     requestCameraPermission();
   }, []);
@@ -53,12 +55,18 @@ const CameraFiles = () => {
   };
 
   const handelTakeImageFromCamera = useCallback(async () => {
-    await TakePhotoFromCamera(camera).then((res: any) =>
-      setUriFile(`file://${res.path}`),
-    );
+    await TakePhotoFromCamera(camera).then((res: any) => {
+      // setUriFile(`file://${res.path}`);
+      navigateToProductScreen();
+      dispatch(
+        addImage({
+          id: uuid.v4(),
+          uri: `file://${res.path}`,
+        }),
+      );
+    });
   }, []);
 
-  console.log(uriFile);
   if (device == null)
     return (
       <>

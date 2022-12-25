@@ -3,10 +3,7 @@ import React from 'react';
 import * as auth from 'feature/auth/index';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import {
-  ThemeContextProvider,
-  useTheme,
-} from '../../../../src/utilities/context/ThemeContext';
+import { ThemeContextProvider, useTheme } from 'utilities/context/ThemeContext';
 const Stack = createStackNavigator();
 const AuthNavigation = () => {
   return (
