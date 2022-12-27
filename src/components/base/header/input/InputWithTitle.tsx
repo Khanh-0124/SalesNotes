@@ -9,7 +9,10 @@ interface InputTypeProp {
   flex?: number;
   editable?: boolean;
   leftIcon?: any;
+  value?: string | number;
+  onTextChange?: (keyName: string, value: string) => void;
   onPress?: () => void;
+  keyName?: string;
 }
 const InputWithTitle = memo(function InputWithTitle({
   title,
@@ -18,9 +21,18 @@ const InputWithTitle = memo(function InputWithTitle({
   flex,
   editable = true,
   leftIcon,
+  value,
   onPress,
+  onTextChange,
+  keyName,
 }: InputTypeProp) {
   // const [nameproduct, setNameproduct] = useState('');
+  const onChange = useCallback(
+    (_value: string) => {
+      onTextChange(keyName, _value);
+    },
+    [onTextChange, keyName],
+  );
   return (
     <View style={[styles.container, { flex: flex }]}>
       <View style={styles.title}>
@@ -35,6 +47,8 @@ const InputWithTitle = memo(function InputWithTitle({
         // selectTextOnFocus={false}
         editable={editable}
         onPressIn={onPress}
+        value={value}
+        onChangeText={onChange}
       />
       {leftIcon ? (
         <Pressable onPress={onPress}>

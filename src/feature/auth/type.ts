@@ -10,3 +10,9 @@ export interface ParamRegisterInterface {
   phone: string;
   birth_day?: string;
 }
+
+export interface ParamInputProductInterface {
+  nameProduct: string;
+  price: number;
+  costPrice: number;
+}

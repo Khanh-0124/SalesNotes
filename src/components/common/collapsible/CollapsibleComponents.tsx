@@ -42,7 +42,9 @@ const CollapsibleComponents = ({ title }: CollapsibleTypeProp) => {
           </TouchableOpacity>
           {/*Content of Single Collapsible*/}
           <Collapsible collapsed={collapsed} align="center">
-            <View style={styles.content}>{<AddInfor />}</View>
+            <View style={styles.content}>
+              {title === 'Thêm thông tin' ? <AddInfor /> : null}
+            </View>
           </Collapsible>
           {/*Code for Single Collapsible Ends*/}
         </ScrollView>

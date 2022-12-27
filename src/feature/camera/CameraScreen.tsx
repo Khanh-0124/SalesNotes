@@ -13,13 +13,27 @@ import { Camera, Point, useCameraDevices } from 'react-native-vision-camera';
 import { COLORS } from 'assets/global/colors';
 import HeaderTransparent from 'components/common/HeaderTransparentWithIcon';
 import { WINDOW_HEIGHT } from 'utilities/index';
-import { goBack, navigateToProductScreen } from 'utilities/navigation';
+import {
+  createNavigate,
+  goBack,
+  navigateToProductScreen,
+} from 'utilities/navigation';
 import { TakePhotoFromCamera } from './TakePhotoFromCamera';
 import { useDispatch } from 'react-redux';
 import { addImage } from '../../redux/imageSlice';
 import uuid from 'react-native-uuid';
+import { useNavigationParams } from '../../hooks/useNavigationParams';
+import { useNavigation } from 'utilities/global';
 
+interface NavigateInterface {
+  navigate: string;
+}
+interface NavigationInterface {
+  navigate(name: string): void;
+}
 const CameraFiles = () => {
+  const navigation = useNavigation<NavigationInterface>();
+  const { navigate } = useNavigationParams<NavigateInterface>();
   const devices = useCameraDevices('wide-angle-camera');
   const device = devices.back;
   const dispatch = useDispatch();
@@ -56,14 +70,13 @@ const CameraFiles = () => {
 
   const handelTakeImageFromCamera = useCallback(async () => {
     await TakePhotoFromCamera(camera).then((res: any) => {
-      // setUriFile(`file://${res.path}`);
-      navigateToProductScreen();
       dispatch(
         addImage({
           id: uuid.v4(),
           uri: `file://${res.path}`,
         }),
       );
+      navigation.navigate(navigate);
     });
   }, []);
 

@@ -26,10 +26,8 @@ interface NavigationType {
 }
 
 const LoginScreen = ({ navigation }: NavigationType) => {
-  // console.log(useSelector(state) => )
   const dispath = useDispatch();
   const [check, setCheck] = React.useState(false);
-  const [user, setUser] = useState();
   const [paramsCustom, setParamsCustom] = useState<ParamLoginInterface>({
     username: 'khanh@gmail.com',
     password: 'khanh2001',
@@ -39,7 +37,6 @@ const LoginScreen = ({ navigation }: NavigationType) => {
   }, []);
 
   useEffect(() => {
-    // handleLogin(paramsCustom.username, paramsCustom.password);
     auth().onAuthStateChanged((user: any) => {
       if (user) {
         dispath(
