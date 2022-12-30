@@ -24,7 +24,7 @@ interface BottomSheetType {
   bottom?: number;
   title?: string;
   onPress?: () => void;
-  childrenComponents: Element;
+  childrenComponents: any;
 }
 const DraggableBottomSheet = ({
   height = BOTTOM_SHEET_MAX_HEIGHT,
@@ -135,12 +135,12 @@ const styles = StyleSheet.create({
     ...Platform.select({
       android: { elevation: 3 },
       ios: {
-        shadowColor: '#a8bed2',
-        shadowOpacity: 1,
-        shadowRadius: 6,
+        shadowColor: COLORS.gray6,
+        shadowOpacity: 2,
+        shadowRadius: 100,
         shadowOffset: {
-          width: 2,
-          height: 2,
+          width: 0,
+          height: -200,
         },
       },
     }),

@@ -9,6 +9,7 @@ const SpeedDialButton = () => {
 
   const handleCreateOrder = useCallback(() => {
     navigation.navigate('CreateOrderScreen');
+    setOpen(false);
   }, []);
 
   const navigateCreateProduct = useCallback(() => {
@@ -34,13 +35,19 @@ const SpeedDialButton = () => {
         icon={{ name: 'edit', color: '#fff' }}
         title="Tạo giao dịch thu chi"
         color={COLORS.primary}
-        onPress={() => console.log('Delete Something')}
+        onPress={() => {
+          console.log('Delete Something');
+          setOpen(false);
+        }}
       />
       <SpeedDial.Action
         icon={{ name: 'store', color: '#fff' }}
         title="Tạo sản phẩm"
         color={COLORS.primary}
-        onPress={() => navigateCreateProduct()}
+        onPress={() => {
+          navigateCreateProduct();
+          setOpen(false);
+        }}
       />
     </SpeedDial>
   );
