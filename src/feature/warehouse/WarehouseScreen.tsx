@@ -15,7 +15,11 @@ const WarehouseScreen = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <SearchBarWithLeftIcon />
+      <SearchBarWithLeftIcon
+        placeholder={'Tìm tên, mã SKU, ...'}
+        backgroundColor={COLORS.primary}
+        source={require('assets/icons/png/ic_scanner.png')}
+      />
       <ScrollView>
         {/* header */}
         <View style={{ backgroundColor: '#fff', padding: 15 }}>

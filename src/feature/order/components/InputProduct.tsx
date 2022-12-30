@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { COLORS } from 'assets/global/colors';
 import { ParamInputProductInterface } from 'feature/auth/type';
@@ -18,11 +18,14 @@ const InputProduct = ({ onPress }: InputProductInterface) => {
   const onTextChange = useCallback((keyName: string, value: string) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
-  console.log(
-    paramsCustom.costPrice,
-    paramsCustom.price,
-    paramsCustom.nameProduct,
-  );
+  const checkInput = useMemo(() => {
+    if (
+      paramsCustom.price === 0 ||
+      paramsCustom.nameProduct === '' ||
+      paramsCustom.costPrice === 0
+    ) {
+    }
+  }, []);
   return (
     <View
       style={{

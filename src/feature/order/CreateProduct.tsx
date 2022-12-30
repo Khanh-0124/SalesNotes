@@ -7,9 +7,13 @@ import { ScaledSheet } from 'react-native-size-matters';
 import BottomSheetComponent from 'components/common/BottomSheet';
 import { WINDOW_HEIGHT } from '../../utilities';
 import ProductBody from './components/ProductBody';
+import Content from './components/BottomSheetContent';
 
 const CreateProduct = memo(function CreateProduct() {
   const [show, setShow] = useState(false);
+  // const addField = useCallback(()=> {
+  //   if()
+  // }, [])
   return (
     <View
       // onPress={Keyboard.dismiss}
@@ -27,7 +31,7 @@ const CreateProduct = memo(function CreateProduct() {
       />
       {/* footer component */}
       <View style={styles.SButton}>
-        <ButtonBase title="Tạo thêm" />
+        <ButtonBase title="Tạo thêm" onPress={{}} />
         <ButtonBase title="Hoàn tất" background={true} />
       </View>
       {show ? (
@@ -36,6 +40,7 @@ const CreateProduct = memo(function CreateProduct() {
           title="Danh mục"
           height={WINDOW_HEIGHT * 0.6}
           onPress={() => setShow(false)}
+          childrenComponents={<Content />}
         />
       ) : null}
     </View>

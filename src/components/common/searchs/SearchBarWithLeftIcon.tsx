@@ -1,37 +1,46 @@
-import { TouchableOpacity, Text, View, TextInput, Image } from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  TextInput,
+  Image,
+  ImageStyle,
+} from 'react-native';
 import React from 'react';
 import { COLORS } from 'assets/global/colors';
 import { ScaledSheet } from 'react-native-size-matters';
 
-const SearchBarWithLeftIcon = () => {
+interface SearchWithLeftIconInterface {
+  placeholder: string;
+  backgroundColor: string;
+  customStyleIconLeft?: ImageStyle;
+  source: any;
+  width?: string;
+  styleIconLeft?: ImageStyle;
+}
+
+const SearchBarWithLeftIcon = ({
+  placeholder,
+  backgroundColor,
+  customStyleIconLeft,
+  source,
+  width = '90%',
+  styleIconLeft,
+}: SearchWithLeftIconInterface) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: backgroundColor }]}>
       <Image
         source={require('assets/icons/png/ic_search.png')}
-        style={[
-          {
-            height: 24,
-            width: 24,
-            marginLeft: 5,
-            position: 'absolute',
-            tintColor: COLORS.gray3,
-            zIndex: 1,
-            alignSelf: 'center',
-            left: 25,
-          },
-        ]}
+        style={styles.icSearch}
       />
       <View style={styles.wrapperSearch}>
         <TextInput
-          placeholder="Tìm tên, mã SKU, ..."
-          style={styles.SInput}
+          placeholder={placeholder}
+          style={[styles.SInput, { width: width }]}
           placeholderTextColor={COLORS.gray6}
         />
-        <TouchableOpacity>
-          <Image
-            source={require('assets/icons/png/ic_scanner.png')}
-            style={styles.SIcon}
-          />
+        <TouchableOpacity style={customStyleIconLeft}>
+          <Image source={source} style={[styles.SIcon, styleIconLeft]} />
         </TouchableOpacity>
       </View>
     </View>
@@ -45,25 +54,34 @@ const styles = ScaledSheet.create({
     height: 24,
     width: 24,
     tintColor: COLORS.white1,
-    marginLeft: '10@s',
+    // marginLeft: '10@s',
   },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: COLORS.primary,
     alignItems: 'center',
     padding: '10@s',
     alignSelf: 'center',
   },
   SInput: {
-    width: '90%',
-    backgroundColor: COLORS.white1,
+    backgroundColor: COLORS.gray2,
     borderRadius: '5@s',
-    paddingVertical: '7@s',
+    paddingVertical: '10@s',
     paddingLeft: '45@s',
+    marginRight: '10@s',
   },
   wrapperSearch: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  icSearch: {
+    height: 24,
+    width: 24,
+    marginLeft: 5,
+    position: 'absolute',
+    tintColor: COLORS.gray3,
+    zIndex: 1,
+    alignSelf: 'center',
+    left: 25,
   },
 });

@@ -33,16 +33,22 @@ const InputWithTitle = memo(function InputWithTitle({
     },
     [onTextChange, keyName],
   );
+  let check: boolean = value === '' || (value === 0 && request) ? false : true;
   return (
     <View style={[styles.container, { flex: flex }]}>
       <View style={styles.title}>
-        <Text style={styles.STitle}>{title}</Text>
+        <Text style={[styles.STitle, !check ? { color: COLORS.red1 } : null]}>
+          {title}
+        </Text>
         {request ? (
-          <Text style={{ color: 'red', marginLeft: 5 }}>*</Text>
+          <Text style={{ color: COLORS.red1, marginLeft: 5 }}>*</Text>
         ) : null}
       </View>
       <TextInput
-        style={styles.textInput}
+        style={[
+          styles.textInput,
+          !check ? { borderBottomColor: COLORS.red1 } : null,
+        ]}
         placeholder={placeholder}
         // selectTextOnFocus={false}
         editable={editable}
@@ -50,6 +56,11 @@ const InputWithTitle = memo(function InputWithTitle({
         value={value}
         onChangeText={onChange}
       />
+      {!check ? (
+        <Text style={{ color: COLORS.red1, marginTop: 8, fontSize: 13 }}>
+          Thông tin bắt buộc
+        </Text>
+      ) : null}
       {leftIcon ? (
         <Pressable onPress={onPress}>
           <Image source={leftIcon} style={styles.iconDrop} />
@@ -70,6 +81,7 @@ const styles = ScaledSheet.create({
   },
   STitle: {
     fontSize: '13@s',
+    fontWeight: '600',
   },
   textInput: {
     borderBottomWidth: 1,

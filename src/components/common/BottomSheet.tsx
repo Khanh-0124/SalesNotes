@@ -24,12 +24,14 @@ interface BottomSheetType {
   bottom?: number;
   title?: string;
   onPress?: () => void;
+  childrenComponents: Element;
 }
 const DraggableBottomSheet = ({
   height = BOTTOM_SHEET_MAX_HEIGHT,
   bottom = BOTTOM_SHEET_MIN_HEIGHT - BOTTOM_SHEET_MAX_HEIGHT,
   title,
   onPress,
+  childrenComponents,
 }: BottomSheetType) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
   const lastGestureDy = useRef(0);
@@ -114,6 +116,7 @@ const DraggableBottomSheet = ({
               />
             </TouchableOpacity>
           </View>
+          <View>{childrenComponents}</View>
         </Animated.View>
       </View>
     </View>
