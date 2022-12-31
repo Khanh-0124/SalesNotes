@@ -2,9 +2,8 @@ import { Image, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS } from 'assets/global/colors';
 import { ScaledSheet } from 'react-native-size-matters';
-import AnimateNumber from 'react-native-animate-number';
+// import AnimateNumber from 'react-native-animate-number';
 import AnimationNumberComponent from '../../../libs/AnimationNumberComponent';
-AnimationNumberComponent;
 
 interface WrapperType {
   title: string;

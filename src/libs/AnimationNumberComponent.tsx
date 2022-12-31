@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextStyle } from 'react-native';
 import React, { useState } from 'react';
 import { ScaledSheet } from 'react-native-size-matters';
 import AnimateNumber from 'react-native-animate-number';
@@ -6,7 +6,7 @@ import AnimateNumber from 'react-native-animate-number';
 interface AnimationType {
   number: number;
   unit: boolean;
-  customTextStyle: object;
+  customTextStyle: TextStyle;
 }
 const AnimationNumberComponent = ({
   number,
