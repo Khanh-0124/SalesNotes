@@ -1,4 +1,5 @@
 import {
+  Image,
   StyleSheet,
   Text,
   Touchable,
@@ -9,30 +10,12 @@ import React from 'react';
 import { FlatGrid } from 'react-native-super-grid';
 import { NavigateType } from 'utilities/type/type';
 import { useNavigation } from '@react-navigation/native';
+import { listProducts } from 'utilities/data';
+import { COLORS } from 'assets/global/colors';
 
 const GridOder = () => {
   const navigation = useNavigation<NavigateType>();
-  const [items, setItems] = React.useState([
-    {
-      id: 0,
-      amount: 3,
-      name: 'abc',
-      price: 3000,
-      color: '#1abc9c',
-    },
-    {
-      id: 1,
-      name: 'Thêm sản phẩm',
-      icon: require('../../assets/icons/png/ic_add_image.png'),
-      color: '#9b59b6',
-    },
-    // { name: 'TURQUOISE', code: '#1abc9c' },
-    // { name: 'EMERALD', code: '#2ecc71' },
-    // { name: 'PETER RIVER', code: '#3498db' },
-    // { name: 'AMETHYST', code: '#9b59b6' },
-    // { name: 'WET ASPHALT', code: '#34495e' },
-    // { name: 'GREEN SEA', code: '#16a085' },
-  ]);
+  const [items, setItems] = React.useState(listProducts);
   return (
     <FlatGrid
       itemDimension={100}
@@ -40,7 +23,7 @@ const GridOder = () => {
       style={styles.gridView}
       // staticDimension={300}
       // fixed
-      spacing={10}
+      spacing={15}
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
@@ -50,9 +33,26 @@ const GridOder = () => {
               }
             }}
             activeOpacity={0.5}
-            style={[styles.itemContainer, { backgroundColor: item.color }]}>
-            <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemCode}>{item.amount}</Text>
+            style={[styles.itemContainer]}>
+            <Image
+              source={item.image}
+              style={styles.Simage}
+              resizeMode="cover"
+            />
+            <Text style={[styles.itemCode, { marginVertical: 3 }]}>
+              {item.price ? `${item.remaining}` : ``}
+            </Text>
+            <Text
+              style={
+                item.id === items.length - 1
+                  ? styles.addProduct
+                  : styles.itemName
+              }>
+              {item.name}
+            </Text>
+            <Text style={styles.itemCode}>
+              {item.price ? `${item.price}\n` : ``}
+            </Text>
           </TouchableOpacity>
         );
       }}
@@ -63,23 +63,44 @@ const GridOder = () => {
 export default GridOder;
 
 const styles = StyleSheet.create({
-  gridView: {
-    marginTop: 10,
-  },
+  gridView: {},
   itemContainer: {
-    justifyContent: 'flex-end',
-    borderRadius: 5,
-    padding: 10,
-    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    backgroundColor: COLORS.white1,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.82,
+    elevation: 3,
+  },
+  Simage: {
+    height: '40%',
+    width: '100%',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  addProduct: {
+    fontSize: 16,
+    color: COLORS.blue2,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginVertical: 2,
   },
   itemName: {
     fontSize: 16,
-    color: '#fff',
+    color: COLORS.black1,
     fontWeight: '600',
+    textAlign: 'center',
+    marginVertical: 5,
   },
   itemCode: {
     fontWeight: '600',
     fontSize: 12,
-    color: '#fff',
+    color: COLORS.black1,
   },
 });

@@ -1,31 +1,17 @@
-import {
-  Text,
-  View,
-  ScrollView,
-  Keyboard,
-  Image,
-  TouchableOpacity,
-  PermissionsAndroid,
-} from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { TakePhotos } from '../components';
 import { COLORS } from 'assets/global/colors';
 import { ScaledSheet } from 'react-native-size-matters';
 import CollapsibleComponents from 'components/common/collapsible/CollapsibleComponents';
-import {
-  navigateToCameraFile,
-  navigateToProductScreen,
-} from 'utilities/navigation';
+import { navigateToCameraFile } from 'utilities/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage, deleteImage } from '../../../redux/imageSlice';
 import InputProduct from '../components/InputProduct';
 import AddIamgeProduct from '../components/AddIamgeProduct';
 import uuid from 'react-native-uuid';
-import {
-  ImageLibraryOptions,
-  launchCamera,
-  launchImageLibrary,
-} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
+import AddInfor from 'components/common/collapsible/AddInfor';
 
 interface ProductBodyInterface {
   onShowBottomSheet(): void;
@@ -88,8 +74,14 @@ const ProductBody = ({ onShowBottomSheet }: ProductBodyInterface) => {
         <AddIamgeProduct />
       </View>
       <InputProduct onPress={onShowBottomSheet} />
-      <CollapsibleComponents title="Thêm thông tin" />
-      <CollapsibleComponents title="Thông tin bán Online" />
+      <CollapsibleComponents
+        Contents={() => <AddInfor />}
+        title={'Thêm thông tin'}
+      />
+      <CollapsibleComponents
+        Contents={() => <AddInfor />}
+        title={'Thông tin Online'}
+      />
     </ScrollView>
   );
 };

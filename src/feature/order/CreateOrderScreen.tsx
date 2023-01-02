@@ -25,7 +25,7 @@ export default CreateOrderScreen;
 
 const styles = ScaledSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
   },
   textClassify: {
     padding: 10,

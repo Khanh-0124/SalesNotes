@@ -8,6 +8,7 @@ import Profile from './profile/Profile';
 import Paybook from './paybook/Paybook';
 import ReportScreen from './report/ReportScreen';
 import CameraFiles from './camera/CameraScreen';
+import ChatScreen from './chat/ChatScreen';
 
 export {
   NotifiScreen,
@@ -20,4 +21,5 @@ export {
   Paybook,
   ReportScreen,
   CameraFiles,
+  ChatScreen,
 };

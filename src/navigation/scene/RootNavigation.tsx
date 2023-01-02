@@ -10,6 +10,7 @@ const RootNavigator = () => {
 };
 
 const RootApp = () => {
+  
   return (
     <ThemeContextProvider>
       <RootNavigator />

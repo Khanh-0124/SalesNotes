@@ -14,12 +14,15 @@ const IconHeader = () => {
   const navigateToNotifi = () => {
     navigation.navigate('NotifiScreen');
   };
+  const navigateToChat = () => {
+    navigation.navigate('ChatScreen');
+  };
   return (
     <View style={styles.rightHeader}>
       <TouchableOpacity activeOpacity={0.6}>
         <Svg.Qrcode width={sizeIcon} height={sizeIcon} fill={COLORS.white1} />
       </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.6}>
+      <TouchableOpacity activeOpacity={0.6} onPress={navigateToChat}>
         <Svg.Chat width={sizeIcon} height={sizeIcon} fill={COLORS.white1} />
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.6} onPress={navigateToNotifi}>

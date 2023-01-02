@@ -1,6 +1,6 @@
 import { StyleSheet, SafeAreaView } from 'react-native';
 import React from 'react';
-import RootApp from './src/navigation/scene/RooNavigation';
+import RootApp from './src/navigation/scene/RootNavigation';
 import { LogBox } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';

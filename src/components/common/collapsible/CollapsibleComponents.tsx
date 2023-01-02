@@ -1,25 +1,33 @@
 import { COLORS } from 'assets/global/colors';
 import React, { Children, useState } from 'react';
-import AddInfor from './AddInfor';
-// import all the components we are going to use
+
 import {
   SafeAreaView,
   ScrollView,
-  StyleSheet,
+  ViewStyle,
   Text,
   View,
   Image,
   TouchableOpacity,
 } from 'react-native';
 import Collapsible from 'react-native-collapsible';
-import { Icon } from '@rneui/themed';
 import { ScaledSheet } from 'react-native-size-matters';
 
 interface CollapsibleTypeProp {
   title: string;
+  Contents: any;
+  leftComponents?: boolean;
+  number?: string;
+  customStyles?: ViewStyle;
 }
 
-const CollapsibleComponents = ({ title }: CollapsibleTypeProp) => {
+const CollapsibleComponents = ({
+  title,
+  Contents,
+  leftComponents = false,
+  number = '0',
+  customStyles,
+}: CollapsibleTypeProp) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleExpanded = () => {
@@ -27,23 +35,45 @@ const CollapsibleComponents = ({ title }: CollapsibleTypeProp) => {
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
+      <View style={customStyles ? customStyles : styles.container}>
         <ScrollView>
           {/*Code for Single Collapsible Start*/}
           <TouchableOpacity onPress={toggleExpanded}>
-            <View style={styles.header}>
-              <Text style={styles.headerText}>{title}</Text>
-              <Image
-                source={require('assets/icons/png/ic_down_arrow.png')}
-                style={styles.iconDrop}
-              />
-              {/*Heading of Single Collapsible*/}
-            </View>
+            {!leftComponents ? (
+              <View style={styles.header}>
+                <Text style={styles.headerText}>{title}</Text>
+                <Image
+                  source={require('assets/icons/png/ic_down_arrow.png')}
+                  style={[styles.iconDrop]}
+                />
+                {/*Heading of Single Collapsible*/}
+              </View>
+            ) : (
+              <View style={styles.wrapperHeader}>
+                <Text style={{ fontSize: 15 }}>{title}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ color: COLORS.primary }}>{number}</Text>
+                  <Image
+                    source={require('assets/icons/png/ic_down_arrow.png')}
+                    style={[
+                      styles.iconDrop,
+                      { tintColor: COLORS.black1, width: 16, height: 16 },
+                    ]}
+                  />
+                </View>
+              </View>
+            )}
           </TouchableOpacity>
           {/*Content of Single Collapsible*/}
           <Collapsible collapsed={collapsed} align="center">
-            <View style={styles.content}>
-              {title === 'Thêm thông tin' ? <AddInfor /> : null}
+            <View
+              style={[
+                styles.content,
+                customStyles
+                  ? { borderTopWidth: 1, borderTopColor: COLORS.gray1 }
+                  : { borderTopWidth: 15 },
+              ]}>
+              <Contents />
             </View>
           </Collapsible>
           {/*Code for Single Collapsible Ends*/}
@@ -73,9 +103,15 @@ const styles = ScaledSheet.create({
     fontWeight: '500',
     color: COLORS.primary,
   },
+  wrapperHeader: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   content: {
     borderTopColor: '#F6F6F6',
-    borderTopWidth: '15@s',
   },
   iconDrop: {
     height: '20@s',

@@ -21,3 +21,4 @@ export const createNavigate =
 export const goBack = () => navigation().goBack();
 export const navigateToCameraFile = createNavigate(Routes.CameraFiles);
 export const navigateToProductScreen = createNavigate(Routes.CreateProduct);
+export const navigateToChatScreen = createNavigate(Routes.ChatScreen);
