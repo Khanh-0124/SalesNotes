@@ -6,12 +6,15 @@ import { COLORS } from 'assets/global/colors';
 import { ScaledSheet } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
 import { NavigateType } from 'utilities/type/type';
+import { navigateToOrderTrackingScreen } from 'utilities/navigation';
 
 const ListFeatureBox = () => {
   const navigation = useNavigation<NavigateType>();
   const handleSubmit = useCallback((id: number) => {
     if (id === 1) {
       navigation.navigate('CreateOrderScreen');
+    } else if (id === 2) {
+      navigateToOrderTrackingScreen();
     }
   }, []);
   return (

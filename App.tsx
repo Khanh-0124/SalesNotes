@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
 import React from 'react';
 import RootApp from './src/navigation/scene/RootNavigation';
 import { LogBox } from 'react-native';

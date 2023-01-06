@@ -8,7 +8,7 @@ import {
   ProfitAndLoss,
   WareHouse,
   RevenueAndExpenditure,
-} from './tabview/index';
+} from '../../report/tabview/index';
 
 const renderScene = SceneMap({
   first: ProfitAndLoss,
@@ -17,15 +17,15 @@ const renderScene = SceneMap({
   fourth: RevenueAndExpenditure,
 });
 
-const ReportScreen = () => {
+const OrderTracking = () => {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'first', title: 'Lãi lỗ' },
-    { key: 'second', title: 'Cửa hàng' },
-    { key: 'third', title: 'Kho hàng' },
-    { key: 'fourth', title: 'Thu chi' },
+    { key: 'first', title: 'Tất cả' },
+    { key: 'second', title: 'Chờ x.nhận' },
+    { key: 'third', title: 'Đang xử lý' },
+    { key: 'fourth', title: 'Đã giao' },
   ]);
   const renderTabBar = (props: any) => (
     <TabBar
@@ -63,7 +63,7 @@ const ReportScreen = () => {
   );
 };
 
-export default ReportScreen;
+export default OrderTracking;
 
 const styles = StyleSheet.create({
   container: { flex: 1 },

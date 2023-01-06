@@ -9,6 +9,7 @@ import Paybook from './paybook/Paybook';
 import ReportScreen from './report/ReportScreen';
 import CameraFiles from './camera/CameraScreen';
 import ChatScreen from './chat/ChatScreen';
+import OrderTracking from './order/ordertracking/OrderTracking';
 
 export {
   NotifiScreen,
@@ -22,4 +23,5 @@ export {
   ReportScreen,
   CameraFiles,
   ChatScreen,
+  OrderTracking,
 };

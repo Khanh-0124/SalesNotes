@@ -3,4 +3,5 @@ export const Routes = {
   NotifiScreen: 'NotifiScreen',
   CreateProduct: 'CreateProduct',
   ChatScreen: 'ChatScreen',
+  OrderTracking: 'OrderTracking',
 };
