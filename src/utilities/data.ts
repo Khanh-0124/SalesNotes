@@ -67,6 +67,13 @@ export const listCost = [
   },
 ];
 
+export const listCategoryCreateOrder = [
+  {
+    id: 1,
+    name: 'Phân loại 1',
+    code: 'Sp0006-1',
+  },
+];
 export const listProducts = [
   {
     id: 0,
@@ -119,5 +126,35 @@ export const listProducts = [
     // price: '10.000',
     // remaining: 7,
     // image: require('../assets/photos/img_slide1.png'),
+  },
+];
+
+export const dataOrder = [
+  {
+    id: 1,
+    name: 'Khách lẻ',
+    hours: '02:09 19/12',
+    code: 'BSXQJA',
+    delivered: true,
+    sum: 0,
+    paid: true,
+  },
+  {
+    id: 2,
+    name: 'Khách lẻ',
+    hours: '02:09 19/12',
+    delivered: true,
+    code: 'BSXQJA',
+    sum: 0,
+    paid: true,
+  },
+  {
+    id: 3,
+    name: 'Khách lẻ',
+    hours: '02:09 19/12',
+    code: 'BSXQJA',
+    delivered: true,
+    sum: 0,
+    paid: true,
   },
 ];

@@ -31,8 +31,8 @@ const CreateProduct = memo(function CreateProduct() {
       />
       {/* footer component */}
       <View style={styles.SButton}>
-        <ButtonBase title="Tạo thêm" onPress={{}} />
-        <ButtonBase title="Hoàn tất" background={true} />
+        <ButtonBase title="Tạo thêm" onPress={() => {}} />
+        <ButtonBase title="Hoàn tất" background={true} onPress={() => {}} />
       </View>
       {show ? (
         <BottomSheetComponent

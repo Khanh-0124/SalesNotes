@@ -15,4 +15,5 @@ export const COLORS = {
   black1: 'black',
   black2: '#2B343D',
   green1: '#DAECDF',
+  green2: '#016F1F',
 };

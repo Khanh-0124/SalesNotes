@@ -1,4 +1,4 @@
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, ScrollView, TextInput } from 'react-native';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { TakePhotos } from '../components';
 import { COLORS } from 'assets/global/colors';
@@ -12,6 +12,7 @@ import AddIamgeProduct from '../components/AddIamgeProduct';
 import uuid from 'react-native-uuid';
 import { launchImageLibrary } from 'react-native-image-picker';
 import AddInfor from 'components/common/collapsible/AddInfor';
+import InputWithTitle from 'components/base/header/input/InputWithTitle';
 
 interface ProductBodyInterface {
   onShowBottomSheet(): void;
@@ -79,7 +80,14 @@ const ProductBody = ({ onShowBottomSheet }: ProductBodyInterface) => {
         title={'Thêm thông tin'}
       />
       <CollapsibleComponents
-        Contents={() => <AddInfor />}
+        Contents={() => (
+          <View>
+            <InputWithTitle
+              title={'Mô tả'}
+              placeholder={'Ví dụ: Mỳ ly hảo hảo chua cay'}
+            />
+          </View>
+        )}
         title={'Thông tin Online'}
       />
     </ScrollView>

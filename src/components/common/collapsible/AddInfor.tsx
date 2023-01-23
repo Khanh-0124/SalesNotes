@@ -1,10 +1,13 @@
-import { StyleSheet, Text, View, Switch } from 'react-native';
-import React, { useCallback } from 'react';
+import { StyleSheet, Text, View, Switch, TouchableOpacity } from 'react-native';
+import React, { useCallback, useState } from 'react';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { ScaledSheet } from 'react-native-size-matters';
 import { COLORS } from 'assets/global/colors';
+import ButtonBase from 'components/base/buttons/ButtonBase';
+import { listCategoryCreateOrder } from 'utilities/data';
 
 const AddInfor = () => {
+  const [dataCategory, setDataCategory] = useState(listCategoryCreateOrder);
   const SLine = useCallback(() => {
     return (
       <View
@@ -29,7 +32,35 @@ const AddInfor = () => {
 
       <SLine />
       <View style={styles.wrapper}>
-        <Text style={{ fontSize: 15 }}>Phân loại</Text>
+        <Text style={{ fontSize: 15, marginBottom: 20 }}>Phân loại</Text>
+        {dataCategory.map(item => (
+          <TouchableOpacity
+            key={item.id}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderWidth: 1,
+              borderColor: COLORS.gray4,
+              padding: 10,
+              borderRadius: 10,
+              marginBottom: 20,
+            }}>
+            <View style={{}}>
+              <Text
+                style={{ fontWeight: '500', fontSize: 15, marginBottom: 10 }}>
+                {item.name}
+              </Text>
+              <Text>{item.code}</Text>
+            </View>
+            <Text>{`Còn hàng  >`}</Text>
+          </TouchableOpacity>
+        ))}
+        <ButtonBase
+          title="+ Thêm phân loại"
+          onPress={() => console.log('a')}
+          background
+        />
       </View>
     </View>
   );

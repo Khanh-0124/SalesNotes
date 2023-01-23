@@ -9,9 +9,11 @@ import {
   WareHouse,
   RevenueAndExpenditure,
 } from '../../report/tabview/index';
+import OrderAll from './OrderAll';
+import HeaderWithMultiIcon from 'components/common/HeaderWithMultiIcon';
 
 const renderScene = SceneMap({
-  first: ProfitAndLoss,
+  first: OrderAll,
   second: Store,
   third: WareHouse,
   fourth: RevenueAndExpenditure,
@@ -26,6 +28,8 @@ const OrderTracking = () => {
     { key: 'second', title: 'Chờ x.nhận' },
     { key: 'third', title: 'Đang xử lý' },
     { key: 'fourth', title: 'Đã giao' },
+    // { key: 'fifth', title: 'Trả hàng' },
+    // { key: 'sixth', title: 'Huỷ' },
   ]);
   const renderTabBar = (props: any) => (
     <TabBar
@@ -45,11 +49,13 @@ const OrderTracking = () => {
   );
   return (
     <View style={styles.container}>
-      <HeaderBase
-        title="Báo cáo"
-        isIconLeft={false}
-        bgColor={COLORS.white1}
-        color={COLORS.black1}
+      <HeaderWithMultiIcon
+        title={'Đơn hàng'}
+        leftIcon={require('assets/icons/png/ic_left_arrow.png')}
+        firtRightIcon={true}
+        secondRightIcon={true}
+        thirdRightIcon={true}
+        lastIcon={true}
       />
 
       <TabView
