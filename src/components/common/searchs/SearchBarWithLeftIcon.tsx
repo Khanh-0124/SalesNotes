@@ -17,6 +17,7 @@ interface SearchWithLeftIconInterface {
   source: any;
   width?: string;
   styleIconLeft?: ImageStyle;
+  touchPlus?: any;
 }
 
 const SearchBarWithLeftIcon = ({
@@ -26,6 +27,7 @@ const SearchBarWithLeftIcon = ({
   source,
   width = '90%',
   styleIconLeft,
+  touchPlus,
 }: SearchWithLeftIconInterface) => {
   return (
     <View style={[styles.container, { backgroundColor: backgroundColor }]}>
@@ -39,7 +41,7 @@ const SearchBarWithLeftIcon = ({
           style={[styles.SInput, { width: width }]}
           placeholderTextColor={COLORS.gray6}
         />
-        <TouchableOpacity style={customStyleIconLeft}>
+        <TouchableOpacity style={customStyleIconLeft} onPress={touchPlus}>
           <Image source={source} style={[styles.SIcon, styleIconLeft]} />
         </TouchableOpacity>
       </View>

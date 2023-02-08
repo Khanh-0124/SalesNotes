@@ -6,7 +6,7 @@ import { colors } from './constant';
 export const ScreensArray = [
   {
     route: 'BottomTabScenes',
-    label: 'Home',
+    label: 'Trang chủ',
     type: Icons.Feather,
     icon: 'home',
     component: BottomTabScenes,
@@ -14,7 +14,7 @@ export const ScreensArray = [
   },
   {
     route: 'Inbox',
-    label: 'My Inbox',
+    label: 'Tích điểm đổi quà',
     type: Icons.Feather,
     icon: 'inbox',
     component: DrawerScreen,
@@ -22,7 +22,7 @@ export const ScreensArray = [
   },
   {
     route: 'Calendar',
-    label: 'My Calendar',
+    label: 'Cài đặt cửa hàng',
     type: Icons.Feather,
     icon: 'calendar',
     component: DrawerScreen,
@@ -30,25 +30,9 @@ export const ScreensArray = [
   },
   {
     route: 'Documents',
-    label: 'My Documents',
+    label: 'Liên kết ngân hàng',
     type: Icons.Feather,
     icon: 'layers',
-    component: DrawerScreen,
-    notification: 0,
-  },
-  {
-    route: 'Activity',
-    label: 'My Activity',
-    type: Icons.Feather,
-    icon: 'pie-chart',
-    component: DrawerScreen,
-    notification: 2,
-  },
-  {
-    route: 'Settings',
-    label: 'Settings',
-    type: Icons.Feather,
-    icon: 'settings',
     component: DrawerScreen,
     notification: 0,
   },
@@ -56,25 +40,25 @@ export const ScreensArray = [
 
 export const ProjectsArray = [
   {
-    title: 'Personal',
+    title: 'Đánh giá ứng dụng',
     icon: 'profile',
     color: colors.icon1,
     iconType: Icons.AntDesign,
   },
   {
-    title: 'travel',
+    title: 'Hướng dẫn dùng app',
     icon: 'profile',
     color: colors.icon2,
     iconType: Icons.AntDesign,
   },
   {
-    title: 'Business',
+    title: 'Mẹo bán chuyên nghiệp',
     icon: 'profile',
     color: colors.icon3,
     iconType: Icons.AntDesign,
   },
   {
-    title: 'Add',
+    title: 'Hỗ trợ',
     icon: 'plus',
     color: colors.icon4,
     iconType: Icons.AntDesign,
@@ -82,8 +66,12 @@ export const ProjectsArray = [
 ];
 
 export const ProfileMenu = [
-  { label: 'History', icon: 'history', iconType: Icons.MaterialIcons },
-  { label: 'Rate', icon: 'star', iconType: Icons.MaterialIcons },
-  { label: 'Share', icon: 'share', iconType: Icons.MaterialIcons },
-  { label: 'Logout', icon: 'logout', iconType: Icons.MaterialIcons },
+  // { label: 'History', icon: 'history', iconType: Icons.MaterialIcons },
+  // { label: 'Rate', icon: 'star', iconType: Icons.MaterialIcons },
+  {
+    label: 'Cài đặt tài khoản',
+    icon: 'settings',
+    iconType: Icons.MaterialIcons,
+  },
+  { label: 'Đăng xuất', icon: 'logout', iconType: Icons.MaterialIcons },
 ];

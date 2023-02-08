@@ -93,7 +93,7 @@ const ProjectItem = ({ label, type, name, color }: DrawerItemType) => {
 const ProfileItem = ({ label, type, name, color }: DrawerItemType) => {
   const dispath = useDispatch();
   const handleSubmit = (label: string) => {
-    if (label === 'Logout') {
+    if (label === 'Đăng xuất') {
       auth()
         .signOut()
         .then(() =>
@@ -237,7 +237,7 @@ const CustomDrawer1 = (props: any) => {
           style={[
             styles.viewScreenArray,
             styles.marginVertical,
-            { backgroundColor: COLORS.primary },
+            { backgroundColor: COLORS.white1 },
             menuStyles,
           ]}>
           <Text>{`Cá nhân`}</Text>

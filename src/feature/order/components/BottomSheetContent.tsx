@@ -5,11 +5,17 @@ import { COLORS } from 'assets/global/colors';
 import { useSelector, useDispatch } from 'react-redux';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { HEIGHT } from 'assets/global/layout';
+import BottomSheet from 'components/common/BottomSheet';
+import { plusCate } from '../../../redux/categorySlice';
 
 const BottomSheetContent = () => {
   const categorys = useSelector((state: any) => state.categorys.listCategory);
-  // console.log(categorys[0].name);
+  // console.log(categorys[1].name);
   const [tick, setTick] = useState(false);
+  const dispath = useDispatch();
+  const showAddInputCategory = useSelector(
+    (state: any) => state.categorys.addCategory,
+  );
   return (
     <>
       <View>
@@ -25,6 +31,14 @@ const BottomSheetContent = () => {
             marginLeft: 10,
           }}
           styleIconLeft={{ width: 14, height: 14 }}
+          touchPlus={() => {
+            dispath(
+              plusCate({
+                addCate: true,
+              }),
+            );
+            console.log(showAddInputCategory);
+          }}
         />
         <TouchableOpacity
           style={styles.wrapperCategory}

@@ -8,9 +8,12 @@ import BottomSheetComponent from 'components/common/BottomSheet';
 import { WINDOW_HEIGHT } from '../../utilities';
 import ProductBody from './components/ProductBody';
 import Content from './components/BottomSheetContent';
+import { useSelector } from 'react-redux';
+import InputPlus from './components/InputPlus';
 
 const CreateProduct = memo(function CreateProduct() {
   const [show, setShow] = useState(false);
+  const showInput = useSelector((state: any) => state.categorys.addCategory);
   // const addField = useCallback(()=> {
   //   if()
   // }, [])
@@ -40,7 +43,7 @@ const CreateProduct = memo(function CreateProduct() {
           title="Danh mục"
           height={WINDOW_HEIGHT * 0.6}
           onPress={() => setShow(false)}
-          childrenComponents={<Content />}
+          childrenComponents={showInput ? <InputPlus /> : <Content />}
         />
       ) : null}
     </View>

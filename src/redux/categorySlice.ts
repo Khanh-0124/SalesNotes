@@ -9,11 +9,20 @@ export const categorySlice = createSlice({
         image: null,
       },
     ],
+    addCategory: false,
   },
   reducers: {
-    addList: (state, action) => {},
+    addList: (state, action) => {
+      state.listCategory.push({
+        name: action.payload.addItem,
+        image: action.payload.image,
+      });
+    },
+    plusCate: (state, action) => {
+      state.addCategory = action.payload.addCate;
+    },
   },
 });
 
-export const { addList } = categorySlice.actions;
+export const { addList, plusCate } = categorySlice.actions;
 export default categorySlice.reducer;
