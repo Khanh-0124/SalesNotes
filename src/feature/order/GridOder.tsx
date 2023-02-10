@@ -11,15 +11,17 @@ import { FlatGrid } from 'react-native-super-grid';
 import { NavigateType } from 'utilities/type/type';
 import { useNavigation } from '@react-navigation/native';
 import { listProducts } from 'utilities/data';
+import { useDispatch, useSelector } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
 
 const GridOder = () => {
   const navigation = useNavigation<NavigateType>();
-  const [items, setItems] = React.useState(listProducts);
+  const producst = useSelector((state: any) => state.products.listProducts);
+  // const [items, setItems] = React.useState(producst);
   return (
     <FlatGrid
       itemDimension={100}
-      data={items}
+      data={producst}
       style={styles.gridView}
       // staticDimension={300}
       // fixed
@@ -28,7 +30,7 @@ const GridOder = () => {
         return (
           <TouchableOpacity
             onPress={() => {
-              if (item.id === items.length - 1) {
+              if (item.id === 0) {
                 navigation.navigate('CreateProduct');
               }
             }}
@@ -44,7 +46,7 @@ const GridOder = () => {
             </Text>
             <Text
               style={
-                item.id === items.length - 1
+                item.id === producst.length - 1
                   ? styles.addProduct
                   : styles.itemName
               }>
@@ -58,7 +60,7 @@ const GridOder = () => {
       }}
     />
   );
-};
+};;;
 
 export default GridOder;
 

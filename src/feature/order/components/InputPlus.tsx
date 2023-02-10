@@ -42,6 +42,7 @@ const InputPlus = () => {
               addList({
                 addItem: inputData,
                 image: null,
+                tick: false,
               }),
             );
             dispatch(

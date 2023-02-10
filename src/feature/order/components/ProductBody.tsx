@@ -16,13 +16,14 @@ import InputWithTitle from 'components/base/header/input/InputWithTitle';
 
 interface ProductBodyInterface {
   onShowBottomSheet(): void;
+  getData: any;
 }
 interface OptionInterface {
   savePhotos: boolean;
   mediaType: string;
 }
 
-const ProductBody = ({ onShowBottomSheet }: ProductBodyInterface) => {
+const ProductBody = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
   const dispatch = useDispatch();
   const TakePhotoFromCamera = useCallback(() => {
     navigateToCameraFile({ navigate: 'CreateProduct' });
@@ -57,6 +58,9 @@ const ProductBody = ({ onShowBottomSheet }: ProductBodyInterface) => {
     );
   }, []);
   const listImages = useSelector((state: any) => state.images.listImages);
+  const GetDataInput = (name: string, price: string) => {
+    getData(name, price, listImages[0]?.uri);
+  };
   return (
     <ScrollView>
       <View style={styles.STouchImage}>
@@ -66,6 +70,7 @@ const ProductBody = ({ onShowBottomSheet }: ProductBodyInterface) => {
             photo={require('assets/icons/png/ic_add_image.png')}
             onPress={TakePhotoFromLibrary}
           />
+
           <TakePhotos
             title={listImages.length === 0 ? 'Chụp ảnh' : ''}
             camera={require('assets/icons/png/ic_add_photo.png')}
@@ -74,14 +79,17 @@ const ProductBody = ({ onShowBottomSheet }: ProductBodyInterface) => {
         </View>
         <AddIamgeProduct />
       </View>
-      <InputProduct onPress={onShowBottomSheet} />
+      <InputProduct onPress={onShowBottomSheet} dataInput={GetDataInput} />
       <CollapsibleComponents
         Contents={() => <AddInfor />}
         title={'Thêm thông tin'}
       />
       <CollapsibleComponents
         Contents={() => (
-          <View>
+          <View style={{ paddingHorizontal: 15, marginVertical: 10 }}>
+            <View style={{ marginBottom: 20 }}>
+              <InputWithTitle title={'Giá khuyến mãi'} placeholder={'0.000'} />
+            </View>
             <InputWithTitle
               title={'Mô tả'}
               placeholder={'Ví dụ: Mỳ ly hảo hảo chua cay'}

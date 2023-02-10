@@ -7,6 +7,7 @@ export const categorySlice = createSlice({
       {
         name: 'Tất cả',
         image: null,
+        tick: false,
       },
     ],
     addCategory: false,
@@ -16,7 +17,11 @@ export const categorySlice = createSlice({
       state.listCategory.push({
         name: action.payload.addItem,
         image: action.payload.image,
+        tick: action.payload.tick,
       });
+    },
+    updateList: (state, action) => {
+      state.listCategory[action.payload.id].tick = action.payload.tick;
     },
     plusCate: (state, action) => {
       state.addCategory = action.payload.addCate;
@@ -24,5 +29,5 @@ export const categorySlice = createSlice({
   },
 });
 
-export const { addList, plusCate } = categorySlice.actions;
+export const { addList, plusCate, updateList } = categorySlice.actions;
 export default categorySlice.reducer;

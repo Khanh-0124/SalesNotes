@@ -5,6 +5,7 @@ import { ScaledSheet } from 'react-native-size-matters';
 import { COLORS } from 'assets/global/colors';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { listCategoryCreateOrder } from 'utilities/data';
+import { TextInput } from 'react-native-paper';
 
 const AddInfor = () => {
   const [dataCategory, setDataCategory] = useState(listCategoryCreateOrder);
@@ -62,6 +63,10 @@ const AddInfor = () => {
           background
         />
       </View>
+      {/* <SLine />
+      <View style={{ paddingVertical: 20 }}>
+        <InputWithTitle title={'Giá sỉ'} placeholder={'0'} />
+      </View> */}
     </View>
   );
 };

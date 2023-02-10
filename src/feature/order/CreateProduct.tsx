@@ -8,15 +8,28 @@ import BottomSheetComponent from 'components/common/BottomSheet';
 import { WINDOW_HEIGHT } from '../../utilities';
 import ProductBody from './components/ProductBody';
 import Content from './components/BottomSheetContent';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import InputPlus from './components/InputPlus';
+import { addProducts } from '../../redux/productSlice';
 
 const CreateProduct = memo(function CreateProduct() {
   const [show, setShow] = useState(false);
   const showInput = useSelector((state: any) => state.categorys.addCategory);
+  const dispath = useDispatch();
+  const listProduct = useSelector((state: any) => state.products.listProducts);
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [image, setImage] = useState();
   // const addField = useCallback(()=> {
   //   if()
   // }, [])
+  const GetInputData = (name: string, price: string, uri: any) => {
+    // console.log('man tao sp:', name, price);
+    // console.log('uri', image);
+    setName(name);
+    setPrice(price);
+    setImage(uri);
+  };
   return (
     <View
       // onPress={Keyboard.dismiss}
@@ -31,11 +44,29 @@ const CreateProduct = memo(function CreateProduct() {
         onShowBottomSheet={() => {
           setShow(true);
         }}
+        getData={GetInputData}
       />
       {/* footer component */}
       <View style={styles.SButton}>
         <ButtonBase title="Tạo thêm" onPress={() => {}} />
-        <ButtonBase title="Hoàn tất" background={true} onPress={() => {}} />
+        <ButtonBase
+          title="Hoàn tất"
+          background={true}
+          onPress={() => {
+            dispath(
+              addProducts({
+                id: listProduct.length,
+                name: name,
+                price: price,
+                remaining: `còn: ${5}`,
+                image: {
+                  uri: image,
+                },
+              }),
+            );
+            console.log(listProduct.length);
+          }}
+        />
       </View>
       {show ? (
         <BottomSheetComponent

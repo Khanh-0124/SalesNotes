@@ -6,12 +6,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { HEIGHT } from 'assets/global/layout';
 import BottomSheet from 'components/common/BottomSheet';
-import { plusCate } from '../../../redux/categorySlice';
+import { plusCate, updateList } from '../../../redux/categorySlice';
 
 const BottomSheetContent = () => {
   const categorys = useSelector((state: any) => state.categorys.listCategory);
   // console.log(categorys[1].name);
-  const [tick, setTick] = useState(false);
+  // const tick = useSelector((state: any) => state.categorys.listCategory);
   const dispath = useDispatch();
   const showAddInputCategory = useSelector(
     (state: any) => state.categorys.addCategory,
@@ -40,12 +40,20 @@ const BottomSheetContent = () => {
             console.log(showAddInputCategory);
           }}
         />
-        <TouchableOpacity
-          style={styles.wrapperCategory}
-          onPress={() => setTick(!tick)}>
+        <View style={styles.wrapperCategory}>
           {categorys.map((item: any, index: any) => (
-            <View key={index} style={styles.wrapperItemCategory}>
-              {tick ? (
+            <TouchableOpacity
+              key={index}
+              style={styles.wrapperItemCategory}
+              onPress={() => {
+                dispath(
+                  updateList({
+                    id: categorys.indexOf(item),
+                    tick: item.tick ? false : true,
+                  }),
+                );
+              }}>
+              {item.tick ? (
                 <Image
                   source={require('assets/icons/png/ic_tick.png')}
                   style={styles.STick}
@@ -61,9 +69,9 @@ const BottomSheetContent = () => {
                 style={styles.SImage}
               />
               <Text style={{ marginTop: 20 }}>{item.name}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
-        </TouchableOpacity>
+        </View>
         <View style={{ height: HEIGHT * 0.22 }} />
         <View style={styles.SButton}>
           <ButtonBase title="Quay lại" onPress={() => {}} />

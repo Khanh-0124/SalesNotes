@@ -3,21 +3,24 @@ import React, { useCallback, useMemo, useState } from 'react';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { COLORS } from 'assets/global/colors';
 import { ParamInputProductInterface } from 'feature/auth/type';
+import { useDispatch } from 'react-redux';
 
 interface InputProductInterface {
   onPress(): void;
+  dataInput: any;
 }
 
-const InputProduct = ({ onPress }: InputProductInterface) => {
+const InputProduct = ({ onPress, dataInput }: InputProductInterface) => {
   const [paramsCustom, setParamsCustom] = useState<ParamInputProductInterface>({
     nameProduct: '',
     price: 0,
     costPrice: 0,
   });
-
+  dataInput(paramsCustom.nameProduct, paramsCustom.price);
   const onTextChange = useCallback((keyName: string, value: string) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
+
   const checkInput = useMemo(() => {
     if (
       paramsCustom.price === 0 ||
@@ -26,6 +29,7 @@ const InputProduct = ({ onPress }: InputProductInterface) => {
     ) {
     }
   }, []);
+  // console.log('Test', paramsCustom.price, paramsCustom.nameProduct);
   return (
     <View
       style={{
@@ -74,7 +78,7 @@ const InputProduct = ({ onPress }: InputProductInterface) => {
       />
     </View>
   );
-};
+};;
 
 export default InputProduct;
 
