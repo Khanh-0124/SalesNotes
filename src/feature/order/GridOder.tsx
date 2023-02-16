@@ -13,11 +13,31 @@ import { useNavigation } from '@react-navigation/native';
 import { listProducts } from 'utilities/data';
 import { useDispatch, useSelector } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
+import { updateProduct } from '../../redux/productSlice';
 
 const GridOder = () => {
   const navigation = useNavigation<NavigateType>();
   const producst = useSelector((state: any) => state.products.listProducts);
+  const dispatch = useDispatch();
   // const [items, setItems] = React.useState(producst);
+  const handlePlus = (id: number, touch: number) => {
+    id === 0
+      ? navigation.navigate('CreateProduct')
+      : dispatch(
+          updateProduct({
+            id: id,
+            touch: touch + 1,
+          }),
+        );
+  };
+  const handleMinus = (id: number, touch: number) => {
+    dispatch(
+      updateProduct({
+        id: id,
+        touch: touch - 1,
+      }),
+    );
+  };
   return (
     <FlatGrid
       itemDimension={100}
@@ -29,13 +49,38 @@ const GridOder = () => {
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
-            onPress={() => {
-              if (item.id === 0) {
-                navigation.navigate('CreateProduct');
-              }
-            }}
+            onPress={() => handlePlus(item.id, item.touch)}
             activeOpacity={0.5}
             style={[styles.itemContainer]}>
+            {item.id !== 0 && item.touch !== 0 ? (
+              <View
+                style={{
+                  padding: 1,
+                  borderRadius: 5,
+                  width: '85%',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  zIndex: 10,
+                  top: 2,
+                  backgroundColor: 'white',
+                  flexDirection: 'row',
+                }}>
+                <TouchableOpacity
+                  style={{ padding: 5 }}
+                  onPress={() => handleMinus(item.id, item.touch)}>
+                  <Text>-</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{}}>
+                  <Text style={{}}>{item.touch}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ padding: 5 }}
+                  onPress={() => handlePlus(item.id, item.touch)}>
+                  <Text>+</Text>
+                </TouchableOpacity>
+              </View>
+            ) : null}
             <Image
               source={item.image}
               style={styles.Simage}
@@ -60,7 +105,7 @@ const GridOder = () => {
       }}
     />
   );
-};;;
+};
 
 export default GridOder;
 

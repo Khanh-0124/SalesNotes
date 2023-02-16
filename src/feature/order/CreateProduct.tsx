@@ -62,6 +62,7 @@ const CreateProduct = memo(function CreateProduct() {
                 image: {
                   uri: image,
                 },
+                touch: 0,
               }),
             );
             console.log(listProduct.length);

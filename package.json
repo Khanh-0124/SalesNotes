@@ -28,6 +28,7 @@
     "babel-plugin-styled-components": "^2.0.7",
     "i18next": "^22.0.3",
     "jetifier": "^2.0.0",
+    "lottie-react-native": "^5.1.5",
     "react": "18.2.0",
     "react-i18next": "^12.0.0",
     "react-native": "0.71.1",

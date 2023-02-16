@@ -18,6 +18,7 @@ export const productSlice = createSlice({
         image: {
           uri: 'https://cdn.tgdd.vn/2021/05/CookRecipe/Avatar/banh-mi-thit-bo-nuong-thumbnail-1.jpg',
         },
+        touch: 1,
       },
     ],
   },
@@ -29,10 +30,14 @@ export const productSlice = createSlice({
         price: action.payload.price,
         remaining: action.payload.remaining,
         image: action.payload.image,
+        touch: action.payload.touch,
       });
+    },
+    updateProduct: (state, action) => {
+      state.listProducts[action.payload.id].touch = action.payload.touch;
     },
   },
 });
 
-export const { addProducts } = productSlice.actions;
+export const { addProducts, updateProduct } = productSlice.actions;
 export default productSlice.reducer;
