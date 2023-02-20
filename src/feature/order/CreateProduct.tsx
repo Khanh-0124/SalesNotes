@@ -65,7 +65,7 @@ const CreateProduct = memo(function CreateProduct() {
                 touch: 0,
               }),
             );
-            console.log(listProduct.length);
+            // console.log(listProduct.length);
           }}
         />
       </View>

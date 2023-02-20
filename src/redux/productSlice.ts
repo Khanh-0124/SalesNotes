@@ -13,14 +13,16 @@ export const productSlice = createSlice({
       {
         id: 1,
         name: 'Nước tăng lực',
-        price: '10.000',
+        price: 10000,
         remaining: `còn: ${7}`,
         image: {
           uri: 'https://cdn.tgdd.vn/2021/05/CookRecipe/Avatar/banh-mi-thit-bo-nuong-thumbnail-1.jpg',
         },
-        touch: 1,
+        touch: 0,
       },
     ],
+    quantity: 0,
+    pay: 0,
   },
   reducers: {
     addProducts: (state, action) => {
@@ -36,8 +38,13 @@ export const productSlice = createSlice({
     updateProduct: (state, action) => {
       state.listProducts[action.payload.id].touch = action.payload.touch;
     },
+    addQuantity: (state, action) => {
+      state.quantity = action.payload.add;
+      state.pay += action.payload.pay;
+      // console.log(state.pay);
+    },
   },
 });
 
-export const { addProducts, updateProduct } = productSlice.actions;
+export const { addProducts, updateProduct, addQuantity } = productSlice.actions;
 export default productSlice.reducer;

@@ -13,28 +13,44 @@ import { useNavigation } from '@react-navigation/native';
 import { listProducts } from 'utilities/data';
 import { useDispatch, useSelector } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
-import { updateProduct } from '../../redux/productSlice';
+import { addQuantity, updateProduct } from '../../redux/productSlice';
+import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 
 const GridOder = () => {
   const navigation = useNavigation<NavigateType>();
   const producst = useSelector((state: any) => state.products.listProducts);
+  const quantity = useSelector((state: any) => state.products.quantity);
   const dispatch = useDispatch();
   // const [items, setItems] = React.useState(producst);
-  const handlePlus = (id: number, touch: number) => {
-    id === 0
-      ? navigation.navigate('CreateProduct')
-      : dispatch(
-          updateProduct({
-            id: id,
-            touch: touch + 1,
-          }),
-        );
+  const handlePlus = (id: number, touch: number, price: number) => {
+    if (id === 0) {
+      navigation.navigate('CreateProduct');
+    } else {
+      dispatch(
+        updateProduct({
+          id: id,
+          touch: touch + 1,
+        }),
+      );
+      dispatch(
+        addQuantity({
+          add: quantity + 1,
+          pay: price,
+        }),
+      );
+    }
   };
-  const handleMinus = (id: number, touch: number) => {
+  const handleMinus = (id: number, touch: number, price: number) => {
     dispatch(
       updateProduct({
         id: id,
         touch: touch - 1,
+      }),
+    );
+    dispatch(
+      addQuantity({
+        add: quantity - 1,
+        pay: -price,
       }),
     );
   };
@@ -49,26 +65,18 @@ const GridOder = () => {
       renderItem={({ item }) => {
         return (
           <TouchableOpacity
-            onPress={() => handlePlus(item.id, item.touch)}
+            onPress={() =>
+              handlePlus(item.id, item.touch, parseInt(item.price))
+            }
             activeOpacity={0.5}
             style={[styles.itemContainer]}>
             {item.id !== 0 && item.touch !== 0 ? (
-              <View
-                style={{
-                  padding: 1,
-                  borderRadius: 5,
-                  width: '85%',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  position: 'absolute',
-                  zIndex: 10,
-                  top: 2,
-                  backgroundColor: 'white',
-                  flexDirection: 'row',
-                }}>
+              <View style={styles.ButtonAdd}>
                 <TouchableOpacity
                   style={{ padding: 5 }}
-                  onPress={() => handleMinus(item.id, item.touch)}>
+                  onPress={() =>
+                    handleMinus(item.id, item.touch, parseInt(item.price))
+                  }>
                   <Text>-</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{}}>
@@ -76,7 +84,10 @@ const GridOder = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{ padding: 5 }}
-                  onPress={() => handlePlus(item.id, item.touch)}>
+                  onPress={() => {
+                    handlePlus(item.id, item.touch, parseInt(item.price));
+                    // console.log('a: ', typeof parseInt(item.price));
+                  }}>
                   <Text>+</Text>
                 </TouchableOpacity>
               </View>
@@ -149,5 +160,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     color: COLORS.black1,
+  },
+  ButtonAdd: {
+    padding: 1,
+    borderRadius: 5,
+    width: '85%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    position: 'absolute',
+    zIndex: 10,
+    top: 2,
+    backgroundColor: 'white',
+    flexDirection: 'row',
   },
 });

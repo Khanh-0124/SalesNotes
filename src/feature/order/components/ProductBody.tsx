@@ -49,7 +49,7 @@ const ProductBody = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
     // }
     const result = await launchImageLibrary(options);
     let uri = result.assets[0].uri;
-    console.log(uri);
+    // console.log(uri);
     dispatch(
       addImage({
         id: uuid.v4(),
