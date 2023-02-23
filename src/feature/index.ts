@@ -10,6 +10,7 @@ import ReportScreen from './report/ReportScreen';
 import CameraFiles from './camera/CameraScreen';
 import ChatScreen from './chat/ChatScreen';
 import OrderTracking from './order/ordertracking/OrderTracking';
+import TrackingOrder from './order/tracking/TrackingOrder';
 
 export {
   NotifiScreen,
@@ -24,4 +25,5 @@ export {
   CameraFiles,
   ChatScreen,
   OrderTracking,
+  TrackingOrder,
 };

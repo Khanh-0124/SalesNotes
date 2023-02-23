@@ -10,6 +10,7 @@ import {
   CameraFiles,
   ChatScreen,
   OrderTracking,
+  TrackingOrder,
 } from 'feature/index';
 import DrawerNav from 'navigation/drawer/DrawerNav';
 import { WareHouse } from 'feature/report/tabview';
@@ -38,6 +39,14 @@ const ClientStack = () => {
       <Stack.Screen
         name="ChatScreen"
         component={ChatScreen}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
+      <Stack.Screen
+        name="TrackingOrder"
+        component={TrackingOrder}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

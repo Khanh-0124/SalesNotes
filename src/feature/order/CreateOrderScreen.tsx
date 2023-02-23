@@ -13,10 +13,15 @@ import { COLORS } from 'assets/global/colors';
 import { GridOder } from './index';
 import { addQuantity, updateProduct } from '../../redux/productSlice';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const CreateOrderScreen = () => {
   const quantity = useSelector((state: any) => state.products.quantity);
   const pay = useSelector((state: any) => state.products.pay);
+  const navigation = useNavigation();
+  const handleSubmit = () => {
+    navigation.navigate('TrackingOrder');
+  };
   return (
     <View style={styles.container}>
       <HeaderWithMultiIcon
@@ -29,7 +34,7 @@ const CreateOrderScreen = () => {
       />
       <GridOder />
       {quantity !== 0 ? (
-        <TouchableOpacity style={styles.SButton}>
+        <TouchableOpacity style={styles.SButton} onPress={() => handleSubmit()}>
           <View
             style={{
               flexDirection: 'row',
