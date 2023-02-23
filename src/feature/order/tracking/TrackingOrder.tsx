@@ -82,7 +82,7 @@ const TrackingOrder = () => {
       <TouchableOpacity style={styles.Spay}>
         <Text>Thanh toán trước</Text>
       </TouchableOpacity>
-      <Text>a</Text>
+      <Text>abc</Text>
     </View>
   );
 };
