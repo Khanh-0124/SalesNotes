@@ -41,10 +41,14 @@ export const productSlice = createSlice({
     addQuantity: (state, action) => {
       state.quantity = action.payload.add;
       state.pay += action.payload.pay;
-      // console.log(state.pay);
+    },
+    reset: (state, action) => {
+      state.quantity = action.payload.add;
+      state.pay = action.payload.pay;
     },
   },
 });
 
-export const { addProducts, updateProduct, addQuantity } = productSlice.actions;
+export const { addProducts, updateProduct, addQuantity, reset } =
+  productSlice.actions;
 export default productSlice.reducer;
