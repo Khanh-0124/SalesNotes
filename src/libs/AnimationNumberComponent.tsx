@@ -17,12 +17,7 @@ const AnimationNumberComponent = ({
   return (
     <View>
       {isShow && unit ? (
-        <Text style={customTextStyle}>
-          {new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND',
-          }).format(number)}
-        </Text>
+        <Text style={customTextStyle}>{number}</Text>
       ) : (
         <AnimateNumber
           value={number}
