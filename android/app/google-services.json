@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "41031759028",
+    "project_id": "salesnotes-88ce2",
+    "storage_bucket": "salesnotes-88ce2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41031759028:android:6e3c85c3e475e160e893e1",
+        "android_client_info": {
+          "package_name": "com.salesnotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41031759028-h0bqs4rosgb8ged62o58k0i7cbs68uut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUWF8HWGjVLpLpbhvSmEyvmQDYTdkEkHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41031759028-h0bqs4rosgb8ged62o58k0i7cbs68uut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
