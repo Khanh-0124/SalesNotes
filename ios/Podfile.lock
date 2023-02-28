@@ -345,6 +345,8 @@ PODS:
     - glog
   - react-native-blur (4.3.0):
     - React-Core
+  - react-native-date-picker (4.2.9):
+    - React-Core
   - react-native-dialogflow (3.2.2):
     - React
   - react-native-image-picker (4.10.3):
@@ -507,6 +509,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
+  - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-dialogflow (from `../node_modules/react-native-dialogflow`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
@@ -597,6 +600,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-blur:
     :path: "../node_modules/@react-native-community/blur"
+  react-native-date-picker:
+    :path: "../node_modules/react-native-date-picker"
   react-native-dialogflow:
     :path: "../node_modules/react-native-dialogflow"
   react-native-image-picker:
@@ -690,6 +695,7 @@ SPEC CHECKSUMS:
   React-jsinspector: bb2605f98aada5d81f3494690da3ef3b4ff3b716
   React-logger: 23a50ef4c18bf9adbb51e2c979318e6b3a2e44a1
   react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
+  react-native-date-picker: c063a8967058c58a02d7d0e1d655f0453576fb0d
   react-native-dialogflow: 786714700b825b342c9db519efa0b467aee1cded
   react-native-image-picker: 60f4246eb5bb7187fc15638a8c1f13abd3820695
   react-native-pager-view: b58cb9e9f42f64e50cab3040815772c1d119a2e2

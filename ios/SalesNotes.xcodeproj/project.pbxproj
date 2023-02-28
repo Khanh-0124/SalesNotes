@@ -165,8 +165,8 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				BC18B5882EC15B0815BD2B37 /* [CP] Embed Pods Frameworks */,
 				B4449419D52247271734A889 /* [CP] Copy Pods Resources */,
+				DAE4F1BEB7AA9D50A3ABB3F4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -188,9 +188,9 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				E71B64339580946034CCFBD9 /* [CP] Embed Pods Frameworks */,
 				FCA198B2649E0899FFFA60EA /* [CP] Copy Pods Resources */,
 				9ACE1BC2FCBC51D453D658F0 /* [CP-User] [RNFB] Core Configuration */,
+				180EBCDDE2196CA6B0618557 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -275,6 +275,23 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
+		180EBCDDE2196CA6B0618557 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		985A154A9D1CB9F77766420A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -327,23 +344,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BC18B5882EC15B0815BD2B37 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		C73E63FC4D6C3035F94BB342 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -366,21 +366,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E71B64339580946034CCFBD9 /* [CP] Embed Pods Frameworks */ = {
+		DAE4F1BEB7AA9D50A3ABB3F4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FCA198B2649E0899FFFA60EA /* [CP] Copy Pods Resources */ = {

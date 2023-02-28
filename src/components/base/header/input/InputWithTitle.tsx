@@ -13,6 +13,7 @@ interface InputTypeProp {
   onTextChange?: (keyName: string, value: string) => void;
   onPress?: () => void;
   keyName?: string;
+  type?: any;
 }
 const InputWithTitle = memo(function InputWithTitle({
   title,
@@ -25,6 +26,7 @@ const InputWithTitle = memo(function InputWithTitle({
   onPress,
   onTextChange,
   keyName,
+  type,
 }: InputTypeProp) {
   // const [nameproduct, setNameproduct] = useState('');
   const onChange = useCallback(
@@ -45,6 +47,7 @@ const InputWithTitle = memo(function InputWithTitle({
         ) : null}
       </View>
       <TextInput
+        keyboardType={type}
         style={[
           styles.textInput,
           !check ? { borderBottomColor: COLORS.red1 } : null,
@@ -62,7 +65,7 @@ const InputWithTitle = memo(function InputWithTitle({
         </Text>
       ) : null}
       {leftIcon ? (
-        <Pressable onPress={onPress}>
+        <Pressable onPress={onPress} style={{ backgroundColor: 'red' }}>
           <Image source={leftIcon} style={styles.iconDrop} />
         </Pressable>
       ) : null}

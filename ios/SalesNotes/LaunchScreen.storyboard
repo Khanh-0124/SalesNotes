@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen" translatesAutoresizingMaskIntoConstraints="NO" id="CeQ-1K-SxP">
-                                <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="launch_screen" translatesAutoresizingMaskIntoConstraints="NO" id="CeQ-1K-SxP">
+                                <rect key="frame" x="0.0" y="59" width="430" height="932"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rYB-iC-Gzg"/>
