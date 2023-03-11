@@ -16,20 +16,69 @@ import { addQuantity, updateProduct, reset } from '../../../redux/productSlice';
 import DatePicker from 'react-native-date-picker';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import DraggableBottomSheet from 'components/common/BottomSheet';
+import HeaderBase from 'components/base/header/HeaderBase';
 
-const PayConfirmSheet = (pay: number, payClient: number, onTextChange: any) => {
+const PayConfirmSheet = (
+  pay: number,
+  payClient: number,
+  onTextChange: any,
+  navigation: any,
+) => {
+  let check = false;
+  if (pay - payClient > 0) {
+    check = true;
+  } else {
+    check = false;
+  }
   return (
-    <View>
-      <Text>{pay}</Text>
-      <InputWithTitle
-        request={false}
-        title="Khách trả"
-        placeholder="0.00đ"
-        keyName="payClient"
-        value={payClient}
-        onTextChange={onTextChange}
-        type="number-pad"
-      />
+    <View style={{ paddingHorizontal: 15 }}>
+      <Text
+        style={{
+          fontSize: 28,
+          color: COLORS.red2,
+          fontWeight: '600',
+          alignSelf: 'center',
+        }}>
+        {pay}
+      </Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={{ width: '85%' }}>
+          <InputWithTitle
+            request={false}
+            title="Khách trả"
+            placeholder="0.00đ"
+            keyName="payClient"
+            value={payClient}
+            onTextChange={onTextChange}
+            type="number-pad"
+          />
+        </View>
+      </View>
+      {check === true ? (
+        <View
+          style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 10 }}>
+          <Text
+            style={{
+              fontWeight: '600',
+            }}>{`Ghi nợ: `}</Text>
+          <Text
+            style={{
+              color: COLORS.red2,
+              fontWeight: '600',
+            }}>
+            {pay - payClient}
+          </Text>
+        </View>
+      ) : null}
+      <View style={{ marginTop: 200 }}>
+        <ButtonBase
+          title="Xác nhận"
+          onPress={() => {
+            return navigation.navigate('OrderBill', { pay, payClient });
+          }}
+          background
+        />
+      </View>
     </View>
   );
 };
@@ -79,6 +128,7 @@ const TrackingOrder = () => {
   let sum = 0;
   return (
     <View style={{ flex: 1 }}>
+      <HeaderBase title={'Xác nhận đơn hàng'} isIconLeft={false} />
       <ScrollView style={{ padding: 15 }}>
         <TouchableOpacity
           style={styles.addProduct}
@@ -301,6 +351,7 @@ const TrackingOrder = () => {
             sum,
             paramsCustom.payClient,
             onTextChange,
+            navigation,
           )}
           title="Xác nhận thanh toán"
           height={500}

@@ -6,8 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 
 interface HeaderBaseProps {
   title: string;
-  bgColor: string;
-  color: string;
+  bgColor?: string;
+  color?: string;
   isIconLeft?: boolean;
 }
 

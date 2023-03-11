@@ -11,6 +11,7 @@ import CameraFiles from './camera/CameraScreen';
 import ChatScreen from './chat/ChatScreen';
 import OrderTracking from './order/ordertracking/OrderTracking';
 import TrackingOrder from './order/tracking/TrackingOrder';
+import OrderBill from './order/tracking/OrderBill';
 
 export {
   NotifiScreen,
@@ -26,4 +27,5 @@ export {
   ChatScreen,
   OrderTracking,
   TrackingOrder,
+  OrderBill,
 };
