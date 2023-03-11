@@ -138,10 +138,8 @@ const TrackingOrder = () => {
         {products.listProducts.map((item: any, index: any) => {
           sum = products.pay - products.pay * (10 / 100) + 12000;
           return item.id !== 0 && item.touch !== 0 ? (
-            <View>
-              <View
-                key={index}
-                style={{ flexDirection: 'row', paddingVertical: 5 }}>
+            <View key={index}>
+              <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
                 <TouchableOpacity
                   onPress={() => {
                     dispatch(

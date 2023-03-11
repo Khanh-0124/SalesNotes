@@ -8,31 +8,18 @@ import {
 import React, { useState } from 'react';
 import { dataOrder } from 'utilities/data';
 import { COLORS } from 'assets/global/colors';
+import { useSelector } from 'react-redux';
 
 const OrderAll = () => {
-  const [data, setData] = useState(dataOrder);
+  const orders = useSelector((state: any) => state.orders.listOrders);
+  const [data, setData] = useState(orders);
   return (
     <ScrollView>
-      {data.map(item => (
+      {orders.map(item => (
         <TouchableOpacity
           activeOpacity={0.4}
           key={item.id}
-          style={{
-            backgroundColor: COLORS.white1,
-            marginVertical: 5,
-            marginHorizontal: 10,
-            padding: 15,
-            borderRadius: 8,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 1,
-            },
-            shadowOpacity: 0.22,
-            shadowRadius: 2.22,
-
-            elevation: 3,
-          }}>
+          style={styles.SOrder}>
           <View
             style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <View>
@@ -43,16 +30,7 @@ const OrderAll = () => {
                 {`${item.hours} - ${item.code}`}
               </Text>
             </View>
-            <View
-              style={{
-                backgroundColor: COLORS.green1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                alignSelf: 'center',
-                height: 25,
-                paddingHorizontal: 5,
-                borderRadius: 6,
-              }}>
+            <View style={styles.SCheck}>
               <Text style={{ color: COLORS.green2 }}>
                 {item.delivered === true ? 'Đã giao' : 'Chưa giao'}
               </Text>
@@ -87,4 +65,30 @@ const OrderAll = () => {
 
 export default React.memo(OrderAll);
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  SOrder: {
+    backgroundColor: COLORS.white1,
+    marginVertical: 5,
+    marginHorizontal: 10,
+    padding: 15,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
+  },
+  SCheck: {
+    backgroundColor: COLORS.green1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    height: 25,
+    paddingHorizontal: 5,
+    borderRadius: 6,
+  },
+});
