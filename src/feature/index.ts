@@ -12,6 +12,7 @@ import ChatScreen from './chat/ChatScreen';
 import OrderTracking from './order/ordertracking/OrderTracking';
 import TrackingOrder from './order/tracking/TrackingOrder';
 import OrderBill from './order/tracking/OrderBill';
+import ManagerProducts from './products/ManagerProducts';
 
 export {
   NotifiScreen,
@@ -28,4 +29,5 @@ export {
   OrderTracking,
   TrackingOrder,
   OrderBill,
+  ManagerProducts
 };

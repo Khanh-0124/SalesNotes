@@ -11,6 +11,7 @@ import {
   ChatScreen,
   OrderTracking,
   TrackingOrder,
+  ManagerProducts,
   OrderBill,
 } from 'feature/index';
 import DrawerNav from 'navigation/drawer/DrawerNav';
@@ -32,6 +33,14 @@ const ClientStack = () => {
       <Stack.Screen
         name="BottomTab"
         component={BottomTabs}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
+      <Stack.Screen
+        name="ManagerProducts"
+        component={ManagerProducts}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

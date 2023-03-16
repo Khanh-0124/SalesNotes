@@ -6,11 +6,11 @@ import { COLORS } from 'assets/global/colors';
 
 interface HeaderMultiIcons {
   title: string;
-  leftIcon: any;
-  firtRightIcon: any;
-  secondRightIcon: any;
-  thirdRightIcon: any;
-  lastIcon: any;
+  leftIcon?: any;
+  firtRightIcon?: any;
+  secondRightIcon?: any;
+  thirdRightIcon?: any;
+  lastIcon?: any;
 }
 const HeaderWithMultiIcon = ({
   title,
@@ -30,18 +30,21 @@ const HeaderWithMultiIcon = ({
         <Text style={styles.title}>{title}</Text>
       </View>
       <View style={styles.SIcons}>
-        <TouchableOpacity>
-          <Image source={firtRightIcon} style={{ height: 24, width: 24 }} />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Image source={secondRightIcon} style={{ height: 24, width: 24 }} />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Image source={thirdRightIcon} style={{ height: 24, width: 24 }} />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Image source={lastIcon} style={{ height: 24, width: 24 }} />
-        </TouchableOpacity>
+        {firtRightIcon ? (<TouchableOpacity>
+          <Image source={firtRightIcon} style={styles.icon} />
+        </TouchableOpacity>) : null}
+        {secondRightIcon ? (<TouchableOpacity>
+          <Image source={secondRightIcon} style={styles.icon} />
+        </TouchableOpacity>) : null}
+
+        {thirdRightIcon ? (<TouchableOpacity>
+          <Image source={thirdRightIcon} style={styles.icon} />
+        </TouchableOpacity>) : null}
+
+        {lastIcon ? (<TouchableOpacity>
+          <Image source={lastIcon} style={styles.icon} />
+        </TouchableOpacity>) : null}
+
       </View>
     </View>
   );
@@ -65,10 +68,11 @@ const styles = ScaledSheet.create({
   SIcons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '150@s',
+
   },
   headerIcon: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  icon: { height: 24, width: 24, marginHorizontal: 10 }
 });
