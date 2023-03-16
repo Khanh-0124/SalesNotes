@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Button,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,6 +18,8 @@ import DatePicker from 'react-native-date-picker';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import DraggableBottomSheet from 'components/common/BottomSheet';
 import HeaderBase from 'components/base/header/HeaderBase';
+import { launchImageLibrary } from 'react-native-image-picker';
+import ModalConfig from 'components/common/ModalConfig';
 
 const PayConfirmSheet = (
   pay: number,
@@ -92,6 +95,7 @@ const TrackingOrder = () => {
   const [paramsCustom, setParamsCustom] = useState({
     note: '',
     payClient: 0,
+    uri: ''
   });
   const onTextChange = useCallback((keyName: string, value: string) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
@@ -126,6 +130,34 @@ const TrackingOrder = () => {
     );
   };
   let sum = 0;
+  let options = {
+    savePhotos: true,
+    mediaType: 'photo',
+    includeBase64: true,
+    presentationStyle: 'overCurrentContext',
+    storageOptions: {
+      skipBackup: true,
+    },
+  };
+  const TakePhotoFromLibrary = useCallback(async () => {
+    const result = await launchImageLibrary(options);
+    let url = result.assets[0].uri;
+    setParamsCustom((state: any) => ({ ...state, ["uri"]: url }));
+  }, []);
+    const createThreeButtonAlert = () =>
+    Alert.alert('Chọn ảnh', 'Chọn ảnh ghi chú', [
+      {
+        text: 'Chọn ảnh có sẵn',
+        onPress: () => TakePhotoFromLibrary(),
+      },
+      {
+        text: 'Huỷ',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'Chụp ảnh mới', onPress: () => console.log('OK Pressed')},
+    ]);
+
   return (
     <View style={{ flex: 1 }}>
       <HeaderBase title={'Xác nhận đơn hàng'} isIconLeft={false} />
@@ -290,20 +322,21 @@ const TrackingOrder = () => {
             <Text style={{ color: COLORS.red1, fontWeight: '700' }}>{sum}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.Spay}>
-          <Text style={{ color: COLORS.blue3 }}>Thanh toán trước</Text>
-        </TouchableOpacity>
         <View style={styles.line} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ width: '80%' }}>
             <InputWithTitle title="" placeholder={'Ghi chú đơn hàng'} />
           </View>
-          <TouchableOpacity style={styles.imageSelect}>
+          <TouchableOpacity style={styles.imageSelect} onPress ={createThreeButtonAlert}>
             <Image
               style={{ height: 34, width: 34, tintColor: COLORS.blue3 }}
               source={require('assets/icons/png/ic_image.png')}
             />
           </TouchableOpacity>
+        </View>
+        <View>
+          { paramsCustom.uri !== '' ? (<Image style={{height: 24, width: 24}} source={{uri: paramsCustom.uri}}/>) : null
+          }
         </View>
         <View style={{ marginVertical: 15 }}>
           <TouchableOpacity onPress={() => setOpen(true)}>

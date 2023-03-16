@@ -11,6 +11,12 @@ import Content from './components/BottomSheetContent';
 import { useSelector, useDispatch } from 'react-redux';
 import InputPlus from './components/InputPlus';
 import { addProducts } from '../../redux/productSlice';
+import { useNavigation } from '@react-navigation/native';
+
+
+type NavigationType = {
+  navigate(value: string): void;
+}
 
 const CreateProduct = memo(function CreateProduct() {
   const [show, setShow] = useState(false);
@@ -25,11 +31,12 @@ const CreateProduct = memo(function CreateProduct() {
   // }, [])
   const GetInputData = (name: string, price: string, uri: any) => {
     // console.log('man tao sp:', name, price);
-    // console.log('uri', image);
     setName(name);
     setPrice(price);
     setImage(uri);
   };
+
+  const navigation = useNavigation<NavigationType>();
   return (
     <View
       // onPress={Keyboard.dismiss}
@@ -65,7 +72,7 @@ const CreateProduct = memo(function CreateProduct() {
                 touch: 0,
               }),
             );
-            // console.log(listProduct.length);
+            return navigation.navigate("CreateOrderScreen");
           }}
         />
       </View>
