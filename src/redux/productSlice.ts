@@ -3,15 +3,9 @@ export const productSlice = createSlice({
   name: 'products',
   initialState: {
     listProducts: [
+  
       {
         id: 0,
-        name: '+ Thêm sản phẩm',
-        // price: '10.000',
-        // remaining: 7,
-        // image: require('../assets/photos/img_slide1.png'),
-      },
-      {
-        id: 1,
         name: 'Nước tăng lực',
         price: 10000,
         remaining: `còn: ${7}`,

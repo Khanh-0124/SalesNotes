@@ -19,7 +19,6 @@ import ButtonBase from 'components/base/buttons/ButtonBase';
 import DraggableBottomSheet from 'components/common/BottomSheet';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { launchImageLibrary } from 'react-native-image-picker';
-import ModalConfig from 'components/common/ModalConfig';
 
 const PayConfirmSheet = (
   pay: number,
@@ -169,7 +168,7 @@ const TrackingOrder = () => {
         </TouchableOpacity>
         {products.listProducts.map((item: any, index: any) => {
           sum = products.pay - products.pay * (10 / 100) + 12000;
-          return item.id !== 0 && item.touch !== 0 ? (
+          return item.touch !== 0 ? (
             <View key={index}>
               <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
                 <TouchableOpacity
