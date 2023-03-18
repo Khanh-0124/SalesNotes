@@ -8,15 +8,18 @@ export const imageSlice = createSlice({
     addImage: (state, action) => {
       state.listImages.push({ id: action.payload.id, uri: action.payload.uri });
       // return [...state.listImages, action.payload.uri];
+    //  console.log(state.listImages)
     },
     deleteImage: (state, action) => {
       // console.log(action.payload);
       const id = action.payload.id;
       state.listImages = state.listImages.filter(item => item.id !== id);
-      console.log(state.listImages);
     },
+    reset: (state, action) => {
+      state.listImages= action.payload.reset
+    }
   },
 });
 
-export const { addImage, deleteImage } = imageSlice.actions;
+export const { addImage, deleteImage, reset } = imageSlice.actions;
 export default imageSlice.reducer;

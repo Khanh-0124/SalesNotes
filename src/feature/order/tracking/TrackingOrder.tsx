@@ -205,7 +205,7 @@ const TrackingOrder = () => {
                       width: 6,
                       tintColor: COLORS.white1,
                     }}
-                    source={require('../../../assets/icons/png/ic_x.png')}
+                    source={require('assets/icons/png/ic_x.png')}
                   />
                 </TouchableOpacity>
 

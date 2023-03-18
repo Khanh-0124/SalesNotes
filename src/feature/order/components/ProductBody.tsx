@@ -59,7 +59,7 @@ const ProductBody = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
   }, []);
   const listImages = useSelector((state: any) => state.images.listImages);
   const GetDataInput = (name: string, price: string) => {
-    getData(name, price, listImages[0]?.uri);
+    getData(name, price, listImages);
   };
   return (
     <ScrollView>

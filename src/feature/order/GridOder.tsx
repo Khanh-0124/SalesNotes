@@ -93,7 +93,7 @@ const GridOder = () => {
                 </View>
               ) : null}
               <Image
-                source={item.image}
+                source={{ uri: item.image[0]?.uri }}
                 style={styles.Simage}
                 resizeMode="cover"
               />

@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import InputPlus from './components/InputPlus';
 import { addProducts } from '../../redux/productSlice';
 import { useNavigation } from '@react-navigation/native';
+import { reset } from '../../redux/imageSlice';
 
 
 type NavigationType = {
@@ -35,7 +36,6 @@ const CreateProduct = memo(function CreateProduct() {
     setPrice(price);
     setImage(uri);
   };
-
   const navigation = useNavigation<NavigationType>();
   return (
     <View
@@ -66,12 +66,13 @@ const CreateProduct = memo(function CreateProduct() {
                 name: name,
                 price: price,
                 remaining: `còn: ${5}`,
-                image: {
-                  uri: image,
-                },
+                image: image,
                 touch: 0,
               }),
             );
+            dispath(reset({
+              reset: []
+            }))
             return navigation.navigate("CreateOrderScreen");
           }}
         />
