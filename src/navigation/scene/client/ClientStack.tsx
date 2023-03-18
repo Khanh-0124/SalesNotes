@@ -13,6 +13,7 @@ import {
   TrackingOrder,
   ManagerProducts,
   OrderBill,
+  ContainerUpdateDeatail
 } from 'feature/index';
 import DrawerNav from 'navigation/drawer/DrawerNav';
 import { WareHouse } from 'feature/report/tabview';
@@ -33,6 +34,14 @@ const ClientStack = () => {
       <Stack.Screen
         name="BottomTab"
         component={BottomTabs}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
+      <Stack.Screen
+        name="ContainerUpdateDeatail"
+        component={ContainerUpdateDeatail}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

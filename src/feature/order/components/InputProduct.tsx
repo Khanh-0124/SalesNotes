@@ -3,7 +3,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { COLORS } from 'assets/global/colors';
 import { ParamInputProductInterface } from 'feature/auth/type';
-import { useDispatch } from 'react-redux';
 
 interface InputProductInterface {
   onPress(): void;

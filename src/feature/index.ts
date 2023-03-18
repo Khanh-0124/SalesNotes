@@ -13,6 +13,8 @@ import OrderTracking from './order/ordertracking/OrderTracking';
 import TrackingOrder from './order/tracking/TrackingOrder';
 import OrderBill from './order/tracking/OrderBill';
 import ManagerProducts from './products/ManagerProducts';
+import ContainerUpdateDeatail from './products/components/ContainerUpdateDeatail';
+
 
 export {
   NotifiScreen,
@@ -29,5 +31,6 @@ export {
   OrderTracking,
   TrackingOrder,
   OrderBill,
+  ContainerUpdateDeatail,
   ManagerProducts
 };

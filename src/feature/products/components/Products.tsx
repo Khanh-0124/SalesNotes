@@ -1,11 +1,17 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
 import { FlatGrid } from 'react-native-super-grid';
+import { useNavigation } from '@react-navigation/native';
+
+type NavigationType = {
+  navigate(value: string): void
+}
 
 const Products = () => {
   const products = useSelector((state: any) => state.products);
+  const navigation = useNavigation<NavigationType>()
   return (
     <View style={{}}>
       <FlatGrid
@@ -15,7 +21,7 @@ const Products = () => {
         // staticDimension={300}
         // fixed
         spacing={15}
-        renderItem={({ item }) => (<TouchableOpacity style={styles.containerItem}>
+        renderItem={({ item }) => (<TouchableOpacity onPress={() => navigation.navigate("ContainerUpdateDeatail")} style={styles.containerItem}>
           <Image source={item.image} style={styles.image} resizeMode='cover' />
           <View style={{ width: '90%', height: 1, backgroundColor: COLORS.gray1, marginTop: 5, alignSelf: 'center' }} />
           <Text style={{ marginVertical: 5, marginLeft: 10 }}>{item.name}</Text>
@@ -23,6 +29,7 @@ const Products = () => {
         </TouchableOpacity>)}
         keyExtractor={item => item.id}
       />
+
     </View>
   )
 }
