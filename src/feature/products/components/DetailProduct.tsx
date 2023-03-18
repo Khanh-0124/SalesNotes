@@ -14,6 +14,7 @@ import { navigateToCameraFile } from 'utilities/navigation'
 import { addImage } from '../../../redux/imageSlice'
 import uuid from 'react-native-uuid';
 import { COLORS } from 'assets/global/colors'
+import AddIamgeProductUpdate from './AddIamgeProductUpdate'
 interface ProductBodyInterface {
   onShowBottomSheet(): void;
   getData: any;
@@ -54,7 +55,7 @@ const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => 
   }, []);
   const listImages = useSelector((state: any) => state.images.listImages);
   const GetDataInput = (name: string, price: string) => {
-    getData(name, price, listImages[0]?.uri);
+    getData(name, price, listImages);
   };
   return (
     <View>
@@ -74,7 +75,7 @@ const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => 
               onPress={TakePhotoFromCamera}
             />
           </View>
-          <AddIamgeProduct />
+          <AddIamgeProductUpdate />
         </View>
         <InputProduct onPress={onShowBottomSheet} dataInput={GetDataInput} />
         <CollapsibleComponents

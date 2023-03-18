@@ -11,8 +11,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import DetailProduct from './DetailProduct';
 import InputPlus from 'feature/order/components/InputPlus';
-import { addProducts } from '../../../redux/productSlice';
-
+import { addProducts, updateDetail } from '../../../redux/productSlice';
+import { useRoute } from '@react-navigation/native'
+import { imageSlice } from '../../../redux/imageSlice';
 
 type NavigationType = {
   navigate(value: string): void;
@@ -22,7 +23,7 @@ const ContainerUpdateDeatail = () => {
   const [show, setShow] = useState(false);
   const showInput = useSelector((state: any) => state.categorys.addCategory);
   const dispath = useDispatch();
-  const listProduct = useSelector((state: any) => state.products.listProducts);
+  const route = useRoute().params;
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState();
@@ -36,6 +37,7 @@ const ContainerUpdateDeatail = () => {
     setImage(uri);
   };
   const navigation = useNavigation<NavigationType>();
+  // console.log(image)
   return (
     <View>
       <DetailProduct onShowBottomSheet={() => {
@@ -44,24 +46,18 @@ const ContainerUpdateDeatail = () => {
         getData={GetInputData} />
       {/* footer component */}
       <View style={styles.SButton}>
-        <ButtonBase title="Tạo thêm" onPress={() => { }} />
+        <ButtonBase title="Xoá" onPress={() => { }} />
         <ButtonBase
-          title="Hoàn tất"
+          title="Cập nhật"
           background={true}
           onPress={() => {
             dispath(
-              addProducts({
-                id: listProduct.length,
-                name: name,
-                price: price,
-                remaining: `còn: ${5}`,
-                image: {
-                  uri: image,
-                },
-                touch: 0,
-              }),
-            );
-            return navigation.navigate("CreateOrderScreen");
+              updateDetail({
+                id: route.id,
+                image: image
+              })
+            )
+            return navigation.navigate("ManagerProducts");
           }}
         />
       </View>

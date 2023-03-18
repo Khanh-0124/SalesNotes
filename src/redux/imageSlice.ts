@@ -17,9 +17,12 @@ export const imageSlice = createSlice({
     },
     reset: (state, action) => {
       state.listImages= action.payload.reset
+    },
+    update: (state, action) => {
+      state.listImages = action.payload.imagesList;
     }
   },
 });
 
-export const { addImage, deleteImage, reset } = imageSlice.actions;
+export const { addImage, deleteImage, reset, update } = imageSlice.actions;
 export default imageSlice.reducer;

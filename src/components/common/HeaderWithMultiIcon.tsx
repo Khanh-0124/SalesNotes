@@ -3,7 +3,8 @@ import React from 'react';
 import { ScaledSheet } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
 import { COLORS } from 'assets/global/colors';
-
+import { useDispatch } from 'react-redux';
+import { update } from '../../redux/imageSlice';
 interface HeaderMultiIcons {
   title: string;
   leftIcon?: any;
@@ -11,6 +12,7 @@ interface HeaderMultiIcons {
   secondRightIcon?: any;
   thirdRightIcon?: any;
   lastIcon?: any;
+  clean?: any
 }
 const HeaderWithMultiIcon = ({
   title,
@@ -19,12 +21,19 @@ const HeaderWithMultiIcon = ({
   secondRightIcon,
   thirdRightIcon,
   lastIcon,
+  clean
 }: HeaderMultiIcons) => {
+  const dispath = useDispatch()
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.headerIcon}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => {
+          clean ? dispath(update({
+            imagesList: []
+          })) : null
+          return navigation.goBack()
+        }}>
           <Image source={leftIcon} style={{ height: 24, width: 24 }} />
         </TouchableOpacity>
         <Text style={styles.title}>{title}</Text>

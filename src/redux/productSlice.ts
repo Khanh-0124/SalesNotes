@@ -29,7 +29,6 @@ export const productSlice = createSlice({
         image: action.payload.image,
         touch: action.payload.touch,
       });
-      console.log(state.listProducts)
     },
     updateProduct: (state, action) => {
       state.listProducts[action.payload.id].touch = action.payload.touch;
@@ -42,9 +41,12 @@ export const productSlice = createSlice({
       state.quantity = action.payload.add;
       state.pay = action.payload.pay;
     },
+    updateDetail: (state, action) => {
+      state.listProducts[action.payload.id].image = action.payload.image
+    }
   },
 });
 
-export const { addProducts, updateProduct, addQuantity, reset } =
+export const { addProducts, updateProduct, addQuantity, reset, updateDetail } =
   productSlice.actions;
 export default productSlice.reducer;

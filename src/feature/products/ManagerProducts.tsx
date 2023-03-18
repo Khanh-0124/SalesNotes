@@ -9,7 +9,7 @@ const ManagerProducts = () => {
   const [select, setSelect] = useState(true)
   return (
     <View style={styles.Container}>
-      <HeaderWithMultiIcon title={'Quản lý'} firtRightIcon={require('assets/icons/png/ic_search.png')} secondRightIcon={require('assets/icons/png/ic_barcode.png')} thirdRightIcon={require('assets/icons/png/ic_sort.png')} />
+      <HeaderWithMultiIcon clean={true} title={'Quản lý'} firtRightIcon={require('assets/icons/png/ic_search.png')} secondRightIcon={require('assets/icons/png/ic_barcode.png')} thirdRightIcon={require('assets/icons/png/ic_sort.png')} />
       <View style={{ paddingHorizontal: 15 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'center', height: 50 }}>
           <TouchableOpacity onPress={() => { setSelect(true) }} style={{ alignSelf: 'center' }}>
