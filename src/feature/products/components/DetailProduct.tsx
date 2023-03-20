@@ -64,13 +64,13 @@ const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => 
         <View style={styles.STouchImage}>
           <View style={{ marginRight: 5 }}>
             <TakePhotos
-              title={listImages.length === 0 ? 'Tải ảnh lên' : ''}
+              title={listImages?.length === 0 ? 'Tải ảnh lên' : ''}
               photo={require('assets/icons/png/ic_add_image.png')}
               onPress={TakePhotoFromLibrary}
             />
 
             <TakePhotos
-              title={listImages.length === 0 ? 'Chụp ảnh' : ''}
+              title={listImages?.length === 0 ? 'Chụp ảnh' : ''}
               camera={require('assets/icons/png/ic_add_photo.png')}
               onPress={TakePhotoFromCamera}
             />

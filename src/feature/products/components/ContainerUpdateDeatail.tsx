@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import DetailProduct from './DetailProduct';
 import InputPlus from 'feature/order/components/InputPlus';
-import { addProducts, updateDetail } from '../../../redux/productSlice';
+import { addProducts, deleteProduct, updateDetail } from '../../../redux/productSlice';
 import { useRoute } from '@react-navigation/native'
 import { imageSlice } from '../../../redux/imageSlice';
 
@@ -37,7 +37,6 @@ const ContainerUpdateDeatail = () => {
     setImage(uri);
   };
   const navigation = useNavigation<NavigationType>();
-  // console.log(image)
   return (
     <View>
       <DetailProduct onShowBottomSheet={() => {
@@ -46,14 +45,19 @@ const ContainerUpdateDeatail = () => {
         getData={GetInputData} />
       {/* footer component */}
       <View style={styles.SButton}>
-        <ButtonBase title="Xoá" onPress={() => { }} />
+        <ButtonBase title="Xoá" onPress={() => {
+          dispath(deleteProduct({
+            id: route.id
+          }))
+          return navigation.navigate("ManagerProducts");
+        }} />
         <ButtonBase
           title="Cập nhật"
           background={true}
           onPress={() => {
             dispath(
               updateDetail({
-                id: route.id,
+                id: route?.id,
                 image: image
               })
             )

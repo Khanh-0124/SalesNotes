@@ -20,16 +20,18 @@ const ListStatis = () => {
       id: 1,
       title: 'Doanh thu',
       number: 0,
-      image: null,
+      image: require('assets/icons/png/ic_statistics.png'),
       color: COLORS.orange1,
+      bgColor: COLORS.orange2
     },
-    { id: 2, title: 'Đơn hàng', number: 0, image: null, color: COLORS.blue1 },
+    { id: 2, title: 'Đơn hàng', number: 0, image: require('../../../assets/icons/png/ic_clipboard.png'), color: COLORS.blue1, bgColor: COLORS.blue4 },
     {
       id: 3,
       title: 'Lợi nhuận',
       number: 0,
-      image: null,
+      image: require('assets/icons/png/ic_money.png'),
       color: COLORS.green1,
+      bgColor: COLORS.green3
     },
   ];
   return (
@@ -57,6 +59,7 @@ const ListStatis = () => {
             number={item.number}
             image={item.image}
             color={item.color}
+            bgColor={item.bgColor}
           />
         ))}
       </ScrollView>

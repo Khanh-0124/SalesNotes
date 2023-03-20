@@ -6,12 +6,14 @@ import { COLORS } from 'assets/global/colors';
 import { ScaledSheet } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
 import { navigateToOrderTrackingScreen } from 'utilities/navigation';
+import { useSelector } from 'react-redux';
 
 type NavigationType = {
   navigate(value: string) : void
 }
 
 const ListFeatureBox = () => {
+  const products = useSelector((state: any) => state.products.listProducts.length)
   const navigation = useNavigation<NavigationType>();
   const handleSubmit = useCallback((id: number) => {
     if (id === 1) {
@@ -38,9 +40,9 @@ const ListFeatureBox = () => {
           key={item.id}
           onPress={() => handleSubmit(item.id)}
           style={[styles.viewBox]}>
-          {item.amount !== 0 ? (
+          {item.id === 3 && products !== 0 ? (
             <View style={styles.iconNotify}>
-              <Text style={styles.amountText}>{item.amount}</Text>
+              <Text style={styles.amountText}>{products}</Text>
             </View>
           ) : null}
           <Image

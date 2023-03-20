@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ImageSourcePropType } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { COLORS } from 'assets/global/colors';
 import { normalize, WIDTH } from 'assets/global/layout';
@@ -8,10 +8,12 @@ interface ItemType {
   number: number;
   image?: any;
   color: string;
+  bgColor?: string
 }
-const ItemSlide = ({ title, number, image, color }: ItemType) => {
+const ItemSlide = ({ title, number, image, color, bgColor }: ItemType) => {
   return (
-    <View
+    <TouchableOpacity
+      activeOpacity={0.5}
       style={{
         backgroundColor: color,
         padding: 10,
@@ -20,11 +22,16 @@ const ItemSlide = ({ title, number, image, color }: ItemType) => {
         width: WIDTH * 0.4,
         marginTop: 10,
       }}>
-      <View>
+      <View style={{ flexDirection: 'row' }}>
+        <View style={{ padding: 10, backgroundColor: bgColor, borderRadius: 20, justifyContent: 'center', alignItems: 'center', marginRight: 10 }}>
+          <Image style={{ height: 18, width: 18, tintColor: 'white' }} source={image} />
+        </View>
+        <View>
         <Text style={{ fontSize: normalize(14) }}>{title}</Text>
         <Text style={{ fontSize: normalize(14) }}>{number}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

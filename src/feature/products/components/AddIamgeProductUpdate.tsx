@@ -33,7 +33,7 @@ const AddIamgeProductUpdate = () => {
       style={{
         flexDirection: 'row',
       }}>
-      {listImages.map((item: ImageInterface) => (
+      {listImages?.map((item: ImageInterface) => (
         <View key={item.id}>
           <Image source={{ uri: item.uri }} style={styles.imageFromList} />
           <TouchableOpacity
