@@ -2,8 +2,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS } from 'assets/global/colors'
 import HeaderWithMultiIcon from 'components/common/HeaderWithMultiIcon'
-import Products from './components/Products'
-import Categorys from './components/Categorys'
+import Products from './screens/Products'
+import Categorys from './screens/Categorys'
 
 const ManagerProducts = () => {
   const [select, setSelect] = useState(true)

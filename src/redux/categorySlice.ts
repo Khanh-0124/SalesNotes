@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const categorySlice = createSlice({
-  name: 'category',
+  name: 'categorys',
   initialState: {
     listCategory: [
       {
+        id: 0,
         name: 'Tất cả',
         image: null,
         tick: false,
+        products: []
       },
     ],
     addCategory: false,
@@ -15,9 +17,11 @@ export const categorySlice = createSlice({
   reducers: {
     addList: (state, action) => {
       state.listCategory.push({
+        id: action.payload.id,
         name: action.payload.addItem,
         image: action.payload.image,
         tick: action.payload.tick,
+        products: []
       });
     },
     updateList: (state, action) => {
@@ -26,8 +30,16 @@ export const categorySlice = createSlice({
     plusCate: (state, action) => {
       state.addCategory = action.payload.addCate;
     },
+    actionProducts: (state, action) => {
+      state.listCategory.map((item: any) => {
+        if(item.tick === true) {
+          item.products.push(action.payload.product)
+          // console.log(item.product)
+        }
+      })
+    }
   },
 });
 
-export const { addList, plusCate, updateList } = categorySlice.actions;
+export const { addList, plusCate, updateList, actionProducts } = categorySlice.actions;
 export default categorySlice.reducer;

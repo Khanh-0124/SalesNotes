@@ -37,7 +37,7 @@ const BottomSheetContent = () => {
                 addCate: true,
               }),
             );
-            console.log(showAddInputCategory);
+            // console.log(showAddInputCategory);
           }}
         />
         <View style={styles.wrapperCategory}>

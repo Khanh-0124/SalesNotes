@@ -14,7 +14,7 @@ import { navigateToCameraFile } from 'utilities/navigation'
 import { addImage } from '../../../redux/imageSlice'
 import uuid from 'react-native-uuid';
 import { COLORS } from 'assets/global/colors'
-import AddIamgeProductUpdate from './AddIamgeProductUpdate'
+import AddIamgeProductUpdate from '../components/AddIamgeProductUpdate'
 interface ProductBodyInterface {
   onShowBottomSheet(): void;
   getData: any;

@@ -9,7 +9,7 @@ import { WINDOW_HEIGHT } from '../../../utilities';
 import Content from 'feature/order/components/BottomSheetContent';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import DetailProduct from './DetailProduct';
+import DetailProduct from '../screens/DetailProduct';
 import InputPlus from 'feature/order/components/InputPlus';
 import { addProducts, deleteProduct, updateDetail } from '../../../redux/productSlice';
 import { useRoute } from '@react-navigation/native'

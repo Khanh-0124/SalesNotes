@@ -13,6 +13,7 @@ import InputPlus from './components/InputPlus';
 import { addProducts } from '../../redux/productSlice';
 import { useNavigation } from '@react-navigation/native';
 import { reset } from '../../redux/imageSlice';
+import { actionProducts } from '../../redux/categorySlice';
 
 
 type NavigationType = {
@@ -21,6 +22,7 @@ type NavigationType = {
 
 const CreateProduct = memo(function CreateProduct() {
   const [show, setShow] = useState(false);
+  const categorys = useSelector((state: any) => state.categorys.listCategory);
   const showInput = useSelector((state: any) => state.categorys.addCategory);
   const dispath = useDispatch();
   const listProduct = useSelector((state: any) => state.products.listProducts);
@@ -61,6 +63,20 @@ const CreateProduct = memo(function CreateProduct() {
           background={true}
           onPress={() => {
             dispath(
+              actionProducts(
+                {
+                  product: {
+                    id: listProduct.length,
+                    name: name,
+                    price: price,
+                    remaining: `còn: ${5}`,
+                    image: image,
+                    touch: 0,
+                  }
+                }
+              )
+            )
+            dispath(
               addProducts({
                 id: listProduct.length,
                 name: name,
@@ -73,6 +89,7 @@ const CreateProduct = memo(function CreateProduct() {
             dispath(reset({
               reset: []
             }))
+
             return navigation.navigate("CreateOrderScreen");
           }}
         />

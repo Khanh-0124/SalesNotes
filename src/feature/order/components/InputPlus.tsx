@@ -9,10 +9,11 @@ import React, { useState } from 'react';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { COLORS } from 'assets/global/colors';
 import { plusCate, addList } from '../../../redux/categorySlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const InputPlus = () => {
   const dispatch = useDispatch();
+  const categorys = useSelector((state: any) => state.categorys.listCategory);
   const [inputData, setInputData] = useState('');
   return (
     <View style={{ paddingHorizontal: 30 }}>
@@ -40,6 +41,7 @@ const InputPlus = () => {
           onPress={() => {
             dispatch(
               addList({
+                id: categorys.length,
                 addItem: inputData,
                 image: null,
                 tick: false,
