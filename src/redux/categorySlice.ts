@@ -37,9 +37,12 @@ export const categorySlice = createSlice({
           // console.log(item.product)
         }
       })
+    },
+    edit: (state, action) => {
+      state.listCategory[action.payload.id].name = action.payload.name 
     }
   },
 });
 
-export const { addList, plusCate, updateList, actionProducts } = categorySlice.actions;
+export const { addList, plusCate, updateList, actionProducts, edit } = categorySlice.actions;
 export default categorySlice.reducer;

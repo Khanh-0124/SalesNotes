@@ -13,6 +13,8 @@ interface HeaderMultiIcons {
   thirdRightIcon?: any;
   lastIcon?: any;
   clean?: any
+  onFirt?: any
+  onSecond?: any
 }
 const HeaderWithMultiIcon = ({
   title,
@@ -21,7 +23,9 @@ const HeaderWithMultiIcon = ({
   secondRightIcon,
   thirdRightIcon,
   lastIcon,
-  clean
+  clean,
+  onFirt,
+  onSecond
 }: HeaderMultiIcons) => {
   const dispath = useDispatch()
   const navigation = useNavigation();
@@ -39,10 +43,10 @@ const HeaderWithMultiIcon = ({
         <Text style={styles.title}>{title}</Text>
       </View>
       <View style={styles.SIcons}>
-        {firtRightIcon ? (<TouchableOpacity>
+        {firtRightIcon ? (<TouchableOpacity onPress={onFirt}> 
           <Image source={firtRightIcon} style={styles.icon} />
         </TouchableOpacity>) : null}
-        {secondRightIcon ? (<TouchableOpacity>
+        {secondRightIcon ? (<TouchableOpacity onPress={onSecond}>
           <Image source={secondRightIcon} style={styles.icon} />
         </TouchableOpacity>) : null}
 

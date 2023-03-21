@@ -12,7 +12,7 @@ const Categorys = () => {
   return (
     <View style={{ paddingHorizontal: 15 }}>
       {categorys.map((item: any, index: any) => {
-        return <TouchableOpacity onPress={() => navigation.navigate("CategoryDetail", { id: item.id })} style={styles.SContainer} key={index}>
+        return <TouchableOpacity onPress={() => navigation.navigate("CategoryDetail", { id: item.id, name: item.name })} style={styles.SContainer} key={index}>
           <Image
             source={
               item.image === null

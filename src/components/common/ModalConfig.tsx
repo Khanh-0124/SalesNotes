@@ -1,66 +1,73 @@
-import React, {useState} from 'react';
-
+import { COLORS } from 'assets/global/colors';
+import React from 'react';
 import {
-  Modal,
-  Button,
   View,
-  Text,
-  SafeAreaView,
   StyleSheet,
+  Button,
+  Modal,
+  Image,
+  Text,
+  TouchableOpacity,
+  Animated,
 } from 'react-native';
 
-const ModalConfig = () => {
-  const [showModal, setShowModal] = useState(false);
+type ModalType = {
+  visible: any,
+  children: any,
+  layout: any
+}
 
+const ModalConfig = ({ visible, children, layout }: ModalType) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  const scaleValue = React.useRef(new Animated.Value(0)).current;
+  React.useEffect(() => {
+    toggleModal();
+  }, [visible]);
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+      Animated.spring(scaleValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      setTimeout(() => setShowModal(false), 200);
+      Animated.timing(scaleValue, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-        <Modal
-          animationType={'slide'}
-          transparent={false}
-          visible={showModal}
-          onRequestClose={() => {
-            console.log('Modal has been closed.');
-          }}>
-          <View style={styles.modal}>
-            <Text style={styles.text}>Modal is open!</Text>
-            <Button
-              title="Click To Close Modal"
-              onPress={() => {
-                setShowModal(!showModal);
-              }}
-            />
-          </View>
-        </Modal>
-        <Button
-          title="Click To Open Modal"
-          onPress={() => {
-            setShowModal(!showModal);
-          }}
-        />
+    <Modal transparent visible={showModal}>
+      <View style={styles.modalBackGround}>
+        <Animated.View
+          style={[styles.modalContainer, { height: layout.height, width: layout.width, transform: [{ scale: scaleValue }] }]}>
+          {children}
+        </Animated.View>
       </View>
-    </SafeAreaView>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  modalBackGround: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
-    marginTop: 30,
-  },
-  modal: {
-    flex: 1,
     alignItems: 'center',
-    backgroundColor: '#00ff00',
-    padding: 100,
   },
-  text: {
-    color: '#3f2949',
-    marginTop: 10,
+  modalContainer: {
+    backgroundColor: 'white',
+    paddingVertical: 10,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 20,
   },
+
 });
 
 export default ModalConfig;
