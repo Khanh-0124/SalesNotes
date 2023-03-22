@@ -18,6 +18,7 @@ import {
 import DrawerNav from 'navigation/drawer/DrawerNav';
 import { WareHouse } from 'feature/report/tabview';
 import CategoryDetail from 'feature/products/screens/CategoryDetail';
+import AddProducts from 'feature/products/screens/AddProducts';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,14 @@ const ClientStack = () => {
       <Stack.Screen
         name="ContainerUpdateDeatail"
         component={ContainerUpdateDeatail}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
+      <Stack.Screen
+        name="AddProducts"
+        component={AddProducts}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

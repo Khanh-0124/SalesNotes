@@ -1,20 +1,22 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState } from 'react'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import HeaderWithMultiIcon from 'components/common/HeaderWithMultiIcon'
 import { COLORS } from 'assets/global/colors'
-import { edit } from '../../../redux/categorySlice'
+import { deleteCate, edit } from '../../../redux/categorySlice'
 import ModalConfig from 'components/common/ModalConfig'
 import ButtonBase from 'components/base/buttons/ButtonBase'
 
 const CategoryDetail = () => {
   const route = useRoute<any>().params
+  const navigation = useNavigation<any>()
   const dispatch = useDispatch()
   // const [name, setName] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [input, setInput] = useState('')
   const categorys = useSelector((state: any) => state.categorys.listCategory[route?.id]);
+  // console.log(categorys)
   const Edit = () => {
     dispatch(edit({
       id: route.id,
@@ -25,9 +27,14 @@ const CategoryDetail = () => {
   const f_show = () => {
     setShowModal(!showModal)
   }
+  const f_delete = () => {
+    dispatch(deleteCate({
+      id: route.id
+    }))
+  }
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.gray2 }}>
-      <HeaderWithMultiIcon title={input || route.name} firtRightIcon={require('assets/icons/png/ic_search.png')} secondRightIcon={require('assets/icons/png/ic_edit.png')} onSecond={f_show} thirdRightIcon={require('assets/icons/png/ic_delete.png')} />
+      <HeaderWithMultiIcon title={input || route.name} firtRightIcon={require('assets/icons/png/ic_search.png')} secondRightIcon={require('assets/icons/png/ic_edit.png')} onSecond={f_show} thirdRightIcon={require('assets/icons/png/ic_delete.png')} onThird={f_delete} />
       <ModalConfig visible={showModal} layout={{ height: '30%', width: '80%' }}>
         <View style={{ alignItems: 'center' }}>
           <View style={styles.header}>
@@ -62,6 +69,16 @@ const CategoryDetail = () => {
           </View>
         })
       }
+      {
+        categorys.products.length === 0 ? <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 100 }}>
+          <Image source={require('../../../assets/icons/png/ic_empty.png')} style={{ tintColor: COLORS.gray6 }} />
+          <Text style={{ color: COLORS.gray3, fontSize: 16, fontWeight: '400', marginTop: 40 }}>Chưa có sản phẩm nào trong danh mục</Text>
+          <View style={{ width: '90%', marginVertical: 30 }}>
+            <ButtonBase title='Thêm sản phẩm' background onPress={() => navigation.navigate("AddProducts", { name: route.name })} />
+          </View>
+        </View> : null
+      }
+
     </View>
   )
 }

@@ -13,7 +13,7 @@ import InputPlus from './components/InputPlus';
 import { addProducts } from '../../redux/productSlice';
 import { useNavigation } from '@react-navigation/native';
 import { reset } from '../../redux/imageSlice';
-import { actionProducts } from '../../redux/categorySlice';
+import { actionProducts, resetCate } from '../../redux/categorySlice';
 
 
 type NavigationType = {
@@ -89,7 +89,9 @@ const CreateProduct = memo(function CreateProduct() {
             dispath(reset({
               reset: []
             }))
-
+            dispath(resetCate({
+              set: false
+            }))
             return navigation.navigate("CreateOrderScreen");
           }}
         />
