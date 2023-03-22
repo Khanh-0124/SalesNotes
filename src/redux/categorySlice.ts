@@ -48,9 +48,12 @@ export const categorySlice = createSlice({
       state.productsNoCategory =  state.productsNoCategory.concat(newProdustNoCate)
       state.listCategory[action.payload.id].products = []
       console.log(state.productsNoCategory)
+    },
+    addCatePr:(state: any, action) => {
+      state.listCategory[action.payload.id].products.push(action.payload.items)
     }
   },
 });
 
-export const { addList, plusCate, updateList, actionProducts, edit, resetCate, deleteCate } = categorySlice.actions;
+export const { addList, plusCate, updateList, actionProducts, edit, resetCate, deleteCate, addCatePr } = categorySlice.actions;
 export default categorySlice.reducer;

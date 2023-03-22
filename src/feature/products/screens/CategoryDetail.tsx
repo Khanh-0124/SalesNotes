@@ -34,7 +34,7 @@ const CategoryDetail = () => {
   }
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.gray2 }}>
-      <HeaderWithMultiIcon title={input || route.name} firtRightIcon={require('assets/icons/png/ic_search.png')} secondRightIcon={require('assets/icons/png/ic_edit.png')} onSecond={f_show} thirdRightIcon={require('assets/icons/png/ic_delete.png')} onThird={f_delete} />
+      <HeaderWithMultiIcon title={input || route?.name} firtRightIcon={require('assets/icons/png/ic_search.png')} secondRightIcon={require('assets/icons/png/ic_edit.png')} onSecond={f_show} thirdRightIcon={require('assets/icons/png/ic_delete.png')} onThird={f_delete} />
       <ModalConfig visible={showModal} layout={{ height: '30%', width: '80%' }}>
         <View style={{ alignItems: 'center' }}>
           <View style={styles.header}>
@@ -60,7 +60,7 @@ const CategoryDetail = () => {
       </ModalConfig>
       {
         categorys.products.map((item: any, index: any) => {
-          return <View style={styles.SContainer}>
+          return <View key={index} style={styles.SContainer}>
             <Image source={{ uri: item.image[0]?.uri }} style={{ height: 54, width: 54, borderRadius: 10 }} />
             <View style={{ marginLeft: 10, justifyContent: 'space-between' }}>
               <Text>{item.name}</Text>
@@ -74,7 +74,7 @@ const CategoryDetail = () => {
           <Image source={require('../../../assets/icons/png/ic_empty.png')} style={{ tintColor: COLORS.gray6 }} />
           <Text style={{ color: COLORS.gray3, fontSize: 16, fontWeight: '400', marginTop: 40 }}>Chưa có sản phẩm nào trong danh mục</Text>
           <View style={{ width: '90%', marginVertical: 30 }}>
-            <ButtonBase title='Thêm sản phẩm' background onPress={() => navigation.navigate("AddProducts", { name: route.name })} />
+            <ButtonBase title='Thêm sản phẩm' background onPress={() => navigation.navigate("AddProducts", { name: route.name, id: route.id })} />
           </View>
         </View> : null
       }

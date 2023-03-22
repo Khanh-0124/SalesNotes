@@ -20,7 +20,7 @@ export const productSlice = createSlice({
     pay: 0,
   },
   reducers: {
-    addProducts: (state, action) => {
+    addProducts: (state: any, action) => {
       state.listProducts.push({
         id: action.payload.id,
         name: action.payload.name,
@@ -28,6 +28,7 @@ export const productSlice = createSlice({
         remaining: action.payload.remaining,
         image: action.payload.image,
         touch: action.payload.touch,
+        addCate: false
       });
     },
     updateProduct: (state, action) => {
@@ -51,10 +52,13 @@ export const productSlice = createSlice({
           item.id -= 1
         }
       })
+    },
+    addCategory: (state: any, action) => {
+      state.listProducts[action.payload?.id].addCate = !state.listProducts[action.payload?.id].addCate;
     }
   },
 });
 
-export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct } =
+export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct, addCategory } =
   productSlice.actions;
 export default productSlice.reducer;
