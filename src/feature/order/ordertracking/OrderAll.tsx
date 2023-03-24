@@ -15,7 +15,7 @@ const OrderAll = () => {
   const [data, setData] = useState(orders);
   return (
     <ScrollView>
-      {orders.map(item => (
+      {orders.map((item: any) => (
         <TouchableOpacity
           activeOpacity={0.4}
           key={item.id}

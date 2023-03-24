@@ -29,16 +29,45 @@ const CreateProduct = memo(function CreateProduct() {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState();
-  // const addField = useCallback(()=> {
-  //   if()
-  // }, [])
   const GetInputData = (name: string, price: string, uri: any) => {
-    // console.log('man tao sp:', name, price);
     setName(name);
     setPrice(price);
     setImage(uri);
   };
   const navigation = useNavigation<NavigationType>();
+  const handleSubmit = async (id: number, name: string, price: any, remaining: any, image: any, touch: number, nav: boolean) => {
+    dispath(
+      actionProducts(
+        {
+          product: {
+            id: id,
+            name: name,
+            price: price,
+            remaining: remaining,
+            image: image,
+            touch: touch,
+          }
+        }
+      )
+    )
+    dispath(
+      addProducts({
+        id: id,
+        name: name,
+        price: price,
+        remaining: remaining,
+        image: image,
+        touch: touch,
+      }),
+    );
+    dispath(reset({
+      reset: []
+    }))
+    dispath(resetCate({
+      set: false
+    }))
+    return nav ? navigation.navigate("CreateOrderScreen") : null;
+  }
   return (
     <View
       // onPress={Keyboard.dismiss}
@@ -57,43 +86,11 @@ const CreateProduct = memo(function CreateProduct() {
       />
       {/* footer component */}
       <View style={styles.SButton}>
-        <ButtonBase title="Tạo thêm" onPress={() => {}} />
+        <ButtonBase title="Tạo thêm" onPress={() => handleSubmit(listProduct.length, name, price, `còn: ${5}`, image, 0, false)} />
         <ButtonBase
           title="Hoàn tất"
           background={true}
-          onPress={() => {
-            dispath(
-              actionProducts(
-                {
-                  product: {
-                    id: listProduct.length,
-                    name: name,
-                    price: price,
-                    remaining: `còn: ${5}`,
-                    image: image,
-                    touch: 0,
-                  }
-                }
-              )
-            )
-            dispath(
-              addProducts({
-                id: listProduct.length,
-                name: name,
-                price: price,
-                remaining: `còn: ${5}`,
-                image: image,
-                touch: 0,
-              }),
-            );
-            dispath(reset({
-              reset: []
-            }))
-            dispath(resetCate({
-              set: false
-            }))
-            return navigation.navigate("CreateOrderScreen");
-          }}
+          onPress={() => handleSubmit(listProduct.length, name, price, `còn: ${5}`, image, 0, true)}
         />
       </View>
       {show ? (

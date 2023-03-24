@@ -25,9 +25,9 @@ const OrderTracking = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'first', title: 'Tất cả' },
-    { key: 'second', title: 'Chờ x.nhận' },
-    { key: 'third', title: 'Đang xử lý' },
-    { key: 'fourth', title: 'Đã giao' },
+    { key: 'second', title: 'Đang xử lý' },
+    { key: 'third', title: 'Đã giao' },
+    { key: 'fourth', title: 'Huỷ' },
     // { key: 'fifth', title: 'Trả hàng' },
     // { key: 'sixth', title: 'Huỷ' },
   ]);
