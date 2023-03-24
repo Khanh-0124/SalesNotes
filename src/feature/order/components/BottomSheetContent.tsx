@@ -73,10 +73,6 @@ const BottomSheetContent = () => {
           ))}
         </View>
         <View style={{ height: HEIGHT * 0.22 }} />
-        <View style={styles.SButton}>
-          <ButtonBase title="Quay lại" onPress={() => {}} />
-          <ButtonBase title="Cập nhật" background={true} onPress={() => {}} />
-        </View>
       </View>
     </>
   );

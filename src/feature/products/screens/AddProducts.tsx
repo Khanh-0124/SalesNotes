@@ -5,11 +5,13 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import { COLORS } from 'assets/global/colors'
 import { CheckBox, Icon } from '@rneui/themed';
-import { addCategory } from '../../../redux/productSlice'
+import { addCategory, delTickAddToCate } from '../../../redux/productSlice'
 import ButtonBase from 'components/base/buttons/ButtonBase'
 import { addCatePr } from '../../../redux/categorySlice'
+
 const AddProducts = () => {
   const products = useSelector((state: any) => state.products.listProducts);
+  const categorys = useSelector((state: any) => state.categorys.listCategory);
   const navigation = useNavigation<any>();
   const [checked, setChecked] = React.useState(false);
   const name = useRoute<any>().params.name;
@@ -22,6 +24,9 @@ const AddProducts = () => {
         items: item
       })
     )) : null)
+    dispatch(delTickAddToCate(
+      {}
+    ))
     return navigation.navigate("ManagerProducts")
   }
   return (

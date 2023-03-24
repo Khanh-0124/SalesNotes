@@ -46,11 +46,22 @@ export const categorySlice = createSlice({
     deleteCate: (state: any, action) => {
       let newProdustNoCate = state.listCategory[action.payload.id].products.filter((item: any) => !state.productsNoCategory.includes(item.id))
       state.productsNoCategory =  state.productsNoCategory.concat(newProdustNoCate)
-      state.listCategory[action.payload.id].products = []
-      console.log(state.productsNoCategory)
+      // state.listCategory[action.payload.id].products = []
+      const index = state.listCategory.findIndex((product: any) => product.id === action.payload.id);
+      state.listCategory?.splice(index, 1)
+      state.listCategory.map((item: any) => {
+        if(item.id > action.payload.id) {
+          item.id -= 1
+        }
+      })
+      // console.log(state.listCategory)
     },
     addCatePr:(state: any, action) => {
+      let count = 0;
+      state.listCategory[action.payload.id].products.filter((item: any) => action.payload.items.id == item?.id ? count ++ : null)
+      if( count ==0)
       state.listCategory[action.payload.id].products.push(action.payload.items)
+      // console.log( state.listCategory[action.payload.id].products)
     }
   },
 });

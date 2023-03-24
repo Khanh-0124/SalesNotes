@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,7 +16,10 @@ const CategoryDetail = () => {
   const [showModal, setShowModal] = useState(false)
   const [input, setInput] = useState('')
   const categorys = useSelector((state: any) => state.categorys.listCategory[route?.id]);
-  // console.log(categorys)
+  // const uniqueArr = categorys.products.filter((value: any, index: any, self: any) => {
+  //   return self.indexOf(value) === index;
+  // });
+  // console.log("tesst", uniqueArr)
   const Edit = () => {
     dispatch(edit({
       id: route.id,
@@ -31,10 +34,12 @@ const CategoryDetail = () => {
     dispatch(deleteCate({
       id: route.id
     }))
+    navigation.navigate("ManagerProducts")
   }
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.gray2 }}>
       <HeaderWithMultiIcon title={input || route?.name} firtRightIcon={require('assets/icons/png/ic_search.png')} secondRightIcon={require('assets/icons/png/ic_edit.png')} onSecond={f_show} thirdRightIcon={require('assets/icons/png/ic_delete.png')} onThird={f_delete} />
+      <ScrollView>
       <ModalConfig visible={showModal} layout={{ height: '30%', width: '80%' }}>
         <View style={{ alignItems: 'center' }}>
           <View style={styles.header}>
@@ -59,7 +64,7 @@ const CategoryDetail = () => {
         </View>
       </ModalConfig>
       {
-        categorys.products.map((item: any, index: any) => {
+          categorys?.products?.map((item: any, index: any) => {
           return <View key={index} style={styles.SContainer}>
             <Image source={{ uri: item.image[0]?.uri }} style={{ height: 54, width: 54, borderRadius: 10 }} />
             <View style={{ marginLeft: 10, justifyContent: 'space-between' }}>
@@ -70,7 +75,7 @@ const CategoryDetail = () => {
         })
       }
       {
-        categorys.products.length === 0 ? <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 100 }}>
+          categorys?.products.length === 0 ? <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 100 }}>
           <Image source={require('../../../assets/icons/png/ic_empty.png')} style={{ tintColor: COLORS.gray6 }} />
           <Text style={{ color: COLORS.gray3, fontSize: 16, fontWeight: '400', marginTop: 40 }}>Chưa có sản phẩm nào trong danh mục</Text>
           <View style={{ width: '90%', marginVertical: 30 }}>
@@ -78,7 +83,12 @@ const CategoryDetail = () => {
           </View>
         </View> : null
       }
-
+      </ScrollView>
+      {categorys?.products.length !== 0 ?
+        (<TouchableOpacity onPress={() => navigation.navigate("AddProducts", { name: route.name, id: route.id })} activeOpacity={0.5} style={{ position: 'absolute', bottom: 20, right: 15, padding: 10, backgroundColor: COLORS.primary, borderRadius: 50 }}>
+          <Text style={{ color: COLORS.white1 }}>+ Thêm sản phẩm</Text>
+        </TouchableOpacity>) : null
+      }
     </View>
   )
 }

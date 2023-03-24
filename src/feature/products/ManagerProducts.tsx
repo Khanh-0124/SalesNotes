@@ -4,9 +4,14 @@ import { COLORS } from 'assets/global/colors'
 import HeaderWithMultiIcon from 'components/common/HeaderWithMultiIcon'
 import Products from './screens/Products'
 import Categorys from './screens/Categorys'
+import { useDispatch, useSelector } from 'react-redux'
+import { addList, plusCate } from '../../redux/categorySlice'
 
 const ManagerProducts = () => {
   const [select, setSelect] = useState(true)
+  const categorys = useSelector((state: any) => state.categorys.listCategory);
+  const [inputData, setInputData] = useState('');
+  const dispatch = useDispatch();
   return (
     <View style={styles.Container}>
       <HeaderWithMultiIcon clean={true} title={'Quản lý'} firtRightIcon={require('assets/icons/png/ic_search.png')} secondRightIcon={require('assets/icons/png/ic_barcode.png')} thirdRightIcon={require('assets/icons/png/ic_sort.png')} />
@@ -26,6 +31,25 @@ const ManagerProducts = () => {
           select ? <Products /> : <Categorys />
         }
       </View>
+      {!select && (<TouchableOpacity onPress={() => {
+        dispatch(
+          addList({
+            id: categorys.length,
+            addItem: inputData,
+            image: null,
+            tick: false,
+          }),
+        );
+        dispatch(
+          plusCate({
+            addCate: false,
+          }),
+        );
+      }} activeOpacity={0.5}
+        style={{ position: 'absolute', bottom: 20, right: 15, padding: 10, backgroundColor: COLORS.primary, borderRadius: 50 }}>
+        <Text style={{ color: COLORS.white1 }}>+ Tạo danh mục</Text>
+      </TouchableOpacity>)}
+
     </View>
   )
 }

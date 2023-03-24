@@ -31,7 +31,7 @@ export const productSlice = createSlice({
         addCate: false
       });
     },
-    updateProduct: (state, action) => {
+    updateProduct: (state: any, action) => {
       state.listProducts[action.payload.id].touch = action.payload.touch;
     },
     addQuantity: (state, action) => {
@@ -42,7 +42,7 @@ export const productSlice = createSlice({
       state.quantity = action.payload.add;
       state.pay = action.payload.pay;
     },
-    updateDetail: (state, action) => {
+    updateDetail: (state: any, action) => {
       state.listProducts[action.payload.id].image = action.payload.image
     },
     deleteProduct: (state, action) => {
@@ -55,10 +55,13 @@ export const productSlice = createSlice({
     },
     addCategory: (state: any, action) => {
       state.listProducts[action.payload?.id].addCate = !state.listProducts[action.payload?.id].addCate;
+    },
+    delTickAddToCate  : (state: any, action) => {
+      state.listProducts.map((item: any) => item.addCate = false)
     }
   },
 });
 
-export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct, addCategory } =
+export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct, addCategory, delTickAddToCate } =
   productSlice.actions;
 export default productSlice.reducer;
