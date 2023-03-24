@@ -9,11 +9,13 @@ interface ItemType {
   image?: any;
   color: string;
   bgColor?: string
+  onPress?: () => void
 }
-const ItemSlide = ({ title, number, image, color, bgColor }: ItemType) => {
+const ItemSlide = ({ title, number, image, color, bgColor, onPress }: ItemType) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
+      onPress={onPress}
       style={{
         backgroundColor: color,
         padding: 10,

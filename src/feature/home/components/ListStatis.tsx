@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { COLORS } from 'assets/global/colors';
 import { normalize, WIDTH } from 'assets/global/layout';
 import * as Svg from 'assets/icons/svg/index';
@@ -14,7 +14,7 @@ import ItemSlide from './ItemSlide';
 import { useNavigation } from '@react-navigation/native';
 
 const ListStatis = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const listItemsSlide = [
     {
       id: 1,
@@ -24,7 +24,7 @@ const ListStatis = () => {
       color: COLORS.orange1,
       bgColor: COLORS.orange2
     },
-    { id: 2, title: 'Đơn hàng', number: 0, image: require('../../../assets/icons/png/ic_clipboard.png'), color: COLORS.blue1, bgColor: COLORS.blue4 },
+    { id: 2, title: 'Đơn hàng', number: 0, image: require('assets/icons/png/ic_clipboard.png'), color: COLORS.blue1, bgColor: COLORS.blue4 },
     {
       id: 3,
       title: 'Lợi nhuận',
@@ -34,6 +34,9 @@ const ListStatis = () => {
       bgColor: COLORS.green3
     },
   ];
+  const submit = useCallback((id: number) => {
+    id == 2 ? navigation.navigate("OrderTracking") : null
+  }, [])
   return (
     <View style={styles.container}>
       <View
@@ -54,6 +57,7 @@ const ListStatis = () => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {listItemsSlide.map((item, index) => (
           <ItemSlide
+            onPress={() => submit(item.id)}
             key={index}
             title={item.title}
             number={item.number}

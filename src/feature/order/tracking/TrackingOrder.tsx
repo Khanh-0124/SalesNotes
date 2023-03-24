@@ -7,6 +7,7 @@ import {
   Button,
   ScrollView,
   Alert,
+  TextInput,
 } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,6 +20,7 @@ import ButtonBase from 'components/base/buttons/ButtonBase';
 import DraggableBottomSheet from 'components/common/BottomSheet';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { launchImageLibrary } from 'react-native-image-picker';
+import ModalConfig from 'components/common/ModalConfig';
 
 const PayConfirmSheet = (
   pay: number,
@@ -91,6 +93,8 @@ const TrackingOrder = () => {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
+  const [name, setName] = useState('');
   const [paramsCustom, setParamsCustom] = useState({
     note: '',
     payClient: 0,
@@ -208,7 +212,6 @@ const TrackingOrder = () => {
                     source={require('assets/icons/png/ic_x.png')}
                   />
                 </TouchableOpacity>
-
                 <Image
                   source={item.image}
                   style={{
@@ -281,15 +284,66 @@ const TrackingOrder = () => {
           ) : null;
         })}
         {products.quantity !== 0 ? <View style={styles.line} /> : null}
-
+        <ModalConfig visible={show} onOffShow={() => setShow(false)} layout={{ height: '20%', width: '80%' }}>
+          <View style={{}}>
+            <TextInput placeholder='Nhập tên hoặc số điện thoại' />
+            <TouchableOpacity style={{ flexDirection: 'row', marginTop: 20 }}>
+              <Text style={{ color: COLORS.blue3 }}>Tạo mới</Text>
+              <View style={{ backgroundColor: COLORS.blue3, justifyContent: 'center', alignItems: 'center', borderRadius: 20, marginLeft: 200, paddingHorizontal: 5, padding: 1 }}>
+                <Text style={{ color: 'white' }}>+</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              setShow(false)
+              setName("Khách lẻ")
+            }} activeOpacity={0.4} style={{ marginTop: 20 }}>
+              <View style={{
+                flexDirection: 'row', alignItems: 'center'
+              }}>
+                <View style={{
+                  padding: 5, borderRadius: 50, borderWidth: 1, borderColor: COLORS.gray1,
+                  marginRight: 10
+                }}>
+                  <Image source={require('../../../assets/icons/png/ic_user.png')} style={{ tintColor: COLORS.gray4, width: 30, height: 30 }} />
+                </View>
+                <Text style={{ color: COLORS.blue3 }}>Khách lẻ</Text>
+              </View>
+            </TouchableOpacity>
+            <View>
+            </View>
+          </View>
+        </ModalConfig >
         <View style={{ paddingBottom: 10 }}>
-          <InputWithTitle
-            title="Khách hàng"
-            placeholder={'Chọn khách hàng'}
-            onPress={() => console.log('b')}
-            editable={false}
-            leftIcon={require('assets/icons/png/ic_add_image.png')}
-          />
+          {
+            !name ? (<InputWithTitle
+              title="Khách hàng"
+              placeholder={'Chọn khách hàng'}
+              onPress={() => setShow(true)}
+              editable={false}
+              leftIcon={require('assets/icons/png/ic_add_image.png')}
+            />) : <View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Image style={{ tintColor: COLORS.gray4, width: 30, height: 30, marginRight: 10 }} source={require('assets/icons/png/ic_user.png')} />
+                  <View>
+                    <Text style={{ fontSize: 16, fontWeight: '500' }}>{name}</Text>
+                    {/* <View style={{ flexDirection: 'row' }}>
+                      <Text>Phải thu: </Text>
+                      <Text style={{ color: COLORS.red2 }}>{'1000'} đ</Text>
+                    </View> */}
+                  </View>
+                </View>
+                <TouchableOpacity onPress={() => setName("")} style={{ marginRight: 15, alignSelf: 'center', borderRadius: 50, borderWidth: 1, borderColor: COLORS.gray3, paddingHorizontal: 5 }}>
+                  <Text style={{ alignSelf: 'center' }}>x</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{ paddingHorizontal: 0, marginTop: 10 }}>
+                <Text style={{ fontSize: 15, fontWeight: '500' }}>Địa chỉ</Text>
+                <TextInput placeholder='Nhập địa chỉ cụ thể' style={{ borderBottomWidth: 1, borderBottomColor: COLORS.gray1, paddingBottom: 10, marginTop: 10 }} />
+              </View>
+            </View>
+          }
+
         </View>
         <View style={styles.line} />
         <View>

@@ -9,15 +9,17 @@ import {
   Text,
   TouchableOpacity,
   Animated,
+  Pressable
 } from 'react-native';
 
 type ModalType = {
   visible: any,
   children: any,
-  layout: any
+  layout?: any,
+  onOffShow?: any
 }
 
-const ModalConfig = ({ visible, children, layout }: ModalType) => {
+const ModalConfig = ({ visible, children, layout, onOffShow }: ModalType) => {
   const [showModal, setShowModal] = React.useState(visible);
   const scaleValue = React.useRef(new Animated.Value(0)).current;
   React.useEffect(() => {
@@ -42,12 +44,12 @@ const ModalConfig = ({ visible, children, layout }: ModalType) => {
   };
   return (
     <Modal transparent visible={showModal}>
-      <View style={styles.modalBackGround}>
+      <Pressable onPress={onOffShow} style={styles.modalBackGround}>
         <Animated.View
           style={[styles.modalContainer, { height: layout.height, width: layout.width, transform: [{ scale: scaleValue }] }]}>
           {children}
         </Animated.View>
-      </View>
+      </Pressable>
     </Modal>
   );
 };
