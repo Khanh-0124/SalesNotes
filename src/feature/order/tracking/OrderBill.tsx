@@ -17,6 +17,7 @@ import ButtonBase from 'components/base/buttons/ButtonBase';
 import ViewShot from 'react-native-view-shot';
 import HeaderBase from 'components/base/header/HeaderBase';
 import Share from 'react-native-share';
+import { addListOrder } from '../../../redux/orderSlice';
 
 const BillPay = ({ title, value }: { title: string; value: number }) => {
   return (
@@ -33,7 +34,7 @@ const BillPay = ({ title, value }: { title: string; value: number }) => {
 };
 
 const OrderBill = () => {
-  const route = useRoute().params;
+  const route = useRoute<any>().params;
   const products = useSelector((state: any) => state.products);
   let i = 0;
   const ref = useRef();
@@ -53,6 +54,8 @@ const OrderBill = () => {
         });
     });
   };
+  // console.log(route.dateAhours)
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <HeaderBase title={'Chi tiết hoá đơn'} isIconLeft={false} />
@@ -77,11 +80,11 @@ const OrderBill = () => {
           <Text style={{ fontWeight: '600', fontSize: 15, marginVertical: 5 }}>
             HOÁ ĐƠN BÁN HÀNG
           </Text>
-          <Text>AMKHF - 11/3/23 12:52</Text>
+          <Text>{route.code} - {route.dateAhours}</Text>
         </View>
         <View style={{ flexDirection: 'row', marginVertical: 5 }}>
           <Text>Khách: </Text>
-          <Text style={{ fontWeight: '700' }}>Khách lẻ</Text>
+          <Text style={{ fontWeight: '700' }}>{route.name || "Khách lẻ"}</Text>
         </View>
         <View style={styles.dotted} />
         <View
@@ -96,7 +99,7 @@ const OrderBill = () => {
         </View>
         <View style={styles.line} />
         {products.listProducts.map((item: any, index: any) => {
-          if (item.touch !== 0 && item.id !== 0) {
+          if (item.touch !== 0) {
             return (
               <View key={index} style={{ marginTop: 10 }}>
                 <Text>{`${++i}. ${item.name}`}</Text>

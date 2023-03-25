@@ -21,12 +21,18 @@ import DraggableBottomSheet from 'components/common/BottomSheet';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { launchImageLibrary } from 'react-native-image-picker';
 import ModalConfig from 'components/common/ModalConfig';
+import { addListOrder } from '../../../redux/orderSlice';
 
 const PayConfirmSheet = (
   pay: number,
   payClient: number,
   onTextChange: any,
   navigation: any,
+  name: string,
+  dateAhours: string,
+  add: string,
+  dispathch: any,
+  orders: any
 ) => {
   let check = false;
   if (pay - payClient > 0) {
@@ -34,6 +40,15 @@ const PayConfirmSheet = (
   } else {
     check = false;
   }
+  function generateInvoiceCode() {
+    let code = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for (let i = 0; i < 6; i++) {
+      code += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return code;
+  }
+  let codde = generateInvoiceCode();
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <Text
@@ -43,7 +58,7 @@ const PayConfirmSheet = (
           fontWeight: '600',
           alignSelf: 'center',
         }}>
-        {pay}
+        {Math.round(pay)}
       </Text>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <View style={{ width: '85%' }}>
@@ -70,7 +85,7 @@ const PayConfirmSheet = (
               color: COLORS.red2,
               fontWeight: '600',
             }}>
-            {pay - payClient}
+            {Math.round(pay) - Math.round(payClient)}
           </Text>
         </View>
       ) : null}
@@ -78,7 +93,20 @@ const PayConfirmSheet = (
         <ButtonBase
           title="Xác nhận"
           onPress={() => {
-            return navigation.navigate('OrderBill', { pay, payClient });
+            dispathch(addListOrder({
+              id: orders.length,
+              name: name || "Khách lẻ",
+              hours: dateAhours,
+              code: codde,
+              delivered: true,
+              sum: pay,
+              paid: true,
+              ghino: false,
+              add: add,
+              // listProducts: 
+            }))
+            // console.log("Khanh name")
+            return navigation.navigate('OrderBill', { pay, payClient, name, dateAhours, add, code: codde });
           }}
           background
         />
@@ -89,16 +117,19 @@ const PayConfirmSheet = (
 const TrackingOrder = () => {
   const [showSheet, setShowSheet] = useState(false);
   const products = useSelector((state: any) => state.products);
+  const orders = useSelector((state: any) => state.orders.listOrders);
+  const dispathch = useDispatch()
   // const quantity = useSelector((state: any) => state.products.quantity);
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [name, setName] = useState('');
+  const [add, setAdd] = useState('');
   const [paramsCustom, setParamsCustom] = useState({
     note: '',
     payClient: 0,
-    uri: ''
+    uri: '',
   });
   const onTextChange = useCallback((keyName: string, value: string) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
@@ -160,7 +191,8 @@ const TrackingOrder = () => {
       },
       {text: 'Chụp ảnh mới', onPress: () => console.log('OK Pressed')},
     ]);
-
+  // let dateAhours = '';
+  const [dateAhours, setDateAhours] = useState('')
   return (
     <View style={{ flex: 1 }}>
       <HeaderBase title={'Xác nhận đơn hàng'} isIconLeft={false} />
@@ -304,7 +336,7 @@ const TrackingOrder = () => {
                   padding: 5, borderRadius: 50, borderWidth: 1, borderColor: COLORS.gray1,
                   marginRight: 10
                 }}>
-                  <Image source={require('../../../assets/icons/png/ic_user.png')} style={{ tintColor: COLORS.gray4, width: 30, height: 30 }} />
+                  <Image source={require('assets/icons/png/ic_user.png')} style={{ tintColor: COLORS.gray4, width: 30, height: 30 }} />
                 </View>
                 <Text style={{ color: COLORS.blue3 }}>Khách lẻ</Text>
               </View>
@@ -339,7 +371,7 @@ const TrackingOrder = () => {
               </View>
               <View style={{ paddingHorizontal: 0, marginTop: 10 }}>
                 <Text style={{ fontSize: 15, fontWeight: '500' }}>Địa chỉ</Text>
-                <TextInput placeholder='Nhập địa chỉ cụ thể' style={{ borderBottomWidth: 1, borderBottomColor: COLORS.gray1, paddingBottom: 10, marginTop: 10 }} />
+                  <TextInput placeholder='Nhập địa chỉ cụ thể' style={{ borderBottomWidth: 1, borderBottomColor: COLORS.gray1, paddingBottom: 10, marginTop: 10 }} value={add} onChangeText={(text) => setAdd(text)} />
               </View>
             </View>
           }
@@ -372,7 +404,7 @@ const TrackingOrder = () => {
           </View>
           <View style={styles.BoxItem}>
             <Text>Tổng cộng</Text>
-            <Text style={{ color: COLORS.red1, fontWeight: '700' }}>{sum}</Text>
+            <Text style={{ color: COLORS.red1, fontWeight: '700' }}>{Math.round(sum).toLocaleString('vi-VN')}</Text>
           </View>
         </View>
         <View style={styles.line} />
@@ -392,11 +424,16 @@ const TrackingOrder = () => {
           }
         </View>
         <View style={{ marginVertical: 15 }}>
-          <TouchableOpacity onPress={() => setOpen(true)}>
-            <Text style={{ fontSize: 15, color: COLORS.blue3 }}>
-              Ngày tạo: {date.getDate()}/{date.getUTCMonth()}/
+          <TouchableOpacity onPress={() => {
+            setOpen(true);
+          }}>
+            <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+              <Text style={{ fontSize: 15, color: COLORS.blue3 }}>Ngày tạo: </Text>
+              <Text style={{ fontSize: 15, color: COLORS.blue3 }}>
+                {date.getHours()}:{date.getMinutes()}  {date.getDate()}/{date.getUTCMonth()}/
               {date.getFullYear()}
             </Text>
+            </View>
           </TouchableOpacity>
           <DatePicker
             modal
@@ -426,6 +463,7 @@ const TrackingOrder = () => {
           background
           onPress={() => {
             setShowSheet(true);
+            setDateAhours(`${date.getHours()}:${date.getMinutes()}  ${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`)
           }}
         />
       </View>
@@ -436,6 +474,11 @@ const TrackingOrder = () => {
             paramsCustom.payClient,
             onTextChange,
             navigation,
+            name,
+            dateAhours,
+            add,
+            dispathch,
+            orders
           )}
           title="Xác nhận thanh toán"
           height={500}

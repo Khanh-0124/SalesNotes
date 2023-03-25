@@ -52,10 +52,9 @@ const OrderTracking = () => {
       <HeaderWithMultiIcon
         title={'Đơn hàng'}
         leftIcon={require('assets/icons/png/ic_left_arrow.png')}
-        firtRightIcon={true}
-        secondRightIcon={true}
-        thirdRightIcon={true}
-        lastIcon={true}
+        firtRightIcon={require('assets/icons/png/ic_search.png')}
+        secondRightIcon={require('assets/icons/png/ic_filter.png')}
+        thirdRightIcon={require('assets/icons/png/ic_more.png')}
       />
 
       <TabView

@@ -9,14 +9,20 @@ import React, { useState } from 'react';
 import { dataOrder } from 'utilities/data';
 import { COLORS } from 'assets/global/colors';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const OrderAll = () => {
   const orders = useSelector((state: any) => state.orders.listOrders);
   const [data, setData] = useState(orders);
+  const navigation = useNavigation<any>()
+  const submit = (id: number) => {
+    return navigation.navigate("DetailOrder", { id: id });
+  }
   return (
     <ScrollView>
       {orders.map((item: any) => (
         <TouchableOpacity
+          onPress={() => submit(item.id)}
           activeOpacity={0.4}
           key={item.id}
           style={styles.SOrder}>
