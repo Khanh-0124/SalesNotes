@@ -43,7 +43,13 @@ const DetailOrder = () => {
           <Text style={{ fontSize: 18, fontWeight: '500' }}>{order.name}</Text>
         </View>
         {/*  */}
-        <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}></View>
+        <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}>
+          <Text>Tổng 1 sản phẩm</Text>
+          <Text>Khuyến mãi</Text>
+          <Text>Phí vận chuyển</Text>
+          <Text>Chiết khấu</Text>
+          <Text>Tổng cộng</Text>
+        </View>
         {/*  */}
         <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}></View>
         {/*  */}
