@@ -47,7 +47,13 @@ const DetailOrder = () => {
         {/*  */}
         <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}></View>
         {/*  */}
-        <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}></View>
+        {/* <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.tracking}>Chờ xác nhận</Text>
+            <Text style={styles.tracking}>Đang xử lý</Text>
+            <Text style={styles.tracking}>Đã giao</Text>
+          </View>
+        </View> */}
         {/* footer */}
       </ScrollView >
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15, position: 'absolute', bottom: 10, width: '100%', backgroundColor: 'white', paddingVertical: 10 }}>
@@ -66,5 +72,9 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: COLORS.gray1,
     marginTop: 8
+  },
+  tracking: {
+    fontSize: 15,
+    color: "#333"
   }
 })
