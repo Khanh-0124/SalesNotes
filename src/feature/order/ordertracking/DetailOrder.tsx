@@ -1,17 +1,19 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native'
+import React, { useCallback } from 'react'
 import HeaderBase from 'components/base/header/HeaderBase'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
 import HeaderWithMultiIcon from 'components/common/HeaderWithMultiIcon'
 import { COLORS } from 'assets/global/colors'
 import ButtonBase from 'components/base/buttons/ButtonBase'
-
 const DetailOrder = () => {
   const route = useRoute<any>().params
   const order = useSelector((state: any) => state.orders.listOrders[route.id]);
   console.log(order)
-
+  const navigation = useNavigation<any>()
+  const sendOrder = (code: string, dateAhours: string, name: string, sum: any) => {
+    return navigation.navigate("OrderBill", { code, dateAhours, name, pay: sum });
+  }
   return (
     <View style={{ flex: 1 }}>
       <HeaderWithMultiIcon title='Chi tiết hoá đơn' firtRightIcon={{}} />
@@ -31,7 +33,7 @@ const DetailOrder = () => {
           <View>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
               <Text style={{ fontSize: 30, fontWeight: '500' }}>{Math.round(order.sum)} VND</Text>
-              <TouchableOpacity activeOpacity={0.5} style={{ backgroundColor: COLORS.green2, borderRadius: 10, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 10 }}>
+              <TouchableOpacity onPress={() => sendOrder(order.code, order.hours, order.name, order.sum)} activeOpacity={0.5} style={{ backgroundColor: COLORS.green2, borderRadius: 10, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 10 }}>
                 <Text style={{ fontSize: 12, color: 'white' }}>Gửi hoá đơn</Text>
               </TouchableOpacity>
             </View>
@@ -42,6 +44,31 @@ const DetailOrder = () => {
         {/*  */}
         <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}>
           <Text style={{ fontSize: 18, fontWeight: '500' }}>{order.name}</Text>
+        </View>
+        <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 10 }}>
+          <View>
+            {
+              order.listProducts.map((item: any, index: any) => {
+                // console.log(order.listProducts.indexOf(item))
+                return <View key={index} >
+                  <View style={{ flexDirection: 'row' }}>
+                    <Image style={{ height: 45, width: 45, borderRadius: 5, marginRight: 10 }} source={{ uri: item.image[0].uri }} />
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '80%' }}>
+                      <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <Text>{item.name}</Text>
+                        <Text>{item.price} đ</Text>
+                      </View>
+                      <Text style={{ marginTop: 15 }}>SL: {item.touch}</Text>
+                    </View>
+                  </View>
+                  {
+                    order.listProducts.indexOf(item) === order.listProducts.length - 1 ? null : <View style={{ width: '100%', height: 1, backgroundColor: COLORS.gray1, marginVertical: 10 }} />
+                  }
+
+                </View>
+              })
+            }
+          </View>
         </View>
         {/*  */}
         <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}>
