@@ -38,9 +38,15 @@ export const productSlice = createSlice({
       state.quantity = action.payload.add;
       state.pay += action.payload.pay;
     },
-    reset: (state, action) => {
+    reset: (state: any, action) => {
       state.quantity = action.payload.add;
       state.pay = action.payload.pay;
+      if(action.payload.touch  == 0) {
+        state.quantity = 0
+        state.pay = 0
+        state.listProducts.map((item: any) => item.touch = 0)
+        
+      }
     },
     updateDetail: (state: any, action) => {
       state.listProducts[action.payload.id].image = action.payload.image

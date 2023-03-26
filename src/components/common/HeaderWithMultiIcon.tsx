@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { COLORS } from 'assets/global/colors';
 import { useDispatch } from 'react-redux';
 import { update } from '../../redux/imageSlice';
+import { reset } from '../../redux/productSlice';
 interface HeaderMultiIcons {
   title: string;
   leftIcon?: any;
@@ -35,9 +36,12 @@ const HeaderWithMultiIcon = ({
     <View style={styles.container}>
       <View style={styles.headerIcon}>
         <TouchableOpacity onPress={() => {
-          clean ? dispath(update({
+          if (clean === true) {
+            dispath(update({
             imagesList: []
-          })) : null
+            }))
+            dispath(reset({ touch: 0 }))
+          }
           return navigation.goBack()
         }}>
           <Image source={leftIcon} style={{ height: 24, width: 24 }} />
