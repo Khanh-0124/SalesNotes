@@ -23,13 +23,11 @@ const Products = () => {
         // staticDimension={300}
         // fixed
         spacing={15}
-        renderItem={({ item }) => (<TouchableOpacity onPress={() => {
-          console.log("index del: ", products.listProducts.indexOf(item))
-          console.log("idupdate: ", item.id)
+        renderItem={({ item, index }) => (<TouchableOpacity onPress={() => {
           dispath(update({
             imagesList: products.listProducts[item.id]?.image
           }))
-          return navigation.navigate("ContainerUpdateDeatail", { id: products.listProducts.indexOf(item), idUpdate: item.id })
+          return navigation.navigate("ContainerUpdateDeatail", { id: index, idUpdate: item.id })
         }} style={styles.containerItem}>
           <Image source={item.image} style={styles.image} resizeMode='cover' />
           <View style={{ width: '90%', height: 1, backgroundColor: COLORS.gray1, marginTop: 5, alignSelf: 'center' }} />

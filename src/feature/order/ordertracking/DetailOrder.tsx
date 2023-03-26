@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, FlatList } from 'react-native'
 import React, { useCallback } from 'react'
 import HeaderBase from 'components/base/header/HeaderBase'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -46,29 +46,25 @@ const DetailOrder = () => {
           <Text style={{ fontSize: 18, fontWeight: '500' }}>{order.name}</Text>
         </View>
         <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 10 }}>
-          <View>
-            {
-              order.listProducts.map((item: any, index: any) => {
-                // console.log(order.listProducts.indexOf(item))
-                return <View key={index} >
-                  <View style={{ flexDirection: 'row' }}>
-                    <Image style={{ height: 45, width: 45, borderRadius: 5, marginRight: 10 }} source={{ uri: item.image[0].uri }} />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '80%' }}>
-                      <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
-                        <Text>{item.name}</Text>
-                        <Text>{item.price} đ</Text>
-                      </View>
-                      <Text style={{ marginTop: 15 }}>SL: {item.touch}</Text>
+          <FlatList
+            data={order.listProducts}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item, index }) => (
+              <View>
+                <View style={{ flexDirection: 'row' }}>
+                  <Image style={{ height: 45, width: 45, borderRadius: 5, marginRight: 10 }} source={{ uri: item.image[0]?.uri }} />
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '80%' }}>
+                    <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <Text>{item.name}</Text>
+                      <Text>{item.price} đ</Text>
                     </View>
+                    <Text style={{ marginTop: 15 }}>SL: {item.touch}</Text>
                   </View>
-                  {
-                    order.listProducts.indexOf(item) === order.listProducts.length - 1 ? null : <View style={{ width: '100%', height: 1, backgroundColor: COLORS.gray1, marginVertical: 10 }} />
-                  }
-
                 </View>
-              })
-            }
-          </View>
+                {index === order.listProducts.length - 1 ? null : <View style={{ width: '100%', height: 1, backgroundColor: COLORS.gray1, marginVertical: 10 }} />}
+              </View>
+            )}
+          />
         </View>
         {/*  */}
         <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}>

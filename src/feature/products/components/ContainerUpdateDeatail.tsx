@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import HeaderBase from 'components/base/header/HeaderBase';
 import { COLORS } from 'assets/global/colors';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { ScaledSheet } from 'react-native-size-matters';
@@ -13,7 +12,6 @@ import DetailProduct from '../screens/DetailProduct';
 import InputPlus from 'feature/order/components/InputPlus';
 import { addProducts, deleteProduct, updateDetail } from '../../../redux/productSlice';
 import { useRoute } from '@react-navigation/native'
-import { imageSlice } from '../../../redux/imageSlice';
 
 type NavigationType = {
   navigate(value: string): void;
@@ -37,6 +35,10 @@ const ContainerUpdateDeatail = () => {
     setImage(uri);
   };
   const navigation = useNavigation<NavigationType>();
+  const handleUpdate = useCallback(() => {
+    dispath(updateDetail({ id: route?.id, image: image }));
+    return navigation.navigate("ManagerProducts");
+  }, [dispath, navigation, route?.id, image]);
   return (
     <View>
       <DetailProduct onShowBottomSheet={() => {
@@ -54,15 +56,7 @@ const ContainerUpdateDeatail = () => {
         <ButtonBase
           title="Cập nhật"
           background={true}
-          onPress={() => {
-            dispath(
-              updateDetail({
-                id: route?.id,
-                image: image
-              })
-            )
-            return navigation.navigate("ManagerProducts");
-          }}
+          onPress={() => handleUpdate()}
         />
       </View>
       {show ? (

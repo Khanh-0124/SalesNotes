@@ -43,7 +43,7 @@ const HeaderWithMultiIcon = ({
               Alert.alert('', 'Thoát và những gì thao tác sẽ không được lưu?', [
                 {
                   text: 'Tiếp tục',
-                  onPress: async () => {
+                  onPress: () => {
                     if (clean === true) {
                       dispath(update({
                         imagesList: []
