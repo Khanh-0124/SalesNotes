@@ -11,6 +11,7 @@ const DetailOrder = () => {
   const route = useRoute<any>().params
   const order = useSelector((state: any) => state.orders.listOrders[route.id]);
   console.log(order)
+
   return (
     <View style={{ flex: 1 }}>
       <HeaderWithMultiIcon title='Chi tiết hoá đơn' firtRightIcon={{}} />
@@ -44,20 +45,40 @@ const DetailOrder = () => {
         </View>
         {/*  */}
         <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}>
-          <Text>Tổng 1 sản phẩm</Text>
-          <Text>Khuyến mãi</Text>
-          <Text>Phí vận chuyển</Text>
-          <Text>Chiết khấu</Text>
-          <Text>Tổng cộng</Text>
+          <View style={styles.SItem}>
+            <Text>Tổng {order.listProducts.length} sản phẩm</Text>
+            <Text>{order.sum}</Text>
+          </View>
+          <View style={styles.SItem}>
+            <Text>Khuyến mãi</Text>
+            <Text>- {`0`}</Text>
+          </View>
+          <View style={styles.SItem}>
+            <Text>Phí vận chuyển</Text>
+            <Text>- {`0`}</Text>
+          </View>
+          <View style={styles.SItem}> 
+            <Text>Chiết khấu</Text>
+            <Text>- {`0`}</Text>
+          </View>
+          <View style={styles.SItem}>
+            <Text>Tổng cộng</Text>
+            <Text>{order.sum}</Text>
+          </View>
         </View>
         {/*  */}
-        <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}></View>
+        {/* <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}></View> */}
         {/*  */}
         {/* <View style={{ backgroundColor: 'white', paddingHorizontal: 15, marginTop: 10, paddingVertical: 15 }}>
           <View style={{ flexDirection: 'row' }}>
-            <Text style={styles.tracking}>Chờ xác nhận</Text>
-            <Text style={styles.tracking}>Đang xử lý</Text>
-            <Text style={styles.tracking}>Đã giao</Text>
+            <View style={{ flexDirection: 'column' }}>
+              <View style={{ height: 1, width: '100%', backgroundColor: COLORS.primary }} />
+              <Text style={styles.tracking}>Đang xử lý</Text>
+            </View>
+            <View style={{ flexDirection: 'column' }}>
+              <View style={{ height: 1, width: '100%', backgroundColor: COLORS.primary }} />
+              <Text style={styles.tracking}>Đã giao</Text>
+            </View>
           </View>
         </View> */}
         {/* footer */}
@@ -82,5 +103,6 @@ const styles = StyleSheet.create({
   tracking: {
     fontSize: 15,
     color: "#333"
-  }
+  },
+  SItem: { marginVertical: 15, flexDirection: 'row', justifyContent: 'space-between' }
 })

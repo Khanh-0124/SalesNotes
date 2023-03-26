@@ -32,7 +32,8 @@ const PayConfirmSheet = (
   dateAhours: string,
   add: string,
   dispathch: any,
-  orders: any
+  orders: any,
+  products: any
 ) => {
   let check = false;
   if (pay - payClient > 0) {
@@ -49,6 +50,8 @@ const PayConfirmSheet = (
     return code;
   }
   let codde = generateInvoiceCode();
+  let productsOrder = products.filter((item: any) => item.touch !== 0)
+  console.log(productsOrder, "as")
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <Text
@@ -103,7 +106,7 @@ const PayConfirmSheet = (
               paid: true,
               ghino: false,
               add: add,
-              // listProducts: 
+              products: productsOrder
             }))
             // console.log("Khanh name")
             return navigation.navigate('OrderBill', { pay, payClient, name, dateAhours, add, code: codde });
@@ -120,7 +123,7 @@ const TrackingOrder = () => {
   const orders = useSelector((state: any) => state.orders.listOrders);
   const dispathch = useDispatch()
   // const quantity = useSelector((state: any) => state.products.quantity);
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
@@ -141,6 +144,8 @@ const TrackingOrder = () => {
         id: id,
         touch: touch + 1,
       }),
+
+
     );
     dispatch(
       addQuantity({
@@ -478,7 +483,8 @@ const TrackingOrder = () => {
             dateAhours,
             add,
             dispathch,
-            orders
+            orders,
+            products.listProducts
           )}
           title="Xác nhận thanh toán"
           height={500}
