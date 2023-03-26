@@ -23,7 +23,8 @@ const CreateOrderScreen = () => {
   return (
     <View style={styles.container}>
       <HeaderWithMultiIcon
-        clean={true}
+        clean={quantity > 0 ? true : false}
+        ask={quantity > 0 ? true : false}
         title={'Bán hàng'}
         leftIcon={require('assets/icons/png/ic_left_arrow.png')}
         firtRightIcon={require('assets/icons/png/ic_search.png')}

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import React from 'react';
 import { ScaledSheet } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
@@ -17,6 +17,7 @@ interface HeaderMultiIcons {
   onFirt?: any
   onSecond?: any,
   onThird?: any
+  ask?: any
 }
 const HeaderWithMultiIcon = ({
   title,
@@ -28,19 +29,37 @@ const HeaderWithMultiIcon = ({
   clean,
   onFirt,
   onSecond,
-  onThird
+  onThird,
+  ask
 }: HeaderMultiIcons) => {
   const dispath = useDispatch()
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.headerIcon}>
-        <TouchableOpacity onPress={() => {
-          if (clean === true) {
-            dispath(update({
-            imagesList: []
-            }))
-            dispath(reset({ touch: 0 }))
+        <TouchableOpacity onPress={async () => {
+          if (ask) {
+            await new Promise((resolve) => {
+              Alert.alert('', 'Thoát và những gì thao tác sẽ không được lưu?', [
+                {
+                  text: 'Tiếp tục',
+                  onPress: async () => {
+                    if (clean === true) {
+                      dispath(update({
+                        imagesList: []
+                      }))
+                      dispath(reset({ touch: 0 }))
+                    }
+                    resolve();
+                  },
+                },
+                {
+                  text: 'Huỷ',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+              ]);
+            });
           }
           return navigation.goBack()
         }}>
