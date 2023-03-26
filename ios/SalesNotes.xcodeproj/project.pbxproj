@@ -166,7 +166,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				B4449419D52247271734A889 /* [CP] Copy Pods Resources */,
-				710FC3A2699111A04B783FBA /* [CP] Embed Pods Frameworks */,
+				C3FE92B7E89E40B38B82B525 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -190,7 +190,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				FCA198B2649E0899FFFA60EA /* [CP] Copy Pods Resources */,
 				9ACE1BC2FCBC51D453D658F0 /* [CP-User] [RNFB] Core Configuration */,
-				C25810D671D3F24DE08906EC /* [CP] Embed Pods Frameworks */,
+				2B2EA988AFB27CBE8E38224A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -275,21 +275,21 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		710FC3A2699111A04B783FBA /* [CP] Embed Pods Frameworks */ = {
+		2B2EA988AFB27CBE8E38224A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		985A154A9D1CB9F77766420A /* [CP] Check Pods Manifest.lock */ = {
@@ -344,21 +344,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C25810D671D3F24DE08906EC /* [CP] Embed Pods Frameworks */ = {
+		C3FE92B7E89E40B38B82B525 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes/Pods-SalesNotes-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SalesNotes-SalesNotesTests/Pods-SalesNotes-SalesNotesTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C73E63FC4D6C3035F94BB342 /* [CP] Check Pods Manifest.lock */ = {
