@@ -25,7 +25,7 @@ export const orderSlice = createSlice({
         state.listOrders.push({
         id: action.payload.id,
         name: action.payload.name,
-        hours: action.payload.hours,
+        date: action.payload.hours,
         code: action.payload.code,
         delivered: true,
         // price: action.payload.price,

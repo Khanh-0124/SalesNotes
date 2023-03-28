@@ -4,6 +4,7 @@ import imagesReducer from './imageSlice';
 import categoryReducer from './categorySlice';
 import productReducer from './productSlice';
 import orderReducer from './orderSlice';
+import clientReducer from './clientSlice';
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     categorys: categoryReducer,
     products: productReducer,
     orders: orderReducer,
+    clients: clientReducer
   },
 });

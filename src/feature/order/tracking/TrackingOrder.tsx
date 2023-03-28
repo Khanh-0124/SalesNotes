@@ -29,7 +29,10 @@ const PayConfirmSheet = (
   onTextChange: any,
   navigation: any,
   name: string,
-  dateAhours: string,
+  datte: any,
+  hours: string,
+  month: number,
+  year: number,
   add: string,
   dispathch: any,
   orders: any,
@@ -99,7 +102,12 @@ const PayConfirmSheet = (
             dispathch(addListOrder({
               id: orders.length,
               name: name || "Khách lẻ",
-              hours: dateAhours,
+              date: {
+                hours: hours,
+                date: datte,
+                month: month,
+                year: year,
+              },
               code: codde,
               delivered: true,
               sum: pay,
@@ -109,7 +117,7 @@ const PayConfirmSheet = (
               products: productsOrder
             }))
             // console.log("Khanh name")
-            return navigation.navigate('OrderBill', { pay, payClient, name, dateAhours, add, code: codde });
+            return navigation.navigate('OrderBill', { pay, payClient, name, hours, datte, month, year, add, code: codde });
           }}
           background
         />
@@ -197,7 +205,10 @@ const TrackingOrder = () => {
       {text: 'Chụp ảnh mới', onPress: () => console.log('OK Pressed')},
     ]);
   // let dateAhours = '';
-  const [dateAhours, setDateAhours] = useState('')
+  const [hours, setHours] = useState('');
+  const [datee, setDatee] = useState<number>();
+  const [month, setMonth] = useState<number>()
+  const [year, setYear] = useState<number>()
   return (
     <View style={{ flex: 1 }}>
       <HeaderBase title={'Xác nhận đơn hàng'} isIconLeft={false} />
@@ -468,7 +479,10 @@ const TrackingOrder = () => {
           background
           onPress={() => {
             setShowSheet(true);
-            setDateAhours(`${date.getHours()}:${date.getMinutes()}  ${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`)
+            setDatee(date.getDate());
+            setHours(`${date.getHours()}:${date.getMinutes()}`)
+            setMonth(date.getMonth())
+            setYear(date.getFullYear())
           }}
         />
       </View>
@@ -480,7 +494,10 @@ const TrackingOrder = () => {
             onTextChange,
             navigation,
             name,
-            dateAhours,
+            datee,
+            hours,
+            month,
+            year,
             add,
             dispathch,
             orders,

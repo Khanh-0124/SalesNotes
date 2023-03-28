@@ -1,16 +1,7 @@
-import { Text, View, Image } from 'react-native';
 import React from 'react';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Icon } from '@rneui/themed';
-// import 'react-native-gesture-handler';
-
-// Typescript
 import {
   AnimatedTabBarNavigator,
-  DotSize, // optional
-  TabElementDisplayOptions, // optional
-  TabButtonLayout, // optional
-  IAppearanceOptions, // optional
 } from 'react-native-animated-nav-tab-bar';
 import { COLORS } from 'assets/global/colors';
 import {
@@ -21,7 +12,6 @@ import {
   Paybook,
 } from 'feature/index';
 
-// import {Icon} from '@rneui/base';
 const Tabs = AnimatedTabBarNavigator();
 
 const BottomTabScenes = () => {
@@ -48,13 +38,12 @@ const BottomTabScenes = () => {
         }}
       />
       <Tabs.Screen
-        name="Kho Hàng"
+        name="Sổ nợ"
         component={WarehouseScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
-              name="home-assistant"
-              type="material-community"
+              name="book"
               size={size ? size : 24}
               color={focused ? '#fff' : '#ccc'}
               focused={focused}
@@ -63,13 +52,12 @@ const BottomTabScenes = () => {
         }}
       />
       <Tabs.Screen
-        name="Bán Online"
+        name="Khách hàng"
         component={OnlineSale}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
-              name="store-settings"
-              type="material-community"
+              name="people"
               size={size ? size : 24}
               color={focused ? '#fff' : '#ccc'}
               focused={focused}
@@ -79,14 +67,13 @@ const BottomTabScenes = () => {
       />
 
       <Tabs.Screen
-        name="Sổ nợ"
+        name="Thu chi"
         component={Paybook}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
-              name="book"
+              name="autorenew"
               size={size ? size : 24}
-              type="foundation"
               color={focused ? '#fff' : '#ccc'}
               focused={focused}
             />
@@ -113,4 +100,3 @@ const BottomTabScenes = () => {
 
 export default BottomTabScenes;
 
-// const styles = StyleSheet.create({});

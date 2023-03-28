@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import HeaderBase from 'components/base/header/HeaderBase';
 
 const Paybook = () => {
   return (

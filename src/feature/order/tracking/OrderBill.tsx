@@ -80,7 +80,7 @@ const OrderBill = () => {
           <Text style={{ fontWeight: '600', fontSize: 15, marginVertical: 5 }}>
             HOÁ ĐƠN BÁN HÀNG
           </Text>
-          <Text>{route.code} - {route.dateAhours}</Text>
+          <Text>{route.code} - {`${route.hours} ${route.datte}/${route.month}/${route.year}`}</Text>
         </View>
         <View style={{ flexDirection: 'row', marginVertical: 5 }}>
           <Text>Khách: </Text>

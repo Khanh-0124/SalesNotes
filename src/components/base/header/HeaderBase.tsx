@@ -5,6 +5,7 @@ import { COLORS } from 'assets/global/colors';
 import { useNavigation } from '@react-navigation/native';
 
 interface HeaderBaseProps {
+  iconBack?: boolean,
   title: string;
   bgColor?: string;
   color?: string;
@@ -12,6 +13,7 @@ interface HeaderBaseProps {
 }
 
 const HeaderBase = memo(function HeaderBase({
+  iconBack = true,
   title,
   bgColor,
   color,
@@ -20,12 +22,15 @@ const HeaderBase = memo(function HeaderBase({
   const navigation = useNavigation();
   return (
     <View style={[styles.container, { backgroundColor: bgColor }]}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Image
-          source={require('assets/icons/png/ic_left_arrow.png')}
-          style={[styles.icon, { tintColor: color }]}
-        />
-      </TouchableOpacity>
+      {
+        iconBack ? (<TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            source={require('assets/icons/png/ic_left_arrow.png')}
+            style={[styles.icon, { tintColor: color }]}
+          />
+        </TouchableOpacity>) : <View />
+      }
+
       <Text style={[styles.title, { color: color }]}>{title}</Text>
       {isIconLeft ? (
         <TouchableOpacity>
