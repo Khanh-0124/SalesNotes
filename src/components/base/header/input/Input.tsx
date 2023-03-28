@@ -11,10 +11,13 @@ import { normalize } from 'assets/global/layout';
 interface InputType {
   title: string;
   secureTextEntry?: boolean;
-  CustomStyleInput: StyleProp<TextStyle>;
+  CustomStyleInput?: StyleProp<TextStyle>;
   onTextChange: (keyName: string, value: string) => void;
   value: string;
   keyName: string;
+  placeholder?: string
+  onPress?: any,
+  disable?: boolean
 }
 // interface CustomStyle extends  {
 
@@ -26,6 +29,10 @@ export default ({
   onTextChange,
   value,
   keyName,
+  placeholder,
+  onPress,
+  disable
+  // { ...rest }
 }: InputType) => {
   const onChange = useCallback(
     (_value: string) => {
@@ -37,11 +44,13 @@ export default ({
     <View style={{ marginTop: 10 }}>
       <Text style={styles.text}>{title}</Text>
       <TextInput
-        placeholder=""
+        placeholder={placeholder}
         value={value}
         onChangeText={onChange}
         style={CustomStyleInput}
         secureTextEntry={secureTextEntry}
+        editable={disable ? false : true}
+        onPressIn={onPress}
       />
     </View>
   );

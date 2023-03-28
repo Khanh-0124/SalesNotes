@@ -16,3 +16,9 @@ export interface ParamInputProductInterface {
   price: number;
   costPrice: number;
 }
+export interface ParamAddClientInterface {
+  name: string;
+  phone: string;
+  show: boolean;
+  add: ''
+}

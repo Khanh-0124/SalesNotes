@@ -16,7 +16,7 @@ import * as Footer from './components/index';
 import { normalize } from 'assets/global/layout';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import { handleLogin } from 'servers/firebase/auth/auth';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ParamLoginInterface } from '../auth/type';
 import auth from '@react-native-firebase/auth';
 import { changeStateAuth } from '../../redux/userSlice';
