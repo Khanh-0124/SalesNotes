@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 const CreateOrderScreen = () => {
   const quantity = useSelector((state: any) => state.products.quantity);
   const pay = useSelector((state: any) => state.products.pay);
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const handleSubmit = () => {
     navigation.navigate('TrackingOrder');
   };

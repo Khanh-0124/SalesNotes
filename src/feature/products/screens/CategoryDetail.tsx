@@ -76,7 +76,7 @@ const CategoryDetail = () => {
       }
       {
           categorys?.products.length === 0 ? <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 100 }}>
-          <Image source={require('../../../assets/icons/png/ic_empty.png')} style={{ tintColor: COLORS.gray6 }} />
+            <Image source={require('assets/icons/png/ic_empty.png')} style={{ tintColor: COLORS.gray6 }} />
           <Text style={{ color: COLORS.gray3, fontSize: 16, fontWeight: '400', marginTop: 40 }}>Chưa có sản phẩm nào trong danh mục</Text>
           <View style={{ width: '90%', marginVertical: 30 }}>
             <ButtonBase title='Thêm sản phẩm' background onPress={() => navigation.navigate("AddProducts", { name: route.name, id: route.id })} />

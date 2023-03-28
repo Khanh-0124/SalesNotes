@@ -29,7 +29,6 @@ const ContainerUpdateDeatail = () => {
   //   if()
   // }, [])
   const GetInputData = (name: string, price: string, uri: any) => {
-    // console.log('man tao sp:', name, price);
     setName(name);
     setPrice(price);
     setImage(uri);
