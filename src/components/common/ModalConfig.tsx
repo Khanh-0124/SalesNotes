@@ -46,7 +46,7 @@ const ModalConfig = ({ visible, children, layout, onOffShow }: ModalType) => {
     <Modal transparent visible={showModal}>
       <Pressable onPress={onOffShow} style={styles.modalBackGround}>
         <Animated.View
-          style={[styles.modalContainer, { height: layout.height, width: layout.width, transform: [{ scale: scaleValue }] }]}>
+          style={[styles.modalContainer, { maxHeight: '80%', paddingHorizontal: 15, maxWidth: '90%', height: layout.height, width: layout.width, transform: [{ scale: scaleValue }] }]}>
           {children}
         </Animated.View>
       </Pressable>
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+
   },
   modalContainer: {
     backgroundColor: 'white',

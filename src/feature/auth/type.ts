@@ -20,5 +20,6 @@ export interface ParamAddClientInterface {
   name: string;
   phone: string;
   show: boolean;
-  add: ''
+  add: '';
+  modalAdd: boolean
 }

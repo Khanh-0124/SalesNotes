@@ -20,6 +20,7 @@ import { WareHouse } from 'feature/report/tabview';
 import CategoryDetail from 'feature/products/screens/CategoryDetail';
 import AddProducts from 'feature/products/screens/AddProducts';
 import DetailOrder from 'feature/order/ordertracking/DetailOrder';
+import AddressScreen from 'feature/onlinesale/screens/AddressScreen';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,14 @@ const ClientStack = () => {
       <Stack.Screen
         name="BottomTab"
         component={BottomTabs}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
+      <Stack.Screen
+        name="AddressScreen"
+        component={AddressScreen}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

@@ -7,6 +7,7 @@ import ModalConfig from 'components/common/ModalConfig';
 import { ParamAddClientInterface } from 'feature/auth/type';
 import InputComponent from 'components/base/header/input/Input';
 import ButtonBase from 'components/base/buttons/ButtonBase';
+import { useNavigation } from '@react-navigation/native';
 
 const OnlineSale = () => {
   const client = useSelector((state: any) => state.clients.listClients)
@@ -22,11 +23,13 @@ const OnlineSale = () => {
     name: '',
     phone: '',
     show: false,
-    add: ''
+    add: '',
+    modalAdd: false
   });
   const onTextChange = useCallback((keyName: string, value: any) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
+  const navigation = useNavigation<any>()
 
   return (
     <View style={{ flex: 1 }}>
@@ -73,14 +76,18 @@ const OnlineSale = () => {
             keyName={'add'}
             disable
             placeholder='Ví dụ: Tạp hoá Khánh Zùa'
-            onPress={() => console.log('a')}
+            onPress={() => {
+              onTextChange("show", false)
+              return navigation.navigate("AddressScreen")
+            }}
             onTextChange={onTextChange} />
-          <TouchableOpacity style={styles.SinputStyle} onPress={() => onTextChange("show", false)}>
-            <Text style={{ color: COLORS.white1 }}>Thêm </Text>
+          <TouchableOpacity style={styles.SinputStyle} onPress={() => {
+            onTextChange("show", false)
+          }}>
+            <Text style={{ color: COLORS.white1 }}>Thêm</Text>
           </TouchableOpacity>
         </View>
       </ModalConfig>
-
     </View>
   );
 };
