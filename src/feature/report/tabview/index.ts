@@ -1,4 +1,4 @@
-import Store from './Store';
+import Store from './screens/Store';
 import ProfitAndLoss from './profitandloss/ProfitAndLoss';
 import RevenueAndExpenditure from './RevenueAndExpenditure';
 import WareHouse from './WareHouse';

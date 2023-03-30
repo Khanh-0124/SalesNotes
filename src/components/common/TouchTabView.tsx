@@ -1,24 +1,30 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ViewStyle } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS } from 'assets/global/colors';
 
 interface TouchTabInterface {
   dataTab: any;
+  image?: boolean;
+  headerStyle?: ViewStyle
 }
 
-const TouchTabView = ({ dataTab }: TouchTabInterface) => {
+const TouchTabView = ({ dataTab, image = true, headerStyle }: TouchTabInterface) => {
   const [data, setData] = useState(dataTab);
   return (
-    <View style={styles.container}>
-      <View style={styles.wrapperHeader}>
-        <View style={styles.wrapperCalender}>
-          <Image
-            source={require('../../assets/icons/png/ic_calendar.png')}
-            style={{ height: 24, width: 24 }}
-          />
-        </View>
-        <View style={styles.wrapper}>
-          {data.map(item => (
+    <View style={[styles.container]}>
+      <View style={[styles.wrapperHeader, headerStyle]}>
+        {
+          image ? <View style={styles.wrapperCalender}>
+
+            <Image
+              source={require('assets/icons/png/ic_calendar.png')}
+              style={{ height: 24, width: 24 }}
+            />
+          </View> : null
+        }
+
+        <View style={[styles.wrapper, headerStyle, {}]}>
+          {data.map((item: any, index: any) => (
             <TouchableOpacity
               key={item.id}
               style={[
@@ -59,7 +65,9 @@ const TouchTabView = ({ dataTab }: TouchTabInterface) => {
 export default TouchTabView;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    paddingHorizontal: 15
+  },
   wrapper: {
     flexDirection: 'row',
     paddingHorizontal: 4,
@@ -84,8 +92,5 @@ const styles = StyleSheet.create({
   wrapperHeader: {
     flexDirection: 'row',
     marginTop: 10,
-    backgroundColor: COLORS.white1,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
   },
 });
