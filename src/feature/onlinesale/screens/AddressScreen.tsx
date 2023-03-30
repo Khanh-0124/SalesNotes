@@ -7,6 +7,9 @@ import { COLORS } from 'assets/global/colors'
 import ButtonBase from 'components/base/buttons/ButtonBase'
 import { province, district, ward } from '../components/Address'
 import axios from 'axios'
+import { address, handleshow } from '../../../redux/clientSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
 const AddressScreen = () => {
   const [datatinh, setdataTinh] = useState([]);
@@ -20,6 +23,8 @@ const AddressScreen = () => {
   const [select, setSelect] = useState(0)
   const [codetinh, setcodetinh] = useState(0)
   const [codehuyen, setcodehuyen] = useState(0)
+
+  const dispatch = useDispatch()
   useEffect(() => {
     province().then((res) => setdataTinh(res?.data))
     const fetchDataTinh = async () => {
@@ -34,7 +39,7 @@ const AddressScreen = () => {
     }
     fetchDataHuyen();
   }, [codetinh, codehuyen]);
-  console.log("huyen", dataxa)
+  const navigation = useNavigation<any>()
   return (
     <View style={{ flex: 1, }}>
       <HeaderWithMultiIcon title='Thêm địa chỉ' />
@@ -62,7 +67,19 @@ const AddressScreen = () => {
         <TextInput placeholder='Thêm địa chỉ cụ thể' style={{ fontSize: 18, borderWidth: 1, borderColor: '#ccc', padding: 15, borderRadius: 15, width: 300 }} value={detail} onChangeText={(text) => setDetail(text)} />
       </View>
       <View style={{ alignSelf: 'center', marginTop: 20 }}>
-        <ButtonBase title='Done' background onPress={() => { }} />
+        <ButtonBase title='Done' background onPress={() => {
+          navigation.goBack();
+          dispatch(handleshow({
+            show: true
+          }))
+          dispatch(address({
+            add: `${detail}, ${xa}, ${huyen}, ${tinh}`
+          }))
+          setXa("");
+          setHuyen("");
+          setTinh("");
+          setDetail("")
+        }} />
       </View>
       <View style={{ flexDirection: 'row' }}>
       </View>
@@ -124,6 +141,5 @@ export default AddressScreen
 
 const styles = StyleSheet.create({
   add: {
-
   }
 })

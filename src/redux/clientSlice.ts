@@ -2,26 +2,29 @@ import { createSlice } from '@reduxjs/toolkit';
 export const clientSlice = createSlice({
   name: 'clients',
   initialState: {
+  add: '',
+  show: false,
   listClients: [
     {
       id: 0,
       name: 'Khách lẻ',
       phone: '012345678',
-      add: {
-        province: 'nam dinh',
-        district: 'truc ninh',
-        wards: 'cat thanh',
-        addDetail: "xom Son ky",
-      }
+      add: "son kys, cat thanh truc, ninh"
     }
   ]
   },
   reducers: {
     addClient: (state, action) => {
-      state.listClients.push(action.payload.client)
+      state.listClients.push(action.payload.clientadd)
+    },
+    handleshow: (state, action) => {
+      state.show = action.payload.show
+    },
+    address: (state,  action) => {
+      state.add = action.payload.add;
     }
   },
 });
 
-export const {addClient} = clientSlice.actions;
+export const {addClient, address,  handleshow} = clientSlice.actions;
 export default clientSlice.reducer;

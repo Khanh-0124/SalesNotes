@@ -13,7 +13,8 @@ import {
   TrackingOrder,
   ManagerProducts,
   OrderBill,
-  ContainerUpdateDeatail
+  ContainerUpdateDeatail,
+  OnlineSale
 } from 'feature/index';
 import DrawerNav from 'navigation/drawer/DrawerNav';
 import { WareHouse } from 'feature/report/tabview';
@@ -158,6 +159,14 @@ const ClientStack = () => {
       <Stack.Screen
         name="CameraFiles"
         component={CameraFiles}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
+      <Stack.Screen
+        name="OnlineSale"
+        component={OnlineSale}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

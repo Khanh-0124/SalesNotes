@@ -1,16 +1,18 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import HeaderBase from 'components/base/header/HeaderBase';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
 import ModalConfig from 'components/common/ModalConfig';
 import { ParamAddClientInterface } from 'feature/auth/type';
 import InputComponent from 'components/base/header/input/Input';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { useNavigation } from '@react-navigation/native';
+import { addClient, address, handleshow } from '../../redux/clientSlice';
 
 const OnlineSale = () => {
   const client = useSelector((state: any) => state.clients.listClients)
+  const dispatch = useDispatch()
   const convert = (name: string) => {
     let words = name.split(" ");
     let initials = "";
@@ -30,7 +32,11 @@ const OnlineSale = () => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
   const navigation = useNavigation<any>()
-
+  const add = useSelector((state: any) => state.clients.add)
+  const show = useSelector((state: any) => state.clients.show)
+  useEffect(() => {
+    onTextChange("add", add);
+  }, [paramsCustom.add])
   return (
     <View style={{ flex: 1 }}>
       <HeaderBase iconBack={false} title='Khách hàng' isIconLeft={false} bgColor={'#fff'} />
@@ -53,12 +59,16 @@ const OnlineSale = () => {
         {/*  */}
       </View>
       <TouchableOpacity style={styles.button} onPress={() =>
-        onTextChange("show", true)
+        dispatch(handleshow({
+          show: true
+        }))
       }>
         <Text style={{ color: COLORS.white1 }}> + Thêm khách hàng</Text>
       </TouchableOpacity>
       {/*  */}
-      <ModalConfig onOffShow={() => onTextChange("show", false)} visible={paramsCustom.show} layout={{ height: 300, width: '90%' }}>
+      <ModalConfig onOffShow={() => dispatch(handleshow(
+        { show: false }
+      ))} visible={show} layout={{ height: 300, width: '90%' }}>
         <View style={{ width: '100%', paddingHorizontal: 15 }}>
           <Text style={{ fontSize: 20, fontWeight: '600', alignSelf: 'center' }}>Thêm vào danh bạ</Text>
           <InputComponent title={'Tên liên hệ'}
@@ -72,17 +82,34 @@ const OnlineSale = () => {
             placeholder='Ví dụ: Tạp hoá Khánh Zùa'
             onTextChange={onTextChange} />
           <InputComponent title={'Địa chỉ'}
-            value={paramsCustom.add}
+            value={add}
             keyName={'add'}
             disable
             placeholder='Ví dụ: Tạp hoá Khánh Zùa'
             onPress={() => {
-              onTextChange("show", false)
+              dispatch(handleshow({
+                show: false
+              }))
               return navigation.navigate("AddressScreen")
             }}
             onTextChange={onTextChange} />
           <TouchableOpacity style={styles.SinputStyle} onPress={() => {
-            onTextChange("show", false)
+            dispatch(handleshow({
+              show: false
+            }))
+            onTextChange("name", "")
+            onTextChange("phone", "")
+            dispatch(address(
+              { add: "" }
+            ))
+            dispatch(addClient({
+              clientadd: {
+                id: client.length,
+                name: paramsCustom.name,
+                phone: paramsCustom.phone,
+                add: add
+              }
+            }))
           }}>
             <Text style={{ color: COLORS.white1 }}>Thêm</Text>
           </TouchableOpacity>
