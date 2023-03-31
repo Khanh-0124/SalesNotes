@@ -4,17 +4,41 @@ import { COLORS } from 'assets/global/colors'
 import ModalConfig from 'components/common/ModalConfig'
 import LineChartComponent from './components/LineChartComponent'
 interface ParamCustomInterface {
-  show: boolean
+  show: boolean,
+  fillterArray: any,
+  select: number
 }
+
+const filter = [
+  {
+    id: 0,
+    name: 'Hôm nay',
+  },
+  {
+    id: 1,
+    name: 'Tuần này',
+  },
+  {
+    id: 2,
+    name: 'Tháng này',
+  },
+  {
+    id: 3,
+    name: 'Thời gian khác',
+  },
+]
 
 const AnalysisStore = () => {
   const [touch, setTouch] = useState<number>()
   const [paramsCustom, setParamsCustom] = useState<ParamCustomInterface>({
-    show: false
+    show: false,
+    fillterArray: filter,
+    select: 0
   });
   const setParams = useCallback((keyName: string, value: any) => {
     setParamsCustom((state: any) => ({ ...state, [keyName]: value }));
   }, []);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => { setParams("show", true) }}>
@@ -71,12 +95,46 @@ const AnalysisStore = () => {
         </View>
 
         <LineChartComponent />
-      </ScrollView>
-      <ModalConfig visible={paramsCustom.show} layout={{ height: '80%', width: '80%' }} onOffShow={() => setParams("show", false)}>
         <View>
-          <Text>a</Text>
+          <Text style={{ fontSize: 18, fontWeight: '600', color: COLORS.gray3 }}>{`Sản phẩm bán chạy`}</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15 }}>
+            <Text style={styles.text}>{`Theo doanh thu`}</Text>
+            <Text style={styles.text}>{`Doanh thu (đ)`}</Text>
+          </View>
+          {/* map */}
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 0.7, borderColor: COLORS.gray4, paddingBottom: 15, marginVertical: 10 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={[styles.textItem, { fontWeight: '400', fontSize: 15 }]}>{`1`}</Text>
+              <Image style={{ height: 38, width: 38, marginHorizontal: 10, }} source={require('assets/icons/png/ic_image.png')} />
+              <Text style={styles.textItem}>{`Mỳ gạo`}</Text>
+            </View>
+            <View>
+              <Text style={styles.textItem}>{`250.000`}</Text>
+              <Text style={[styles.textItem, { fontSize: 13, color: COLORS.gray6, marginTop: 5 }]}>{`Số lượng: 5`}</Text>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+      <ModalConfig visible={paramsCustom.show} layout={{ height: '25%', width: '80%' }} onOffShow={() => setParams("show", false)}>
+        <View style={{ flex: 1, width: '100%', justifyContent: 'center' }}>
+          <Text style={{ alignSelf: 'center', fontWeight: '600', marginTop: 20 }}>Lọc theo thời gian</Text>
+          {
+            paramsCustom.fillterArray.map((item: any) => {
+
+              return (<TouchableOpacity key={item.id} style={styles.SModal} onPress={() => {
+                setParams("select", item.id)
+                setParams("show", false)
+              }}>
+                <Text>{item.name}</Text>
+                <View style={[styles.SRadius, item.id == paramsCustom.select ? { borderColor: COLORS.primary } : null]}>
+                  <View style={[styles.Radius, item.id == paramsCustom.select ? { backgroundColor: COLORS.primary } : null]} />
+                </View>
+              </TouchableOpacity>)
+            })
+          }
         </View>
       </ModalConfig>
+
     </View>
   )
 }
@@ -90,5 +148,16 @@ const styles = StyleSheet.create({
     color: COLORS.gray3,
   },
   Box: { padding: 30, borderRadius: 20, borderWidth: 1, width: '47%', borderColor: COLORS.white1, backgroundColor: '#F6F6F6' },
+  text: {
+    color: COLORS.gray3
+  },
+  textItem: {
+    fontSize: 18,
+    fontWeight: '600',
+
+  },
+  SRadius: { borderWidth: 1, borderRadius: 50, height: 15, width: 15, justifyContent: 'center', alignContent: 'center', padding: 2.5 },
+  Radius: { width: 8, height: 8, borderRadius: 50 },
+  SModal: { borderBottomWidth: 1, borderBottomColor: COLORS.gray1, paddingBottom: 10, marginVertical: 5, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }
 
 })
