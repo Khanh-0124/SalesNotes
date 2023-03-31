@@ -4,20 +4,14 @@ import {
   ThirdTab,
 } from 'feature/report/tabview/profitandloss/index';
 import AnalysisStore from 'feature/report/tabview/tabs/AnalysisStore';
-import TodayStore from 'feature/report/tabview/tabs/TodayStore';
+import TodayStore from 'feature/report/tabview/tabs/AnalysisStore';
 
 export const dataTabStore = [
   {
     id: 1,
-    name: 'Hôm nay',
-    isChoose: false,
-    tabContent: TodayStore,
-  },
-  {
-    id: 2,
     name: 'Phân tích',
     isChoose: true,
-    tabContent: AnalysisStore,
+    tabContent: TodayStore,
   },
 ];
 

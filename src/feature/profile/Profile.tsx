@@ -6,11 +6,6 @@ import firestore from '@react-native-firebase/firestore';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import {
   LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart
 } from "react-native-chart-kit";
 
 const Profile = () => {
