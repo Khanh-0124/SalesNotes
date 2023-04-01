@@ -72,7 +72,7 @@ const AnalysisStore = () => {
           </TouchableOpacity>
           <TouchableOpacity style={[styles.Box, touch == 4 ? { borderColor: COLORS.primary } : null]} onPress={() => setTouch(4)}>
             <View style={{ flexDirection: 'row', marginBottom: 15, alignItems: 'center' }}>
-              <Image style={{ height: 24, width: 24, marginRight: 10 }} source={require('../../../../assets/icons/png/ic_checklist.png')} />
+              <Image style={{ height: 24, width: 24, marginRight: 10 }} source={require('assets/icons/png/ic_checklist.png')} />
               <Text style={styles.titleText}>Đơn huỷ</Text>
             </View>
             <Text style={{ fontSize: 18, fontWeight: '700' }}>26</Text>

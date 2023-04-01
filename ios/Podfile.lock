@@ -652,7 +652,7 @@ PODS:
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
-  - FirebaseCoreInternal (10.5.0):
+  - FirebaseCoreInternal (10.6.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - FirebaseFirestore (10.3.0):
     - abseil/algorithm (~> 1.20211102.0)
@@ -667,7 +667,7 @@ PODS:
     - "gRPC-C++ (~> 1.44.0)"
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseInstallations (10.5.0):
+  - FirebaseInstallations (10.6.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
@@ -1372,9 +1372,9 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 036232b6a1e2918e5f67572417be1173576245f3
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
-  FirebaseCoreInternal: e463f41bb935cd049505bf7e9a5bdd7dcea90df6
+  FirebaseCoreInternal: c7cd505e2136811096b225ac388d6254a2622362
   FirebaseFirestore: 244f71ff14ef44f39e00b44d356eac708ce03103
-  FirebaseInstallations: 935bc4abb6f7a035cab7a0c31cb777b2be3dd254
+  FirebaseInstallations: 13dde135fa0524e15bddb133ccc8465c53a1b3f3
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
   GoogleAppMeasurement: c7d6fff39bf2d829587d74088d582e32d75133c3
@@ -1394,7 +1394,7 @@ SPEC CHECKSUMS:
   React: a779632422a918b26db4f1b57225a41c14d20525
   React-bridging: 96055aa45f0417898d7833e251f4ae79d28acef7
   React-callinvoker: 02df4d620df286381ff3f99180fb24feceaf01cc
-  React-Codegen: 06613a5e753c3af2dca0d6e7dd02944a3d77c3f6
+  React-Codegen: 275a27ce6b276e85b5e9371b7d94c497df95d074
   React-Core: 638d54d64048aa635e7c583fb0d8425206f446b4
   React-CoreModules: f706ec2a1939387517cadc6ce0d2ef0f20fccb53
   React-cxxreact: ec183b7f6fec01e7167f38c1c64a03f68dca7fb2
@@ -1437,6 +1437,6 @@ SPEC CHECKSUMS:
   VisionCamera: 5fc30ecebdfd0335d11123ec9511dcbc27ee4046
   Yoga: 44c64131616253fa83366295acdbce3d14926041
 
-PODFILE CHECKSUM: 291c6e9f2fb511da54a7833d3eea2077fae17620
+PODFILE CHECKSUM: 439a1c9a5b166763528da74358893eac75d52f26
 
 COCOAPODS: 1.11.3
