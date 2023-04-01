@@ -5,7 +5,22 @@ import {
 } from 'feature/report/tabview/profitandloss/index';
 import AnalysisStore from 'feature/report/tabview/tabs/AnalysisStore';
 import TodayStore from 'feature/report/tabview/tabs/AnalysisStore';
-
+import AnalysisWarehouse from 'feature/report/tabview/tabs/AnalysisWarehouse';
+import WarehouseOverview from 'feature/report/tabview/tabs/WarehouseOverview';
+export const dataTabKhohang = [
+  {
+    id: 1,
+    name: 'Tổng quan',
+    isChoose: true,
+    tabContent: WarehouseOverview,
+  },
+  {
+    id: 2,
+    name: 'Phân tích',
+    isChoose: false,
+    tabContent: AnalysisWarehouse,
+  },
+];
 export const dataTabStore = [
   {
     id: 1,
