@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import BottomTabScenes from 'navigation/scene/client/BottomTabScenes';
 import CustomDrawer1 from './CustomDrawer1';
 import { ScreensArray } from './arrays';
 
@@ -17,7 +16,6 @@ const DrawerNav = () => {
         drawerStyle: styles.drawerStyles,
       }}
       drawerContent={props => <CustomDrawer1 {...props} />}>
-      {/* <Drawer.Screen name="BottomTabScenes" component={BottomTabScenes} /> */}
       {ScreensArray.map((_, i) => (
         <Drawer.Screen
           key={i}
@@ -36,7 +34,8 @@ export default DrawerNav;
 
 const styles = StyleSheet.create({
   drawerStyles: {
-    width: 260,
+    width: 270,
     backgroundColor: 'transparent',
+    marginTop: 45
   },
 });

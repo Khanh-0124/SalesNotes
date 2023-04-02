@@ -1,5 +1,4 @@
 import {
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -7,8 +6,6 @@ import {
 } from 'react-native';
 import React, { useState, useReducer, useRef } from 'react';
 import {
-  DrawerContentScrollView,
-  DrawerItemList,
   useDrawerProgress,
 } from '@react-navigation/drawer';
 import { COLORS } from 'assets/global/colors';
@@ -23,9 +20,7 @@ import Animated, {
   useAnimatedStyle,
   useDerivedValue,
   withSpring,
-  interpolateNode,
 } from 'react-native-reanimated';
-import { handleLogin } from 'servers/firebase/auth/auth';
 import auth from '@react-native-firebase/auth';
 import { useDispatch } from 'react-redux';
 import { changeStateAuth } from '../../redux/userSlice';
@@ -147,7 +142,6 @@ const CustomDrawer1 = (props: any) => {
   });
 
   //  animation view drwer
-  const drawerProgress = useDrawerProgress();
   const animationWrapperDrawer = useAnimatedStyle(() => {
     const translateX = interpolate(progress.value, [0, 1], [0, 1]);
     return {
@@ -158,19 +152,25 @@ const CustomDrawer1 = (props: any) => {
       ],
     };
   });
-  // (type: string) => {
-  //   const val = type === 'top' ? -100 : 100;
-  //   const scaleY = interpolate(drawerProgress.value, [0, 1], [val, 1]);
-  //   const opacity = interpolate(drawerProgress.value, [0, 1], [0, 1]);
-  //   return {
-  //     transform: [
-  //       {
-  //         translateY,
-  //       },
-  //     ],
-  //     opacity,
-  //   };
-  // };
+  const [arrayColor, setArrayColor] = useState([
+    {
+      name: 'Cam',
+      code: '#fb8500'
+    },
+    {
+      name: 'Xanh lá',
+      code: '#00843A'
+    },
+    {
+      name: 'Hồng',
+      code: '#da627d'
+    },
+    {
+      name: 'Cam thẫm',
+      code: '#e26d5c'
+    }
+
+  ]);
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -218,18 +218,18 @@ const CustomDrawer1 = (props: any) => {
           })}
         </View>
         <View style={[styles.viewScreenArray, styles.marginVertical]}>
-          <Text>{`Project SalesNotes`}</Text>
+          <Text style={{ marginVertical: 5 }}>{`Chọn màu ứng dụng`}</Text>
           <View style={styles.line} />
-          {ProjectsArray.map((_, i) => (
-            <ProjectItem
-              key={i}
-              label={_.title}
-              type={_.iconType}
-              name={_.icon}
-              notification={0}
-              color={_.color}
-            />
-          ))}
+          {
+            arrayColor.map((item: any, index: any) => <TouchableOpacity key={index} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+              <View style={{ width: 80, height: 30, backgroundColor: item.code, borderRadius: 10, marginRight: 4 }} />
+              <Text>{`:  Màu ${item.name}`}</Text>
+            </TouchableOpacity>)
+          }
+          <Text style={{ alignSelf: 'center', marginVertical: 10 }}>Hoặc</Text>
+          <TouchableOpacity style={{ alignSelf: 'center', padding: 10, backgroundColor: COLORS.gray1, borderRadius: 10 }}>
+            <Text>Chọn màu tuỳ ý</Text>
+          </TouchableOpacity>
         </View>
 
         {/* profile menu */}

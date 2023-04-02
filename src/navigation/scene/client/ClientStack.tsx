@@ -22,6 +22,7 @@ import CategoryDetail from 'feature/products/screens/CategoryDetail';
 import AddProducts from 'feature/products/screens/AddProducts';
 import DetailOrder from 'feature/order/ordertracking/DetailOrder';
 import AddressScreen from 'feature/onlinesale/screens/AddressScreen';
+import DebtBookHistory from 'feature/warehouse/screens/DebtBookHistory';
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,14 @@ const ClientStack = () => {
       <Stack.Screen
         name="BottomTab"
         component={BottomTabs}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
+      <Stack.Screen
+        name="DebtBookHistory"
+        component={DebtBookHistory}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

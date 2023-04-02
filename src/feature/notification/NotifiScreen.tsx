@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   Button,
   useWindowDimensions,
+  StatusBar,
 } from 'react-native';
 import React, { useState } from 'react';
 import { ScaledSheet } from 'react-native-size-matters';
@@ -44,14 +45,11 @@ const NotifiScreen = React.memo(function NotifiScreen() {
   );
   return (
     <View style={styles.container}>
-      <StatusBarComponent
-        bgColor={COLORS.primary}
-        colorContent={'light-content'}
-      />
+      <StatusBar barStyle={'dark-content'} />
       <HeaderBase
         title={'Thông báo'}
-        bgColor={COLORS.primary}
-        color={COLORS.white1}
+        bgColor={COLORS.white1}
+        color={COLORS.black1}
         isIconLeft={false}
       />
 

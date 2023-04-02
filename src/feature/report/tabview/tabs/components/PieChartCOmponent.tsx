@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { PieChart } from 'react-native-chart-kit';
+import { COLORS } from 'assets/global/colors';
 
 const data = [
   {
@@ -56,17 +57,23 @@ const PieChartCOmponent = () => {
         avoidFalseZero={true}
         backgroundColor={"transparent"}
         paddingLeft={"90"}
-        center={[5, 5]}
+        center={[5, 15]}
         hasLegend={false}
-      // absolute
+        // absolute
       />
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 15, marginTop: 20 }}>
       {
         data.map((item) => {
-          return <View key={item.name}>
-            <View style={{ backgroundColor: item.color, height: 10, width: 10 }} />
+          return <View key={item.name} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5, marginLeft: 30 }}>
+            <View style={{ backgroundColor: item.color, height: 10, width: 10, marginRight: 10 }} />
+            <View style={{}}>
+              <Text style={{ color: COLORS.gray6 }}>{item.name}</Text>
+              <Text style={{ marginTop: 2 }}>{item.population} đ</Text>
+            </View>
           </View>
         })
       }
+      </View>
     </View>
   )
 }

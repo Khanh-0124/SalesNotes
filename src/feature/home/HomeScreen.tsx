@@ -22,11 +22,12 @@ import StatusBarComponent from 'components/base/StatusBar';
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <StatusBarComponent
         bgColor={COLORS.primary}
         colorContent={'light-content'}
       />
+      {/* <View style={{ height: 35, width: '100%', backgroundColor: COLORS.primary }} /> */}
       <HeaderHome />
       <ScrollView>
         <ListStatis />
@@ -37,7 +38,7 @@ const HomeScreen = () => {
       </ScrollView>
       {/* <View style={{ height: 200, backgroundColor: 'pink' }} /> */}
       <SpeedDialButton />
-    </SafeAreaView>
+    </View>
   );
 };
 

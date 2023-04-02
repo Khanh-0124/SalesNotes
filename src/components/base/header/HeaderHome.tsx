@@ -41,13 +41,14 @@ export default HeaderHome;
 
 const styles = ScaledSheet.create({
   container: {
-    height: HEIGHT < 500 ? HEIGHT * 0.3 : HEIGHT * 0.09,
+    height: HEIGHT < 500 ? HEIGHT * 0.3 : HEIGHT * 0.12,
     width: WIDTH,
     flexDirection: 'row',
     backgroundColor: COLORS.primary,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 15,
+    paddingTop: 50
   },
   rightHeader: {
     flex: 4,

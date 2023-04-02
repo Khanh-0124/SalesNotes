@@ -13,9 +13,9 @@ LogBox.ignoreLogs([
 const App = () => {
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <RootApp />
-      </SafeAreaView>
+      </View>
     </Provider>
   );
 };
@@ -25,6 +25,7 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingBottom: 17
   },
 });
 

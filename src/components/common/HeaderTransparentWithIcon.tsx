@@ -12,7 +12,7 @@ const HeaderTransparent = ({
   onPress,
 }: HeaderTransparentType) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity style={{ paddingTop: 60 }} onPress={onPress}>
       <Image
         source={require('assets/icons/png/ic_arrow_left.png')}
         style={[styles.iconLeft, { tintColor: tintColor }]}

@@ -1,79 +1,51 @@
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import * as Svg from 'assets/icons/svg/index';
-import { normalize, WIDTH } from 'assets/global/layout';
-import { COLORS } from 'assets/global/colors';
-import { ScaledSheet } from 'react-native-size-matters';
-import HeaderSearchWithScanner from 'components/common/HeaderSearchWithScanner';
-import WrapperContent from './components/WrapperContent';
-import SearchBarWithLeftIcon from 'components/common/searchs/SearchBarWithLeftIcon';
-import { useNavigation } from '@react-navigation/native';
-
-const sizeIcon = normalize(16);
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React from 'react'
+import ButtonBase from 'components/base/buttons/ButtonBase'
+import { COLORS } from 'assets/global/colors'
+import { useNavigation } from '@react-navigation/native'
 
 const WarehouseScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>()
   return (
-    <View style={styles.container}>
-      <SearchBarWithLeftIcon
-        placeholder={'Tìm tên, mã SKU, ...'}
-        backgroundColor={COLORS.primary}
-        source={require('assets/icons/png/ic_scanner.png')}
-      />
-      <ScrollView>
-        {/* header */}
-        <View style={{ backgroundColor: '#fff', padding: 15 }}>
-          <View style={styles.wapperTitle}>
-            <Text>{`3 mã sản phẩm`}</Text>
-            <TouchableOpacity
-              style={styles.reportStyle}
-              activeOpacity={0.4}
-              onPress={() => navigation.navigate('WareHouse')}>
-              <Svg.TrendHome width={sizeIcon} height={sizeIcon} />
-              <Text style={styles.textLeft}>{`Báo cáo`}</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.SContent}>
-            <WrapperContent
-              title="Giá trị tồn"
-              uri={require('assets/icons/png/ic_dollar.png')}
-              number={48000}
-              unit
-            />
-            <WrapperContent
-              title="Số lượng"
-              uri={require('assets/icons/png/ic_boxes.png')}
-              number={9}
-              unit={false}
-            />
+    <View style={{ paddingHorizontal: 15, flex: 1, backgroundColor: '#fff', paddingTop: 65 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={styles.boxHeader}>
+          <Text style={styles.textHeader}>Tôi phải trả</Text>
+          <Text style={[styles.textHeader, { color: COLORS.green2 }]}>{1.200} đ</Text>
+        </View>
+        <View style={{ height: 50, width: 1, backgroundColor: COLORS.gray1 }} />
+        <View style={styles.boxHeader}>
+          <Text style={styles.textHeader}>Tôi phải thu</Text>
+          <Text style={[styles.textHeader, { color: COLORS.red2 }]}>{0} đ</Text>
+        </View>
+      </View>
+      <TouchableOpacity onPress={() => navigation.navigate("DebtBookHistory")} style={{ alignSelf: 'center', marginVertical: 20, borderRadius: 15, borderColor: COLORS.gray4, borderWidth: 1, padding: 10, width: '90%', alignItems: 'center' }}>
+        <Text style={styles.textHeader}>Lịch sử chi tiết</Text>
+      </TouchableOpacity>
+      <View>
+        <View style={{ width: '100%', backgroundColor: COLORS.gray2, padding: 10 }}>
+          <Text style={styles.textHeader}>Danh sách khách hàng</Text>
+        </View>
+        <View style={styles.button}>
+          <Text style={styles.textHeader}>{`khach le`}</Text>
+          <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+            <Text style={styles.textHeader}>{1000} đ</Text>
+            <Text style={{ marginTop: 10 }}>{`Toi phai tra`}</Text>
           </View>
         </View>
-      </ScrollView>
-    </View>
-  );
-};
+      </View>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', position: 'absolute', bottom: 0, width: '100%', alignSelf: 'center' }}>
+        <ButtonBase title='Tôi đã đưa' onPress={() => { }} />
+        <ButtonBase title='Tôi đã nhận' onPress={() => { }} background />
+      </View>
+    </View >
+  )
+}
 
-export default WarehouseScreen;
+export default WarehouseScreen
 
-const styles = ScaledSheet.create({
-  reportStyle: {
-    flexDirection: 'row',
-  },
-  textLeft: {
-    fontSize: '14@s',
-    color: COLORS.blue2,
-    marginLeft: '5@s',
-  },
-  container: {
-    flex: 1,
-  },
-  wapperTitle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  SContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-});
+const styles = StyleSheet.create({
+  boxHeader: { alignItems: 'center', flex: 1, marginVertical: 10 },
+  textHeader: { fontSize: 17, fontWeight: '600' },
+  button: { flexDirection: 'row', justifyContent: 'space-between', marginVertical: 15, alignItems: 'center', borderBottomWidth: 1, borderBottomColor: COLORS.gray1, paddingBottom: 13 }
+})

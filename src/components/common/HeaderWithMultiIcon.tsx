@@ -97,6 +97,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'space-between',
     backgroundColor: COLORS.white1,
     padding: '10@s',
+    paddingTop: 65
   },
   title: {
     fontSize: '14@s',

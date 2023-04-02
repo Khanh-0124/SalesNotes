@@ -21,7 +21,7 @@ const HeaderBase = memo(function HeaderBase({
 }: HeaderBaseProps) {
   const navigation = useNavigation();
   return (
-    <View style={[styles.container, { backgroundColor: bgColor }]}>
+    <View style={[styles.container, { backgroundColor: bgColor }, isIconLeft ? null : { marginRight: 26 }]}>
       {
         iconBack ? (<TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
@@ -52,12 +52,15 @@ const styles = ScaledSheet.create({
   icon: {
     height: '24@s',
     width: '24@s',
+
   },
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: '10@s',
     justifyContent: 'space-between',
+    paddingTop: 65,
+
   },
   title: {
     fontSize: '14@s',

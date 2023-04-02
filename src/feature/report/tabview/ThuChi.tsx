@@ -2,8 +2,10 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'rea
 import React, { useCallback, useState } from 'react'
 import { COLORS } from 'assets/global/colors'
 import ModalConfig from 'components/common/ModalConfig'
-import LineChartComponent from './components/LineChartComponent'
-import PieChartCOmponent from './components/PieChartCOmponent'
+import LineChartComponent from 'feature/report/tabview/tabs/components/LineChartComponent'
+import PieChartCOmponent from '../../../feature/report/tabview/tabs/components/PieChartCOmponent'
+
+
 interface ParamCustomInterface {
   show: boolean,
   fillterArray: any,
@@ -37,7 +39,7 @@ const boxPlus2 = {
   borderBottomWidth: 1, borderBottomColor: COLORS.white1, paddingBottom: 13
 }
 
-const AnalysisWarehouse = () => {
+const ThuChi = () => {
   const [touch, setTouch] = useState<number>()
   const [paramsCustom, setParamsCustom] = useState<ParamCustomInterface>({
     show: false,
@@ -66,6 +68,7 @@ const AnalysisWarehouse = () => {
             <Text>{`0 đ`}</Text>
           </TouchableOpacity>
         </View>
+        <Text style={{ marginVertical: 20, fontSize: 15, fontWeight: '500' }}>Tổng thu theo tháng</Text>
         <LineChartComponent />
         <View style={{ marginTop: 10 }}>
           <Text style={{ fontSize: 16, fontWeight: '500' }}>Tổng quan phân loại</Text>
@@ -86,7 +89,10 @@ const AnalysisWarehouse = () => {
         </View>
         <PieChartCOmponent />
         <View style={{ marginVertical: 20 }}>
-          <Text style={{ fontSize: 16, fontWeight: '600' }}>Tồn kho thay đổi</Text>
+          <Text style={{ fontSize: 16, fontWeight: '600' }}>Trung bình thu theo ngày</Text>
+        </View>
+        <View style={{ marginVertical: 20 }}>
+          <Text style={{ fontSize: 16, fontWeight: '600' }}>Số dư tháng này</Text>
         </View>
       </ScrollView>
       <ModalConfig visible={paramsCustom.show} layout={{ height: '25%', width: '80%' }} onOffShow={() => setParams("show", false)}>
@@ -113,10 +119,10 @@ const AnalysisWarehouse = () => {
   )
 }
 
-export default AnalysisWarehouse
+export default ThuChi
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#FEFEFE', height: '93%', borderRadius: 30, padding: 15, marginTop: 10, },
+  container: { backgroundColor: '#FEFEFE', height: '97%', borderRadius: 30, padding: 15, marginTop: 10, },
   header: { alignSelf: 'center', fontSize: 18, fontWeight: '600', color: COLORS.gray6 },
   titleText: {
     color: COLORS.gray3,
