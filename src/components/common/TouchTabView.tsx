@@ -29,10 +29,10 @@ const TouchTabView = ({ dataTab, image = true, headerStyle }: TouchTabInterface)
               key={item.id}
               style={[
                 styles.wrapperItem,
-                { backgroundColor: item.isChoose ? COLORS.white1 : null },
+                item.isChoose ? { backgroundColor: COLORS.white1 } : null,
               ]}
               onPress={() => {
-                let newDataTab = data.map(eachDataTab => {
+                let newDataTab = data.map((eachDataTab: any) => {
                   return {
                     ...eachDataTab,
                     isChoose: eachDataTab.id === item.id,
@@ -51,7 +51,7 @@ const TouchTabView = ({ dataTab, image = true, headerStyle }: TouchTabInterface)
           ))}
         </View>
       </View>
-      {data.map(item =>
+      {data.map((item: any) =>
         item.isChoose ? (
           <View key={item.id}>
             <item.tabContent />

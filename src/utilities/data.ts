@@ -1,12 +1,13 @@
+import CollectedByMonth from 'feature/paybook/components/CollectedByMonth';
 import {
   FirstTab,
   SecondTab,
   ThirdTab,
 } from 'feature/report/tabview/profitandloss/index';
-import AnalysisStore from 'feature/report/tabview/tabs/AnalysisStore';
 import TodayStore from 'feature/report/tabview/tabs/AnalysisStore';
 import AnalysisWarehouse from 'feature/report/tabview/tabs/AnalysisWarehouse';
 import WarehouseOverview from 'feature/report/tabview/tabs/WarehouseOverview';
+
 export const dataTabKhohang = [
   {
     id: 1,
@@ -30,6 +31,26 @@ export const dataTabStore = [
   },
 ];
 
+export const dataTabThuchi = [
+  {
+    id: 1,
+    name: 'Hôm nay',
+    isChoose: false,
+    tabContent: CollectedByMonth,
+  },
+  {
+    id: 2,
+    name: 'Tháng này',
+    isChoose: true,
+    tabContent: CollectedByMonth,
+  },
+  {
+    id: 3,
+    name: 'Tháng trước',
+    isChoose: false,
+    tabContent: CollectedByMonth,
+  },
+];
 export const dataTabProfitAndLoss = [
   {
     id: 1,
