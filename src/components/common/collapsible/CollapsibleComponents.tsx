@@ -16,17 +16,21 @@ import { ScaledSheet } from 'react-native-size-matters';
 interface CollapsibleTypeProp {
   title: string;
   Contents: any;
+  HeaderContent?: any;
   leftComponents?: boolean;
   number?: string;
   customStyles?: ViewStyle;
+  layout?: any
 }
 
 const CollapsibleComponents = ({
   title,
   Contents,
+  HeaderContent,
   leftComponents = false,
   number = '0',
   customStyles,
+  layout
 }: CollapsibleTypeProp) => {
   const [collapsed, setCollapsed] = useState(true);
 
@@ -34,7 +38,7 @@ const CollapsibleComponents = ({
     setCollapsed(!collapsed);
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={layout ? { height: layout } : { flex: 1 }}>
       <View style={customStyles ? customStyles : styles.container}>
         <ScrollView>
           {/*Code for Single Collapsible Start*/}
@@ -48,7 +52,7 @@ const CollapsibleComponents = ({
                 />
                 {/*Heading of Single Collapsible*/}
               </View>
-            ) : (
+            ) : HeaderContent ? (<HeaderContent />) : (
               <View style={styles.wrapperHeader}>
                 <Text style={{ fontSize: 15 }}>{title}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -88,7 +92,7 @@ export default CollapsibleComponents;
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.white1,
+    // backgroundColor: COLORS.white1,
     marginTop: '15@s',
   },
   header: {

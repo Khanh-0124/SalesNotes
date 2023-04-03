@@ -23,6 +23,7 @@ import AddProducts from 'feature/products/screens/AddProducts';
 import DetailOrder from 'feature/order/ordertracking/DetailOrder';
 import AddressScreen from 'feature/onlinesale/screens/AddressScreen';
 import DebtBookHistory from 'feature/warehouse/screens/DebtBookHistory';
+import UpdateCustomer from 'feature/onlinesale/screens/UpdateCustomer';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,14 @@ const ClientStack = () => {
       <Stack.Screen
         name="BottomTab"
         component={BottomTabs}
+        options={{
+          headerShown: false,
+          ...TransitionPresets.RevealFromBottomAndroid,
+        }}
+      />
+      <Stack.Screen
+        name="UpdateCustomer"
+        component={UpdateCustomer}
         options={{
           headerShown: false,
           ...TransitionPresets.RevealFromBottomAndroid,

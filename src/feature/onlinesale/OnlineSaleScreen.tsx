@@ -45,7 +45,7 @@ const OnlineSale = () => {
           data={client}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.white1, padding: 20 }}>
+            <TouchableOpacity onPress={() => navigation.navigate("UpdateCustomer", { name: item.name, phone: item.phone, add: item.add },)} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.white1, padding: 20 }}>
               <View style={{ marginRight: 20, }}>
                 <Text style={{ color: COLORS.primary, fontSize: 20, fontWeight: '500' }}>{convert(item.name)}</Text>
               </View>
