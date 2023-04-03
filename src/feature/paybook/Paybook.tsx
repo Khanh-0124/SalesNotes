@@ -46,6 +46,20 @@ const Paybook = () => {
             }
           </View>
         </View>
+        <View style={{ flexDirection: 'row', marginTop: 20, marginLeft: 10 }}>
+          <Text>Số dư: </Text>
+          <Text style={{ color: COLORS.red2, fontWeight: '600' }}>{`200.000`}</Text>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={styles.itemBox}>
+            <Text>Tổng thu</Text>
+            <Text style={[styles.textBox, { color: COLORS.red2 }]}>{`120.000`}</Text>
+          </View>
+          <View style={styles.itemBox}>
+            <Text>Tổng chi</Text>
+            <Text style={[styles.textBox, { color: COLORS.green2 }]}>{`120.000`}</Text>
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -60,4 +74,17 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 8,
   },
+  itemBox: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: COLORS.gray5, marginHorizontal: 10,
+    padding: 10,
+    borderRadius: 10,
+    marginVertical: 10
+  },
+  textBox: {
+    fontWeight: '600',
+    fontSize: 15,
+    marginTop: 10
+  }
 });
