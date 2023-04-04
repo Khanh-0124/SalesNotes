@@ -9,16 +9,16 @@ import { COLORS } from 'assets/global/colors'
 import Infor from '../components/tabs/Infor'
 import Paybook from '../components/tabs/Paybook'
 
-
 const UpdateCustomer = () => {
   const name = useRoute<any>().params.name
   const phone = useRoute<any>().params.phone
   const add = useRoute<any>().params.add
+  const id = useRoute<any>().params.id
   const layout = useWindowDimensions();
   const renderScene = SceneMap({
     first: All,
     second: Paybook,
-    third: (props) => <Infor name={name} phone={phone} add={add} />
+    third: (props) => <Infor id={id} name={name} phone={phone} add={add} />
   });
 
   const renderTabBar = (props: any) => (

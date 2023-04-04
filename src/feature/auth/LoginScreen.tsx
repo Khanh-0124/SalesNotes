@@ -20,6 +20,8 @@ import { useDispatch } from 'react-redux';
 import { ParamLoginInterface } from '../auth/type';
 import auth from '@react-native-firebase/auth';
 import { changeStateAuth } from '../../redux/userSlice';
+import { getData } from '../../servers/firebase/crud';
+import { cloudData } from '../../redux/clientSlice';
 
 interface NavigationType {
   navigation: NavigationProp<ParamListBase>;
@@ -37,6 +39,13 @@ const LoginScreen = ({ navigation }: NavigationType) => {
   }, []);
 
   useEffect(() => {
+    getData("products", 'customers').then((datta) => {
+      dispath(cloudData(
+        {
+          data: datta?.customers
+        }
+      ))
+    })
     auth().onAuthStateChanged((user: any) => {
       if (user) {
         dispath(
@@ -46,8 +55,10 @@ const LoginScreen = ({ navigation }: NavigationType) => {
         );
       }
     });
+
   }, []);
 
+  // console.log(data, "Data")
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'#fff'} barStyle="dark-content" />
@@ -89,14 +100,17 @@ const LoginScreen = ({ navigation }: NavigationType) => {
         </View>
         {/* footer */}
         <Footer.FooterAuth
-          handleSubmit={() =>
+          handleSubmit={() => {
             handleLogin(paramsCustom.username, paramsCustom.password)
+          }
           }
         />
         <View
           style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20 }}>
           <Text style={styles.textFoot}>You have don't account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <TouchableOpacity onPress={() => {
+            return navigation.navigate('SignUp')
+          }}>
             <Text style={{ fontSize: normalize(16), color: COLORS.primary }}>
               {' '}
               Sign Up

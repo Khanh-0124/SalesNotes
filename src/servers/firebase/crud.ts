@@ -2,8 +2,8 @@ import firestore from '@react-native-firebase/firestore';
 
 // get
 const getData = async (collection: string, doc: string) => {
-  const snapshot = await firestore().collection(collection).doc(doc).get();
-  return snapshot.data();
+  const snapshot = (await firestore().collection(collection).doc(doc).get()).data();
+  return snapshot;
 };
 
 // add
@@ -35,3 +35,5 @@ const deleteData = async (collection: string, doc: string) => {
     console.error('Error deleting document: ', error);
   }
 };
+
+export { getData, addData, updateData, deleteData }

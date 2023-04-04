@@ -4,9 +4,7 @@ import HeaderBase from 'components/base/header/HeaderBase';
 import { COLORS } from 'assets/global/colors';
 import firestore from '@react-native-firebase/firestore';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
-import {
-  LineChart,
-} from "react-native-chart-kit";
+import { addData, deleteData, updateData } from '../../servers/firebase/crud';
 
 const Profile = () => {
   const ref = firestore().collection('products').doc("khanh1");
@@ -28,11 +26,13 @@ const Profile = () => {
             marginVertical: 20
         }}>
         <View>
-            <TouchableOpacity activeOpacity={0.5} style={{
+            <TouchableOpacity activeOpacity={0.5} onPress={() => {
+              deleteData("products", 'Test')
+            }} style={{
               padding: 8,
               backgroundColor: COLORS.white1,
               borderRadius: 50,
-              position: 'absolute',
+              position: 'absolute',                 
               bottom: 0,
               right: 0,
               zIndex: 1,

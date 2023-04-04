@@ -8,7 +8,9 @@ import { ParamAddClientInterface } from 'feature/auth/type';
 import InputComponent from 'components/base/header/input/Input';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { useNavigation } from '@react-navigation/native';
-import { addClient, address, handleshow } from '../../redux/clientSlice';
+import { addClient, address, cloudData, handleshow } from '../../redux/clientSlice';
+import { addData, getData } from '../../servers/firebase/crud';
+import firestore from '@react-native-firebase/firestore';
 
 const OnlineSale = () => {
   const client = useSelector((state: any) => state.clients.listClients)
@@ -37,6 +39,11 @@ const OnlineSale = () => {
   useEffect(() => {
     onTextChange("add", add);
   }, [paramsCustom.add])
+  useEffect(() => {
+    if (client.length !== 0)
+      addData('products', "customers", { customers: client })
+  }, [client])
+  // console.log(client)
   return (
     <View style={{ flex: 1 }}>
       <HeaderBase iconBack={false} title='Khách hàng' isIconLeft={false} bgColor={'#fff'} />
@@ -45,7 +52,9 @@ const OnlineSale = () => {
           data={client}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("UpdateCustomer", { name: item.name, phone: item.phone, add: item.add },)} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.white1, padding: 20 }}>
+            <TouchableOpacity onPress={() => {
+              return navigation.navigate("UpdateCustomer", { id: item.id, name: item.name, phone: item.phone, add: item.add })
+            }} style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.white1, padding: 20 }}>
               <View style={{ marginRight: 20, }}>
                 <Text style={{ color: COLORS.primary, fontSize: 20, fontWeight: '500' }}>{convert(item.name)}</Text>
               </View>
@@ -94,14 +103,6 @@ const OnlineSale = () => {
             }}
             onTextChange={onTextChange} />
           <TouchableOpacity style={styles.SinputStyle} onPress={() => {
-            dispatch(handleshow({
-              show: false
-            }))
-            onTextChange("name", "")
-            onTextChange("phone", "")
-            dispatch(address(
-              { add: "" }
-            ))
             dispatch(addClient({
               clientadd: {
                 id: client.length,
@@ -110,6 +111,14 @@ const OnlineSale = () => {
                 add: add
               }
             }))
+            dispatch(handleshow({
+              show: false
+            }))
+            onTextChange("name", "")
+            onTextChange("phone", "")
+            dispatch(address(
+              { add: "" }
+            ))
           }}>
             <Text style={{ color: COLORS.white1 }}>Thêm</Text>
           </TouchableOpacity>
@@ -133,3 +142,4 @@ const styles = StyleSheet.create({
   },
   SinputStyle: { justifyContent: 'center', alignItems: 'center', padding: 8, backgroundColor: COLORS.primary, borderRadius: 10, width: 100, height: 40, alignSelf: 'center', marginTop: 20 }
 })
+
