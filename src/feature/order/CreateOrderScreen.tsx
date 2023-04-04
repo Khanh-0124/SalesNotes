@@ -4,7 +4,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeaderWithMultiIcon from 'components/common/HeaderWithMultiIcon';
 import { ScaledSheet } from 'react-native-size-matters';
 import { COLORS } from 'assets/global/colors';
@@ -12,14 +12,21 @@ import { GridOder } from './index';
 import { addQuantity, updateProduct } from '../../redux/productSlice';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { addData } from '../../servers/firebase/crud';
 
 const CreateOrderScreen = () => {
   const quantity = useSelector((state: any) => state.products.quantity);
+  const products = useSelector((state: any) => state.products.listProducts);
+  console.log(products, "Vaodayy")
   const pay = useSelector((state: any) => state.products.pay);
   const navigation = useNavigation<any>();
   const handleSubmit = () => {
     navigation.navigate('TrackingOrder');
   };
+  useEffect(() => {
+    if (products.length !== 0)
+      addData('ClientStack', "Products", { ListProducts: products })
+  }, [products])
   return (
     <View style={styles.container}>
       <HeaderWithMultiIcon

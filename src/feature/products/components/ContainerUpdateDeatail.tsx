@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import DetailProduct from '../screens/DetailProduct';
 import InputPlus from 'feature/order/components/InputPlus';
-import { addProducts, deleteProduct, updateDetail } from '../../../redux/productSlice';
+import { deleteProduct, updateDetail } from '../../../redux/productSlice';
 import { useRoute } from '@react-navigation/native'
 
 type NavigationType = {

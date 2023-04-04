@@ -68,6 +68,9 @@ const CreateProduct = memo(function CreateProduct() {
     }))
     return nav ? navigation.navigate("CreateOrderScreen") : null;
   }
+  // useEffect(() => {
+  //   console.log(products, "vaoday")
+  // }, [])
   return (
     <View
       // onPress={Keyboard.dismiss}

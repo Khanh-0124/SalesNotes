@@ -41,7 +41,7 @@ const OnlineSale = () => {
   }, [paramsCustom.add])
   useEffect(() => {
     if (client.length !== 0)
-      addData('products', "customers", { customers: client })
+      addData('ClientStack', "Customers", { ListOfCustomers: client })
   }, [client])
   // console.log(client)
   return (

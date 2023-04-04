@@ -16,12 +16,13 @@ import * as Footer from './components/index';
 import { normalize } from 'assets/global/layout';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import { handleLogin } from 'servers/firebase/auth/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ParamLoginInterface } from '../auth/type';
 import auth from '@react-native-firebase/auth';
 import { changeStateAuth } from '../../redux/userSlice';
 import { getData } from '../../servers/firebase/crud';
 import { cloudData } from '../../redux/clientSlice';
+import { cloudProducts } from '../../redux/productSlice';
 
 interface NavigationType {
   navigation: NavigationProp<ParamListBase>;
@@ -38,14 +39,29 @@ const LoginScreen = ({ navigation }: NavigationType) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
 
+  const products = useSelector((state: any) => state.products);
   useEffect(() => {
-    getData("products", 'customers').then((datta) => {
+    getData("ClientStack", 'Customers').then((datta) => {
       dispath(cloudData(
         {
-          data: datta?.customers
+          data: datta?.ListOfCustomers
         }
       ))
     })
+    getData("ClientStack", 'Products').then((datta) => {
+      console.log(datta?.ListProducts.listProducts, "pro")
+      let pr = datta?.ListProducts
+      // let pay = datta?.ListProducts.pay
+      // let quantity = datta?.ListProducts.pquantityay
+      dispath(cloudProducts(
+        {
+          product: pr,
+          // pay: pay,
+          // quantity: quantity
+        }
+      ))
+    })
+    console.log(products, "dangtest")
     auth().onAuthStateChanged((user: any) => {
       if (user) {
         dispath(

@@ -64,10 +64,16 @@ export const productSlice = createSlice({
     },
     delTickAddToCate  : (state: any, action) => {
       state.listProducts.map((item: any) => item.addCate = false)
+    },
+    cloudProducts: (state, action) => {
+      state.listProducts = action.payload.product
+        // state.pay = action.payload.pay,
+        // state.quantity = action.payload.quantity
+      // console.log(action.payload.product, "vaoday")
     }
   },
 });
 
-export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct, addCategory, delTickAddToCate } =
+export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct, addCategory, delTickAddToCate, cloudProducts } =
   productSlice.actions;
 export default productSlice.reducer;
