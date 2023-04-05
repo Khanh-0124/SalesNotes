@@ -3,6 +3,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import React, { useEffect } from 'react';
 import HeaderWithMultiIcon from 'components/common/HeaderWithMultiIcon';
@@ -17,7 +18,6 @@ import { addData } from '../../servers/firebase/crud';
 const CreateOrderScreen = () => {
   const quantity = useSelector((state: any) => state.products.quantity);
   const products = useSelector((state: any) => state.products.listProducts);
-  console.log(products, "Vaodayy")
   const pay = useSelector((state: any) => state.products.pay);
   const navigation = useNavigation<any>();
   const handleSubmit = () => {
@@ -29,6 +29,7 @@ const CreateOrderScreen = () => {
   }, [products])
   return (
     <View style={styles.container}>
+      <StatusBar barStyle={'dark-content'} />
       <HeaderWithMultiIcon
         clean={quantity > 0 ? true : false}
         ask={quantity > 0 ? true : false}

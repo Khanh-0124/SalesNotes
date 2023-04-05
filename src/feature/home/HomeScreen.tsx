@@ -6,7 +6,7 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SpeedDialButton from 'components/common/SpeedDial';
 import HeaderHome from 'components/base/header/HeaderHome';

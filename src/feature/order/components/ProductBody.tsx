@@ -58,8 +58,14 @@ const ProductBody = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
     );
   }, []);
   const listImages = useSelector((state: any) => state.images.listImages);
-  const GetDataInput = (name: string, price: string) => {
-    getData(name, price, listImages);
+  const [remain, setRemain] = useState(0);
+  const [dv, setDv] = useState('')
+  const callbackChill = (_remain: number, _dv: string) => {
+    setRemain(_remain)
+    setDv(_dv)
+  }
+  const GetDataInput = (name: string, price: string, pricev: number) => {
+    getData(name, price, listImages, pricev, remain, dv);
   };
   return (
     <ScrollView>
@@ -70,7 +76,6 @@ const ProductBody = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
             photo={require('assets/icons/png/ic_add_image.png')}
             onPress={TakePhotoFromLibrary}
           />
-
           <TakePhotos
             title={listImages.length === 0 ? 'Chụp ảnh' : ''}
             camera={require('assets/icons/png/ic_add_photo.png')}
@@ -81,22 +86,8 @@ const ProductBody = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
       </View>
       <InputProduct onPress={onShowBottomSheet} dataInput={GetDataInput} />
       <CollapsibleComponents
-        Contents={() => <AddInfor />}
+        Contents={() => <AddInfor dataChill={callbackChill} />}
         title={'Thêm thông tin'}
-      />
-      <CollapsibleComponents
-        Contents={() => (
-          <View style={{ paddingHorizontal: 15, marginVertical: 10 }}>
-            <View style={{ marginBottom: 20 }}>
-              <InputWithTitle title={'Giá khuyến mãi'} placeholder={'0.000'} />
-            </View>
-            <InputWithTitle
-              title={'Mô tả'}
-              placeholder={'Ví dụ: Mỳ ly hảo hảo chua cay'}
-            />
-          </View>
-        )}
-        title={'Thông tin Online'}
       />
     </ScrollView>
   );

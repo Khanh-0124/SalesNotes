@@ -14,6 +14,7 @@ import { addProducts } from '../../redux/productSlice';
 import { useNavigation } from '@react-navigation/native';
 import { reset } from '../../redux/imageSlice';
 import { actionProducts, resetCate } from '../../redux/categorySlice';
+import { addData } from '../../servers/firebase/crud';
 
 
 type NavigationType = {
@@ -22,20 +23,26 @@ type NavigationType = {
 
 const CreateProduct = memo(function CreateProduct() {
   const [show, setShow] = useState(false);
-  const categorys = useSelector((state: any) => state.categorys.listCategory);
+  const categorys = useSelector((state: any) => state.categorys);
   const showInput = useSelector((state: any) => state.categorys.addCategory);
   const dispath = useDispatch();
   const listProduct = useSelector((state: any) => state.products.listProducts);
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
+  const [pricev, setPricev] = useState(0);
   const [image, setImage] = useState();
-  const GetInputData = (name: string, price: string, uri: any) => {
+  const [remain, setRemain] = useState(0);
+  const [dv, setDv] = useState('')
+  const GetInputData = (name: string, price: string, uri: any, pricev: number, remain: number, dv: string) => {
     setName(name);
     setPrice(price);
     setImage(uri);
+    setPricev(pricev);
+    setDv(dv)
+    setRemain(remain)
   };
   const navigation = useNavigation<NavigationType>();
-  const handleSubmit = async (id: number, name: string, price: any, remaining: any, image: any, touch: number, nav: boolean) => {
+  const handleSubmit = async (id: number, name: string, price: any, remaining: any, image: any, touch: number, nav: boolean, dv: string) => {
     dispath(
       actionProducts(
         {
@@ -43,6 +50,7 @@ const CreateProduct = memo(function CreateProduct() {
             id: id,
             name: name,
             price: price,
+            pricev: pricev,
             remaining: remaining,
             image: image,
             touch: touch,
@@ -55,6 +63,7 @@ const CreateProduct = memo(function CreateProduct() {
         id: id,
         name: name,
         price: price,
+        pricev: pricev,
         remaining: remaining,
         image: image,
         touch: touch,
@@ -68,6 +77,10 @@ const CreateProduct = memo(function CreateProduct() {
     }))
     return nav ? navigation.navigate("CreateOrderScreen") : null;
   }
+  useEffect(() => {
+    if (categorys.listCategory.length !== 0)
+      addData('ClientStack', "ListCategorys", { ListCategorys: categorys })
+  }, [categorys])
   // useEffect(() => {
   //   console.log(products, "vaoday")
   // }, [])
@@ -89,11 +102,11 @@ const CreateProduct = memo(function CreateProduct() {
       />
       {/* footer component */}
       <View style={styles.SButton}>
-        <ButtonBase title="Tạo thêm" onPress={() => handleSubmit(listProduct.length, name, price, `còn: ${5}`, image, 0, false)} />
+        <ButtonBase title="Tạo thêm" onPress={() => handleSubmit(listProduct.length, name, price, remain, image, 0, false, dv)} />
         <ButtonBase
           title="Hoàn tất"
           background={true}
-          onPress={() => handleSubmit(listProduct.length, name, price, `còn: ${5}`, image, 0, true)}
+          onPress={() => handleSubmit(listProduct.length, name, price, remain, image, 0, true, dv)}
         />
       </View>
       {show ? (

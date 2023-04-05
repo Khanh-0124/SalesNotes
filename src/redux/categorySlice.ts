@@ -62,6 +62,10 @@ export const categorySlice = createSlice({
       if( count ==0)
       state.listCategory[action.payload.id].products.push(action.payload.items)
       // console.log( state.listCategory[action.payload.id].products)
+    },
+    cloudCategory: (state, action) => {
+      state.listCategory = action.payload.category,
+        state.productsNoCategory = action.payload.proNo
     }
   },
 });

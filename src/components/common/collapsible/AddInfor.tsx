@@ -7,7 +7,7 @@ import ButtonBase from 'components/base/buttons/ButtonBase';
 import { listCategoryCreateOrder } from 'utilities/data';
 import { TextInput } from 'react-native-paper';
 
-const AddInfor = () => {
+const AddInfor = ({ dataChill }) => {
   const [dataCategory, setDataCategory] = useState(listCategoryCreateOrder);
   const SLine = useCallback(() => {
     return (
@@ -16,57 +16,30 @@ const AddInfor = () => {
       />
     );
   }, []);
+  const [remain, setRemain] = useState(0);
+  const [dv, setDv] = useState('');
+
+  // const toggleSwitch = () => {
+  //   setChecked(!checked);
+  // };
+  dataChill(remain, dv);
   return (
     <View>
       <View style={styles.wrapper}>
         <Text style={styles.title}>Quản lý tồn kho</Text>
         <View style={styles.Sswitch}>
-          <Text style={{ fontSize: 15 }}>Theo dõi số lượng tồn kho</Text>
-          <Switch />
+          <Text style={{ fontSize: 15, marginVertical: 5 }}>Theo dõi số lượng tồn kho</Text>
+        </View>
+        <View style={{}}>
+          <Text style={{ fontWeight: '600', fontSize: 16, marginVertical: 10 }}>Tồn kho</Text>
+          <TextInput placeholder='0' style={{ height: 40, marginTop: 10, borderRadius: 10, }} value={remain} onChangeText={(t) => setRemain(t)} keyboardType='number-pad' />
         </View>
       </View>
-
       <SLine />
       <View style={styles.wrapper}>
-        <InputWithTitle title={'Đơn vị'} placeholder={'Ví dụ: 1 hộp'} />
+        <InputWithTitle title={'Đơn vị'} placeholder={'Ví dụ: 1 hộp'} value={dv} onTextChange={(t) => setDv(t)} />
       </View>
-
       <SLine />
-      <View style={styles.wrapper}>
-        <Text style={{ fontSize: 15, marginBottom: 20 }}>Phân loại</Text>
-        {dataCategory.map(item => (
-          <TouchableOpacity
-            key={item.id}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              borderWidth: 1,
-              borderColor: COLORS.gray4,
-              padding: 10,
-              borderRadius: 10,
-              marginBottom: 20,
-            }}>
-            <View style={{}}>
-              <Text
-                style={{ fontWeight: '500', fontSize: 15, marginBottom: 10 }}>
-                {item.name}
-              </Text>
-              <Text>{item.code}</Text>
-            </View>
-            <Text>{`Còn hàng  >`}</Text>
-          </TouchableOpacity>
-        ))}
-        <ButtonBase
-          title="+ Thêm phân loại"
-          onPress={() => console.log('a')}
-          background
-        />
-      </View>
-      {/* <SLine />
-      <View style={{ paddingVertical: 20 }}>
-        <InputWithTitle title={'Giá sỉ'} placeholder={'0'} />
-      </View> */}
     </View>
   );
 };

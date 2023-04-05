@@ -15,7 +15,7 @@ const InputProduct = ({ onPress, dataInput }: InputProductInterface) => {
     price: 0,
     costPrice: 0,
   });
-  dataInput(paramsCustom.nameProduct, paramsCustom.price);
+  dataInput(paramsCustom.nameProduct, paramsCustom.price, paramsCustom.costPrice);
   const onTextChange = useCallback((keyName: string, value: string) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
@@ -66,6 +66,7 @@ const InputProduct = ({ onPress, dataInput }: InputProductInterface) => {
           keyName={'costPrice'}
           value={paramsCustom.costPrice}
           onTextChange={onTextChange}
+          type={'number-pad'}
         />
       </View>
       <InputWithTitle

@@ -1,17 +1,24 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { COLORS } from 'assets/global/colors'
 import HeaderWithMultiIcon from 'components/common/HeaderWithMultiIcon'
 import Products from './screens/Products'
 import Categorys from './screens/Categorys'
 import { useDispatch, useSelector } from 'react-redux'
 import { addList, plusCate } from '../../redux/categorySlice'
+import { addData } from '../../servers/firebase/crud'
 
 const ManagerProducts = () => {
   const [select, setSelect] = useState(true)
   const categorys = useSelector((state: any) => state.categorys.listCategory);
+  const category = useSelector((state: any) => state.categorys);
   const [inputData, setInputData] = useState('');
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    addData('ClientStack', "ListCategorys", { ListCategorys: category })
+  }, [categorys])
+
   return (
     <View style={styles.Container}>
       <HeaderWithMultiIcon clean={true} title={'Quản lý'} firtRightIcon={require('assets/icons/png/ic_search.png')} secondRightIcon={require('assets/icons/png/ic_barcode.png')} thirdRightIcon={require('assets/icons/png/ic_sort.png')} />

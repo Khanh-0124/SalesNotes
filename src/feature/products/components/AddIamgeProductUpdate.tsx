@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { COLORS } from 'assets/global/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteImage } from '../../../redux/imageSlice';
+import { addData } from '../../../servers/firebase/crud';
 
 interface ImageInterface {
   id: number;
@@ -26,6 +27,10 @@ const AddIamgeProductUpdate = () => {
       }),
     );
   };
+  useEffect(() => {
+    if (listImages.length !== 0)
+      addData('ClientStack', "ListImages", { ListImages: listImages })
+  }, [listImages])
   return (
     <ScrollView
       horizontal

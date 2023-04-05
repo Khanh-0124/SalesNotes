@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import HeaderBase from 'components/base/header/HeaderBase'
 import InputWithTitle from 'components/base/header/input/InputWithTitle'
 import AddInfor from 'components/common/collapsible/AddInfor'
@@ -15,6 +15,7 @@ import { addImage } from '../../../redux/imageSlice'
 import uuid from 'react-native-uuid';
 import { COLORS } from 'assets/global/colors'
 import AddIamgeProductUpdate from '../components/AddIamgeProductUpdate'
+import { addData } from '../../../servers/firebase/crud'
 interface ProductBodyInterface {
   onShowBottomSheet(): void;
   getData: any;
@@ -57,6 +58,10 @@ const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => 
   const GetDataInput = (name: string, price: string) => {
     getData(name, price, listImages);
   };
+  useEffect(() => {
+    if (listImages.length !== 0)
+      addData('ClientStack', "ListImages", { ListImages: listImages })
+  }, [listImages])
   return (
     <View>
       <HeaderBase title='Chi tiết sản phẩm' isIconLeft={false} />

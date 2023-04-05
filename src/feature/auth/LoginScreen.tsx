@@ -23,6 +23,7 @@ import { changeStateAuth } from '../../redux/userSlice';
 import { getData } from '../../servers/firebase/crud';
 import { cloudData } from '../../redux/clientSlice';
 import { cloudProducts } from '../../redux/productSlice';
+import { cloudImages } from '../../redux/imageSlice';
 
 interface NavigationType {
   navigation: NavigationProp<ParamListBase>;
@@ -39,7 +40,7 @@ const LoginScreen = ({ navigation }: NavigationType) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
 
-  const products = useSelector((state: any) => state.products);
+  // const products = useSelector((state: any) => state.products);
   useEffect(() => {
     getData("ClientStack", 'Customers').then((datta) => {
       dispath(cloudData(
@@ -49,19 +50,28 @@ const LoginScreen = ({ navigation }: NavigationType) => {
       ))
     })
     getData("ClientStack", 'Products').then((datta) => {
-      console.log(datta?.ListProducts.listProducts, "pro")
       let pr = datta?.ListProducts
-      // let pay = datta?.ListProducts.pay
-      // let quantity = datta?.ListProducts.pquantityay
       dispath(cloudProducts(
         {
           product: pr,
-          // pay: pay,
-          // quantity: quantity
         }
       ))
     })
-    console.log(products, "dangtest")
+    getData('ClientStack', "ListImages").then((datta) => {
+      let image = datta?.ListImages
+      dispath(cloudImages({
+        image: image
+      }))
+    })
+    getData('ClientStack', "ListCategorys").then((datta) => {
+      let cate = datta?.listCategory
+      let prono = datta?.productsNoCategory
+      dispath(cloudImages({
+        category: cate,
+        proNo: prono
+      }))
+    })
+    // console.log(products, "dangtest")
     auth().onAuthStateChanged((user: any) => {
       if (user) {
         dispath(

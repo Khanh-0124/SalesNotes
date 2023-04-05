@@ -1,4 +1,4 @@
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import React from 'react';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { COLORS } from 'assets/global/colors';
@@ -45,6 +45,7 @@ const ReportScreen = () => {
   );
   return (
     <View style={styles.container}>
+      <StatusBar barStyle={'dark-content'} />
       <HeaderBase
         title="Báo cáo"
         isIconLeft={false}

@@ -24,14 +24,16 @@ const ContainerUpdateDeatail = () => {
   const route = useRoute().params;
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
+  const [pricev, setPricev] = useState(0);
   const [image, setImage] = useState();
   // const addField = useCallback(()=> {
   //   if()
   // }, [])
-  const GetInputData = (name: string, price: string, uri: any) => {
+  const GetInputData = (name: string, price: string, uri: any, pricev: number) => {
     setName(name);
     setPrice(price);
     setImage(uri);
+    setPricev(pricev)
   };
   const navigation = useNavigation<NavigationType>();
   const handleUpdate = useCallback(() => {

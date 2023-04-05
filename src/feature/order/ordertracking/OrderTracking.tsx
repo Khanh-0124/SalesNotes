@@ -1,4 +1,4 @@
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import React from 'react';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { COLORS } from 'assets/global/colors';
@@ -49,6 +49,7 @@ const OrderTracking = () => {
   );
   return (
     <View style={styles.container}>
+      <StatusBar barStyle={'dark-content'} />
       <HeaderWithMultiIcon
         title={'Đơn hàng'}
         leftIcon={require('assets/icons/png/ic_left_arrow.png')}

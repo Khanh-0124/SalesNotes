@@ -25,10 +25,12 @@ export const productSlice = createSlice({
         id: action.payload.id,
         name: action.payload.name,
         price: action.payload.price,
+        pricev: action.payload.pricev,
         remaining: action.payload.remaining,
         image: action.payload.image,
         touch: action.payload.touch,
-        addCate: false
+        addCate: false,
+        dv: action.payload.dv
       });
     },
     updateProduct: (state: any, action) => {
@@ -67,9 +69,6 @@ export const productSlice = createSlice({
     },
     cloudProducts: (state, action) => {
       state.listProducts = action.payload.product
-        // state.pay = action.payload.pay,
-        // state.quantity = action.payload.quantity
-      // console.log(action.payload.product, "vaoday")
     }
   },
 });
