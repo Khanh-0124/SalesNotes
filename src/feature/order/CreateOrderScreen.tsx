@@ -24,8 +24,8 @@ const CreateOrderScreen = () => {
     navigation.navigate('TrackingOrder');
   };
   useEffect(() => {
-    if (products.length !== 0)
       addData('ClientStack', "Products", { ListProducts: products })
+    // console.log(products)
   }, [products])
   return (
     <View style={styles.container}>

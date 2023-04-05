@@ -13,7 +13,7 @@ type NavigationType = {
 }
 
 const ListFeatureBox = () => {
-  const products = useSelector((state: any) => state.products.listProducts.length)
+  const products = useSelector((state: any) => state.products?.listProducts?.length)
   const navigation = useNavigation<NavigationType>();
   const handleSubmit = useCallback((id: number) => {
     if (id === 1) {

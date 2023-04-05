@@ -26,7 +26,7 @@ export const productSlice = createSlice({
         name: action.payload.name,
         price: action.payload.price,
         pricev: action.payload.pricev,
-        remaining: action.payload.remaining,
+        remaining: action.payload.remain,
         image: action.payload.image,
         touch: action.payload.touch,
         addCate: false,

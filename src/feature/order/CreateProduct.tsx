@@ -42,7 +42,7 @@ const CreateProduct = memo(function CreateProduct() {
     setRemain(remain)
   };
   const navigation = useNavigation<NavigationType>();
-  const handleSubmit = async (id: number, name: string, price: any, remaining: any, image: any, touch: number, nav: boolean, dv: string) => {
+  const handleSubmit = async (id: number, name: string, price: any, image: any, touch: number, nav: boolean) => {
     dispath(
       actionProducts(
         {
@@ -51,9 +51,10 @@ const CreateProduct = memo(function CreateProduct() {
             name: name,
             price: price,
             pricev: pricev,
-            remaining: remaining,
+            remain: remain,
             image: image,
             touch: touch,
+            dv: dv
           }
         }
       )
@@ -64,9 +65,10 @@ const CreateProduct = memo(function CreateProduct() {
         name: name,
         price: price,
         pricev: pricev,
-        remaining: remaining,
+        remain: remain,
         image: image,
         touch: touch,
+        dv: dv
       }),
     );
     dispath(reset({
@@ -81,12 +83,8 @@ const CreateProduct = memo(function CreateProduct() {
     if (categorys.listCategory.length !== 0)
       addData('ClientStack', "ListCategorys", { ListCategorys: categorys })
   }, [categorys])
-  // useEffect(() => {
-  //   console.log(products, "vaoday")
-  // }, [])
   return (
     <View
-      // onPress={Keyboard.dismiss}
       accessible={false}
       style={styles.container}>
       <HeaderBase
@@ -102,11 +100,11 @@ const CreateProduct = memo(function CreateProduct() {
       />
       {/* footer component */}
       <View style={styles.SButton}>
-        <ButtonBase title="Tạo thêm" onPress={() => handleSubmit(listProduct.length, name, price, remain, image, 0, false, dv)} />
+        <ButtonBase title="Tạo thêm" onPress={() => handleSubmit(listProduct.length, name, price, image, 0, false)} />
         <ButtonBase
           title="Hoàn tất"
           background={true}
-          onPress={() => handleSubmit(listProduct.length, name, price, remain, image, 0, true, dv)}
+          onPress={() => handleSubmit(listProduct.length, name, price, image, 0, true)}
         />
       </View>
       {show ? (

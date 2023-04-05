@@ -39,14 +39,6 @@ const ProductBody = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
     },
   };
   const TakePhotoFromLibrary = useCallback(async () => {
-    // const granted = await PermissionsAndroid.request(
-    //   PermissionsAndroid.PERMISSIONS.CAMERA,
-    // );
-    // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    //   const result = await launchCamera(options);
-    //   let uri = result.assets[0].uri;
-    //   console.log(uri);
-    // }
     const result = await launchImageLibrary(options);
     let uri = result.assets[0].uri;
     // console.log(uri);
@@ -57,15 +49,16 @@ const ProductBody = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
       }),
     );
   }, []);
+  const [paramsCustom, setParamsCustom] = useState<any>({
+    dv: '',
+    remain: 0,
+  });
+  const onTextChange = useCallback((keyName: string, value: string) => {
+    setParamsCustom((state: any) => ({ ...state, [keyName]: value }));
+  }, []);
   const listImages = useSelector((state: any) => state.images.listImages);
-  const [remain, setRemain] = useState(0);
-  const [dv, setDv] = useState('')
-  const callbackChill = (_remain: number, _dv: string) => {
-    setRemain(_remain)
-    setDv(_dv)
-  }
   const GetDataInput = (name: string, price: string, pricev: number) => {
-    getData(name, price, listImages, pricev, remain, dv);
+    getData(name, price, listImages, pricev, paramsCustom.remain, paramsCustom.dv);
   };
   return (
     <ScrollView>
@@ -85,10 +78,23 @@ const ProductBody = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
         <AddIamgeProduct />
       </View>
       <InputProduct onPress={onShowBottomSheet} dataInput={GetDataInput} />
-      <CollapsibleComponents
-        Contents={() => <AddInfor dataChill={callbackChill} />}
-        title={'Thêm thông tin'}
+      <View style={{ padding: 15, backgroundColor: '#fff' }}>
+        <InputWithTitle
+          title="Tồn kho"
+          placeholder="0"
+          value={paramsCustom.remain}
+          keyName={'remain'}
+          type={'number-pad'}
+          onTextChange={onTextChange}
       />
+        <InputWithTitle
+          title="Đơn vị"
+          placeholder="Ví dụ: cái"
+          value={paramsCustom.dv}
+          keyName={'dv'}
+          onTextChange={onTextChange}
+        />
+      </View>
     </ScrollView>
   );
 };

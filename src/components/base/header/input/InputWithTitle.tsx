@@ -10,7 +10,7 @@ interface InputTypeProp {
   editable?: boolean;
   leftIcon?: any;
   value?: string | number;
-  onTextChange?: (keyName: string, value: string) => void;
+  onTextChange?: (keyName: any, value: any) => void;
   onPress?: () => void;
   keyName?: string;
   type?: any;

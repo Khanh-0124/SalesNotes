@@ -51,11 +51,11 @@ const LoginScreen = ({ navigation }: NavigationType) => {
     })
     getData("ClientStack", 'Products').then((datta) => {
       let pr = datta?.ListProducts
-      dispath(cloudProducts(
+      pr ? dispath(cloudProducts(
         {
           product: pr,
         }
-      ))
+      )) : null
     })
     getData('ClientStack', "ListImages").then((datta) => {
       let image = datta?.ListImages

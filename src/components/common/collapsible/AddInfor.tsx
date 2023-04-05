@@ -7,7 +7,7 @@ import ButtonBase from 'components/base/buttons/ButtonBase';
 import { listCategoryCreateOrder } from 'utilities/data';
 import { TextInput } from 'react-native-paper';
 
-const AddInfor = ({ dataChill }) => {
+const AddInfor = ({ dataChill }: any) => {
   const [dataCategory, setDataCategory] = useState(listCategoryCreateOrder);
   const SLine = useCallback(() => {
     return (
@@ -16,13 +16,17 @@ const AddInfor = ({ dataChill }) => {
       />
     );
   }, []);
-  const [remain, setRemain] = useState(0);
-  const [dv, setDv] = useState('');
-
+  const [paramsCustom, setParamsCustom] = useState<any>({
+    dv: '',
+    remain: 0,
+  });
+  const onTextChange = useCallback((keyName: string, value: string) => {
+    setParamsCustom((state: any) => ({ ...state, [keyName]: value }));
+  }, []);
   // const toggleSwitch = () => {
   //   setChecked(!checked);
   // };
-  dataChill(remain, dv);
+  dataChill(paramsCustom.remain, paramsCustom.dv);
   return (
     <View>
       <View style={styles.wrapper}>
@@ -30,14 +34,25 @@ const AddInfor = ({ dataChill }) => {
         <View style={styles.Sswitch}>
           <Text style={{ fontSize: 15, marginVertical: 5 }}>Theo dõi số lượng tồn kho</Text>
         </View>
-        <View style={{}}>
-          <Text style={{ fontWeight: '600', fontSize: 16, marginVertical: 10 }}>Tồn kho</Text>
-          <TextInput placeholder='0' style={{ height: 40, marginTop: 10, borderRadius: 10, }} value={remain} onChangeText={(t) => setRemain(t)} keyboardType='number-pad' />
+        <View style={styles.wrapper}>
+          <InputWithTitle
+            title="Tồn kho"
+            placeholder="0"
+            value={paramsCustom.remain}
+            keyName={'remain'}
+            onTextChange={onTextChange}
+          />
         </View>
       </View>
       <SLine />
       <View style={styles.wrapper}>
-        <InputWithTitle title={'Đơn vị'} placeholder={'Ví dụ: 1 hộp'} value={dv} onTextChange={(t) => setDv(t)} />
+        <InputWithTitle
+          title="Tên sản phẩm"
+          placeholder="Ví dụ: Cai"
+          value={paramsCustom.dv}
+          keyName={'dv'}
+          onTextChange={onTextChange}
+        />
       </View>
       <SLine />
     </View>
