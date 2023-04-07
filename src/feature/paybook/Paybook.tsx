@@ -4,7 +4,6 @@ import TouchTabView from 'components/common/TouchTabView';
 import { COLORS } from 'assets/global/colors';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import CollapsibleComponents from 'components/common/collapsible/CollapsibleComponents';
-import AddInfor from 'components/common/collapsible/AddInfor';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 
 export const dataTabThuchi = [

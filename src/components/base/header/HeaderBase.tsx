@@ -1,15 +1,16 @@
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import React, { memo } from 'react';
 import { ScaledSheet } from 'react-native-size-matters';
-import { COLORS } from 'assets/global/colors';
 import { useNavigation } from '@react-navigation/native';
-
+import { reset } from '../../../redux/productSlice';
+import { useDispatch } from 'react-redux';
 interface HeaderBaseProps {
   iconBack?: boolean,
   title: string;
   bgColor?: string;
   color?: string;
   isIconLeft?: boolean;
+  clean?: boolean
 }
 
 const HeaderBase = memo(function HeaderBase({
@@ -18,12 +19,17 @@ const HeaderBase = memo(function HeaderBase({
   bgColor,
   color,
   isIconLeft = true,
+  clean = false
 }: HeaderBaseProps) {
+  const dispath = useDispatch()
   const navigation = useNavigation();
   return (
     <View style={[styles.container, { backgroundColor: bgColor }, isIconLeft ? null : { marginRight: 26 }]}>
       {
-        iconBack ? (<TouchableOpacity onPress={() => navigation.goBack()}>
+        iconBack ? (<TouchableOpacity onPress={() => {
+          clean ? dispath(reset({ touch: 0 })) : null
+          return navigation.goBack()
+        }}>
           <Image
             source={require('assets/icons/png/ic_left_arrow.png')}
             style={[styles.icon, { tintColor: color }]}

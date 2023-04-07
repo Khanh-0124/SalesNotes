@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import HeaderBase from 'components/base/header/HeaderBase'
 import InputWithTitle from 'components/base/header/input/InputWithTitle'
 import AddInfor from 'components/common/collapsible/AddInfor'
@@ -36,14 +36,6 @@ const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => 
     },
   };
   const TakePhotoFromLibrary = useCallback(async () => {
-    // const granted = await PermissionsAndroid.request(
-    //   PermissionsAndroid.PERMISSIONS.CAMERA,
-    // );
-    // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    //   const result = await launchCamera(options);
-    //   let uri = result.assets[0].uri;
-    //   console.log(uri);
-    // }
     const result = await launchImageLibrary(options);
     let uri = result.assets[0].uri;
     // console.log(uri);
@@ -62,6 +54,13 @@ const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => 
     if (listImages.length !== 0)
       addData('ClientStack', "ListImages", { ListImages: listImages })
   }, [listImages])
+  const [paramsCustom, setParamsCustom] = useState<any>({
+    dv: '',
+    remain: 0,
+  });
+  const onTextChange = useCallback((keyName: string, value: string) => {
+    setParamsCustom((state: any) => ({ ...state, [keyName]: value }));
+  }, []);
   return (
     <View>
       <HeaderBase title='Chi tiết sản phẩm' isIconLeft={false} />
@@ -83,24 +82,23 @@ const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => 
           <AddIamgeProductUpdate />
         </View>
         <InputProduct onPress={onShowBottomSheet} dataInput={GetDataInput} />
-        <CollapsibleComponents
-          Contents={() => <AddInfor />}
-          title={'Thêm thông tin'}
-        />
-        <CollapsibleComponents
-          Contents={() => (
-            <View style={{ paddingHorizontal: 15, marginVertical: 10 }}>
-              <View style={{ marginBottom: 20 }}>
-                <InputWithTitle title={'Giá khuyến mãi'} placeholder={'0.000'} />
-              </View>
-              <InputWithTitle
-                title={'Mô tả'}
-                placeholder={'Ví dụ: Mỳ ly hảo hảo chua cay'}
-              />
-            </View>
-          )}
-          title={'Thông tin Online'}
-        />
+        <View style={{ padding: 15, backgroundColor: '#fff' }}>
+          <InputWithTitle
+            title="Tồn kho"
+            placeholder="0"
+            value={paramsCustom.remain}
+            keyName={'remain'}
+            type={'number-pad'}
+            onTextChange={onTextChange}
+          />
+          <InputWithTitle
+            title="Đơn vị"
+            placeholder="Ví dụ: cái"
+            value={paramsCustom.dv}
+            keyName={'dv'}
+            onTextChange={onTextChange}
+          />
+        </View>
       </ScrollView>
     </View>
   )

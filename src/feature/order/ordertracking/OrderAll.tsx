@@ -8,11 +8,13 @@ import {
 import React, { useState } from 'react';
 import { dataOrder } from 'utilities/data';
 import { COLORS } from 'assets/global/colors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { updateDelivered } from '../../../redux/orderSlice';
 
 const OrderAll = () => {
   const orders = useSelector((state: any) => state.orders.listOrders);
+  const dispatch = useDispatch()
   const [data, setData] = useState(orders);
   const navigation = useNavigation<any>()
   const submit = (id: number) => {
@@ -33,12 +35,12 @@ const OrderAll = () => {
                 {item.name}
               </Text>
               <Text style={{ marginVertical: 8 }}>
-                {`${item.hours} - ${item.code}`}
+                {`${item.date.hours} ${item.date.date}/${item.date.month} - ${item.code}`}
               </Text>
             </View>
-            <View style={styles.SCheck}>
-              <Text style={{ color: COLORS.green2 }}>
-                {item.delivered === true ? 'Đã giao' : 'Chưa giao'}
+            <View style={[styles.SCheck, item.delivered ? null : { backgroundColor: COLORS.orange1 }]}>
+              <Text style={{ color: item.delivered ? COLORS.green2 : COLORS.red2, fontWeight: '600' }}>
+                {item.delivered == true ? 'Đã giao' : 'Đang xử lý'}
               </Text>
             </View>
           </View>
@@ -60,9 +62,29 @@ const OrderAll = () => {
             <Text>Tổng cộng</Text>
             <Text>{item.sum}</Text>
           </View>
-          <Text style={{ alignSelf: 'flex-end', color: COLORS.green2 }}>
-            {item.paid ? 'Đã thanh toán' : 'Chưa thanh toán'}
-          </Text>
+          {
+            item.ghino > 0 && item.sum != item.ghino ? <Text style={{ alignSelf: 'flex-end', color: !item.paid ? COLORS.red2 : COLORS.orange2 }}>
+              {'Thanh toán 1 phần'}
+            </Text> : item.ghino == 0 ? (<Text style={{ alignSelf: 'flex-end', color: COLORS.green2 }}>
+              {'Đã thanh toán'}
+            </Text>) : (<Text style={{ alignSelf: 'flex-end', color: COLORS.red2 }}>
+              {'Chưa thanh toán'}
+            </Text>)
+          }
+          {item.delivered ? null : <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+            <TouchableOpacity onPress={() => { console.log(item.delivered) }} style={styles.button}>
+              <Text >Huỷ bỏ</Text>
+            </TouchableOpacity>
+            <View style={{ width: 10 }} />
+            <TouchableOpacity onPress={() => {
+              dispatch(updateDelivered({
+                id: item.id
+              }))
+            }} style={[{ backgroundColor: COLORS.primary }, styles.button]} >
+              <Text style={{ color: "#fff" }}>Đã giao</Text>
+            </TouchableOpacity>
+          </View>}
+
         </TouchableOpacity>
       ))}
     </ScrollView>
@@ -89,7 +111,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   SCheck: {
-    backgroundColor: COLORS.green1,
+    // backgroundColor: COLORS.green1,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -97,4 +119,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     borderRadius: 6,
   },
+  button: {
+    padding: 8, borderRadius: 10, flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.gray1
+  }
 });

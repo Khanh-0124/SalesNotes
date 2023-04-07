@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
 import { FlatGrid } from 'react-native-super-grid';
 import { useNavigation } from '@react-navigation/native';
 import { update } from '../../../redux/imageSlice';
+import InputWithTitle from 'components/base/header/input/InputWithTitle';
 
 type NavigationType = {
   navigate(value: string, params: any): void
@@ -32,6 +33,7 @@ const Products = () => {
           <Image source={item.image} style={styles.image} resizeMode='cover' />
           <View style={{ width: '90%', height: 1, backgroundColor: COLORS.gray1, marginTop: 5, alignSelf: 'center' }} />
           <Text style={{ marginVertical: 5, marginLeft: 10 }}>{item.name}</Text>
+          <Text style={{ marginBottom: 5, marginLeft: 10, fontSize: 12 }}>{item.dv}</Text>
           <Text style={{ color: COLORS.red2, marginLeft: 10 }}>{item.price} đ</Text>
         </TouchableOpacity>)}
         keyExtractor={item => item.id}

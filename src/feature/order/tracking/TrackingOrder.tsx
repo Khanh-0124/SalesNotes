@@ -9,7 +9,7 @@ import {
   Alert,
   TextInput,
 } from 'react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
@@ -22,6 +22,15 @@ import HeaderBase from 'components/base/header/HeaderBase';
 import { launchImageLibrary } from 'react-native-image-picker';
 import ModalConfig from 'components/common/ModalConfig';
 import { addListOrder } from '../../../redux/orderSlice';
+
+function generateInvoiceCode() {
+  let code = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for (let i = 0; i < 6; i++) {
+    code += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return code;
+}
 
 const PayConfirmSheet = (
   pay: number,
@@ -36,7 +45,9 @@ const PayConfirmSheet = (
   add: string,
   dispathch: any,
   orders: any,
-  products: any
+  products: any,
+  vc: number,
+  ck: number
 ) => {
   let check = false;
   if (pay - payClient > 0) {
@@ -44,17 +55,9 @@ const PayConfirmSheet = (
   } else {
     check = false;
   }
-  function generateInvoiceCode() {
-    let code = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    for (let i = 0; i < 6; i++) {
-      code += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return code;
-  }
   let codde = generateInvoiceCode();
   let productsOrder = products.filter((item: any) => item.touch !== 0)
-  console.log(productsOrder, "as")
+  console.log(check, "as")
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <Text
@@ -99,8 +102,10 @@ const PayConfirmSheet = (
         <ButtonBase
           title="Xác nhận"
           onPress={() => {
-            dispathch(addListOrder({
-              id: orders.length,
+            dispathch(addListOrder(
+              {
+                data: {
+                  id: orders.length,
               name: name || "Khách lẻ",
               date: {
                 hours: hours,
@@ -111,13 +116,19 @@ const PayConfirmSheet = (
               code: codde,
               delivered: true,
               sum: pay,
+                  payClient: payClient,
               paid: true,
-              ghino: false,
+                  ghino: (pay - payClient),
               add: add,
-              products: productsOrder
+
+                  products: productsOrder,
+                  phivc: vc,
+                  ck: ck
+                }
             }))
             // console.log("Khanh name")
-            return navigation.navigate('OrderBill', { pay, payClient, name, hours, datte, month, year, add, code: codde });
+            // dispathch(reset({ touch: 0 }))
+            return navigation.replace('OrderBill', { pay, payClient, name, hours, datte, month, year, add, code: codde });
           }}
           background
         />
@@ -137,6 +148,8 @@ const TrackingOrder = () => {
   const [show, setShow] = useState(false);
   const [name, setName] = useState('');
   const [add, setAdd] = useState('');
+  const [ck, setCK] = useState(0);
+  const [phiVC, setphiVC] = useState<number>(0);
   const [paramsCustom, setParamsCustom] = useState({
     note: '',
     payClient: 0,
@@ -152,8 +165,6 @@ const TrackingOrder = () => {
         id: id,
         touch: touch + 1,
       }),
-
-
     );
     dispatch(
       addQuantity({
@@ -197,7 +208,7 @@ const TrackingOrder = () => {
         text: 'Chọn ảnh có sẵn',
         onPress: () => TakePhotoFromLibrary(),
       },
-      {
+      {   
         text: 'Huỷ',
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
@@ -209,6 +220,8 @@ const TrackingOrder = () => {
   const [datee, setDatee] = useState<number>();
   const [month, setMonth] = useState<number>()
   const [year, setYear] = useState<number>()
+  let code = generateInvoiceCode()
+  let productsOrder = products.listProducts.filter((item: any) => item.touch !== 0)
   return (
     <View style={{ flex: 1 }}>
       <HeaderBase title={'Xác nhận đơn hàng'} isIconLeft={false} />
@@ -219,7 +232,7 @@ const TrackingOrder = () => {
           <Text style={{ color: COLORS.blue3 }}>+ Thêm sản phẩm</Text>
         </TouchableOpacity>
         {products.listProducts.map((item: any, index: any) => {
-          sum = products.pay - products.pay * (10 / 100) + 12000;
+          sum = (parseInt(products.pay) - parseInt(products.pay) * (ck / 100)) + parseInt(phiVC);
           return item.touch !== 0 ? (
             <View key={index}>
               <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
@@ -335,7 +348,10 @@ const TrackingOrder = () => {
         <ModalConfig visible={show} onOffShow={() => setShow(false)} layout={{ height: '20%', width: '80%' }}>
           <View style={{}}>
             <TextInput placeholder='Nhập tên hoặc số điện thoại' />
-            <TouchableOpacity style={{ flexDirection: 'row', marginTop: 20 }}>
+            <TouchableOpacity onPress={() => {
+              setShow(false)
+              return navigation.navigate("OnlineSale")
+            }} style={{ flexDirection: 'row', marginTop: 20 }}>
               <Text style={{ color: COLORS.blue3 }}>Tạo mới</Text>
               <View style={{ backgroundColor: COLORS.blue3, justifyContent: 'center', alignItems: 'center', borderRadius: 20, marginLeft: 200, paddingHorizontal: 5, padding: 1 }}>
                 <Text style={{ color: 'white' }}>+</Text>
@@ -395,28 +411,29 @@ const TrackingOrder = () => {
         </View>
         <View style={styles.line} />
         <View>
-          <View style={styles.BoxItem}>
+          {/* <View style={styles.BoxItem}>
             <Text>Khuyến mãi</Text>
             <View style={styles.sale}>
               <Text style={{ color: COLORS.green2 }}>
                 {'Chọn khuyến mãi >'}
               </Text>
             </View>
-          </View>
+          </View> */}
           <View style={styles.BoxItem}>
             <Text>Tổng {products.quantity} sản phẩm</Text>
             <Text>{products.pay}</Text>
           </View>
           <View style={styles.BoxItem}>
             <Text>Phí vận chuyển</Text>
-
-            <Text style={{ color: COLORS.blue3, fontWeight: '700' }}>
+            <TextInput placeholder='VD: 12000' keyboardType='number-pad' value={phiVC} onChangeText={(t) => setphiVC(t)} />
+            {/* <Text style={{ color: COLORS.blue3, fontWeight: '700' }}>
               {products.quantity !== 0 ? 12000 : 0}
-            </Text>
+            </Text> */}
           </View>
           <View style={styles.BoxItem}>
             <Text>Chiết khấu</Text>
-            <Text style={{ color: COLORS.blue3, fontWeight: '700' }}>10%</Text>
+            <TextInput placeholder='VD: 10%' keyboardType='number-pad' value={ck} onChangeText={(t) => setCK(t)} />
+            {/* <Text style={{ color: COLORS.blue3, fontWeight: '700' }}>10%</Text> */}
           </View>
           <View style={styles.BoxItem}>
             <Text>Tổng cộng</Text>
@@ -446,7 +463,7 @@ const TrackingOrder = () => {
             <View style={{ flexDirection: 'row', marginBottom: 10 }}>
               <Text style={{ fontSize: 15, color: COLORS.blue3 }}>Ngày tạo: </Text>
               <Text style={{ fontSize: 15, color: COLORS.blue3 }}>
-                {date.getHours()}:{date.getMinutes()}  {date.getDate()}/{date.getUTCMonth()}/
+                {date.getHours()}:{date.getMinutes()}  {date.getDate()}/{date.getMonth() + 1}/
               {date.getFullYear()}
             </Text>
             </View>
@@ -473,7 +490,33 @@ const TrackingOrder = () => {
           backgroundColor: COLORS.white1,
           paddingTop: 20,
         }}>
-        <ButtonBase title="Giao sau" onPress={() => {}} />
+        <ButtonBase title="Giao sau" onPress={() => {
+          dispatch(addListOrder({
+            data: {
+              id: orders.length,
+              name: name || "Khách lẻ",
+              date: {
+                hours: `${date.getHours()}:${date.getMinutes()}`,
+                date: date.getDate(),
+                month: date.getMonth() + 1,
+                year: date.getFullYear(),
+              },
+              code: code,
+              delivered: false,
+              sum: sum,
+              paid: false,
+              payClient: paramsCustom.payClient,
+              ghino: sum - paramsCustom.payClient,
+              add: add,
+              products: productsOrder,
+              phivc: phiVC,
+              ck: ck
+            }
+          }));
+          // dispathch(reset({ touch: 0 }))
+          navigation.replace('OrderBill', { pay: sum, name, hours, datte: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear(), add, code: code, temp: true });
+        }}
+        />
         <ButtonBase
           title="Bán nhanh"
           background
@@ -481,7 +524,7 @@ const TrackingOrder = () => {
             setShowSheet(true);
             setDatee(date.getDate());
             setHours(`${date.getHours()}:${date.getMinutes()}`)
-            setMonth(date.getMonth())
+            setMonth(date.getMonth() + 1)
             setYear(date.getFullYear())
           }}
         />
@@ -501,7 +544,9 @@ const TrackingOrder = () => {
             add,
             dispathch,
             orders,
-            products.listProducts
+            products.listProducts,
+            phiVC,
+            ck
           )}
           title="Xác nhận thanh toán"
           height={500}

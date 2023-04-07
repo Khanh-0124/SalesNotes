@@ -15,6 +15,9 @@ type NavigationType = {
 const ListFeatureBox = () => {
   const products = useSelector((state: any) => state.products?.listProducts?.length)
   const navigation = useNavigation<NavigationType>();
+  const orders = useSelector((state: any) => state.orders.listOrders)
+  const numberOrders = orders.filter((item: any) => item.delivered == false)
+  // console.log(numberOrders.length)
   const handleSubmit = useCallback((id: number) => {
     if (id === 1) {
       navigation.navigate('CreateOrderScreen');
@@ -26,23 +29,19 @@ const ListFeatureBox = () => {
   }, []);
   return (
     <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignSelf: 'center',
-        flexWrap: 'wrap',
-        marginHorizontal: 10,
-        marginTop: 15,
-      }}>
+      style={styles.container}>
       {dataBox.map(item => (
         <TouchableOpacity
           activeOpacity={0.7}
           key={item.id}
           onPress={() => handleSubmit(item.id)}
           style={[styles.viewBox]}>
-          {item.id === 3 && products !== 0 ? (
+          {item.id === 3 || item.id == 2 && products !== 0 ? (
             <View style={styles.iconNotify}>
-              <Text style={styles.amountText}>{products}</Text>
+              {
+                item.id == 3 ? <Text style={styles.amountText}>{products}</Text> : <Text style={styles.amountText}>{numberOrders.length}</Text>
+              }
+
             </View>
           ) : null}
           <Image
@@ -53,7 +52,6 @@ const ListFeatureBox = () => {
               alignSelf: 'center',
             }}
           />
-
           <Text style={styles.title}>{item.name}</Text>
         </TouchableOpacity>
       ))}
@@ -82,6 +80,14 @@ const styles = ScaledSheet.create({
     shadowRadius: 1.41,
 
     elevation: 2,
+  },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignSelf: 'center',
+    flexWrap: 'wrap',
+    marginHorizontal: 10,
+    marginTop: 15,
   },
   title: {
     fontSize: '12@s',

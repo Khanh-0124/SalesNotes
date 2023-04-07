@@ -21,23 +21,18 @@ export const orderSlice = createSlice({
   },
   reducers: {
       addListOrder: (state: any, action) => {
-    //  console.log(state.listOrders)
-        state.listOrders.push({
-        id: action.payload.id,
-        name: action.payload.name,
-        date: action.payload.hours,
-        code: action.payload.code,
-        delivered: true,
-        // price: action.payload.price,
-        sum: action.payload.sum,
-        paid: action.payload.paid,
-        ghino: action.payload.ghino,
-        add: action.payload.add,
-        listProducts: action.payload.products
-        })
+      state.listOrders.push(action.payload.data)
+    },
+    updateGhino: (state: any, action) => {
+      state.listOrders[action.payload.id].ghino = action.payload.ghino
+      state.listOrders[action.payload.id].ghino == 0 ? state.listOrders[action.payload.id].paid = true : null
+      // console.log(state.listOrders[action.payload.id].payClient)
+    },
+    updateDelivered: (state: any, action) => {
+      state.listOrders[action.payload.id].delivered = true
       }
   },
 });
 
-export const {addListOrder} = orderSlice.actions;
+export const { addListOrder, updateDelivered, updateGhino } = orderSlice.actions;
 export default orderSlice.reducer;

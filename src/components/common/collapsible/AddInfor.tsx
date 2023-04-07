@@ -26,7 +26,7 @@ const AddInfor = ({ dataChill }: any) => {
   // const toggleSwitch = () => {
   //   setChecked(!checked);
   // };
-  dataChill(paramsCustom.remain, paramsCustom.dv);
+  // dataChill(paramsCustom.remain, paramsCustom.dv);
   return (
     <View>
       <View style={styles.wrapper}>

@@ -58,7 +58,7 @@ const OrderBill = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <HeaderBase title={'Chi tiết hoá đơn'} isIconLeft={false} />
+      <HeaderBase clean title={'Chi tiết hoá đơn'} isIconLeft={false} />
       <ViewShot
         style={{ padding: 15, backgroundColor: 'white' }}
         ref={ref}
@@ -78,7 +78,7 @@ const OrderBill = () => {
         <View style={styles.dotted} />
         <View style={{ alignSelf: 'center' }}>
           <Text style={{ fontWeight: '600', fontSize: 15, marginVertical: 5 }}>
-            HOÁ ĐƠN BÁN HÀNG
+            {route.temp ? `HOÁ ĐƠN TẠM TÍNH` : `HOÁ ĐƠN BÁN HÀNG`}
           </Text>
           <Text>{route.code} - {`${route.hours} ${route.datte}/${route.month}/${route.year}`}</Text>
         </View>
@@ -119,7 +119,7 @@ const OrderBill = () => {
         })}
         <View style={styles.dotted} />
         <BillPay title="Tổng cộng" value={route.pay} />
-        <BillPay title="Khách trả" value={route.payClient} />
+        <BillPay title={route.temp ? "Chưa thanh toán" : "Khách trả"} value={route.temp ? route.pay : route.payClient} />
         <View style={styles.dotted} />
         <View style={{ alignSelf: 'center', marginTop: 10 }}>
           <Text>Bán hàng chuyên nghiệp bằng ứng dụng</Text>

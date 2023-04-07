@@ -98,7 +98,7 @@ const GridOder = () => {
                 resizeMode="cover"
               />
               <Text style={[styles.itemCode, { marginVertical: 3 }]}>
-                {item.price ? `${item.remaining}` : ``}
+                {item.price ? `Còn ${item.remaining} ${item.dv}` : ``}
               </Text>
               <Text
                 style={

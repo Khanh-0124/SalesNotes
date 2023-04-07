@@ -11,7 +11,6 @@ import InputProduct from '../components/InputProduct';
 import AddIamgeProduct from '../components/AddIamgeProduct';
 import uuid from 'react-native-uuid';
 import { launchImageLibrary } from 'react-native-image-picker';
-import AddInfor from 'components/common/collapsible/AddInfor';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 
 interface ProductBodyInterface {
