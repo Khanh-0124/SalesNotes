@@ -5,28 +5,25 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { dataOrder } from 'utilities/data';
 import { COLORS } from 'assets/global/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { updateDelivered } from '../../../redux/orderSlice';
-import { debouncedSearchOrders } from 'assets/global/fn_search';
 
-const OrderAll = () => {
-  let key = useSelector((state: any) => state.orders.searchOrder)
+const OrderDelivered = () => {
   let orders = useSelector((state: any) => state.orders.listOrders);
   const dispatch = useDispatch()
+  const [data, setData] = useState(orders);
   const navigation = useNavigation<any>()
   const submit = (id: number) => {
     return navigation.navigate("DetailOrder", { id: id });
   }
-  let result = debouncedSearchOrders(key, orders);
-  let orderss = key.length > 0 ? result : orders;
-
+  orders = orders.filter((item: any) => item.delivered == true)
   return (
     <ScrollView>
-      {orderss.map((item: any) => (
+      {orders.map((item: any) => (
         <TouchableOpacity
           onPress={() => submit(item.id)}
           activeOpacity={0.4}
@@ -95,7 +92,7 @@ const OrderAll = () => {
   );
 };
 
-export default React.memo(OrderAll);
+export default React.memo(OrderDelivered);
 
 const styles = StyleSheet.create({
   SOrder: {
