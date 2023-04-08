@@ -22,6 +22,7 @@ import HeaderBase from 'components/base/header/HeaderBase';
 import { launchImageLibrary } from 'react-native-image-picker';
 import ModalConfig from 'components/common/ModalConfig';
 import { addListOrder } from '../../../redux/orderSlice';
+import { debouncedSearchCustomers } from 'assets/global/fn_search';
 
 function generateInvoiceCode() {
   let code = '';
@@ -57,7 +58,7 @@ const PayConfirmSheet = (
   }
   let codde = generateInvoiceCode();
   let productsOrder = products.filter((item: any) => item.touch !== 0)
-  console.log(check, "as")
+  // console.log(check, "as")
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <Text
@@ -123,7 +124,8 @@ const PayConfirmSheet = (
 
                   products: productsOrder,
                   phivc: vc,
-                  ck: ck
+                  ck: ck,
+                  stringDate: `${year}-${month?.toString().padStart(2, '0')}-${datte?.toString().padStart(2, '0')}`
                 }
             }))
             // console.log("Khanh name")
@@ -142,12 +144,14 @@ const TrackingOrder = () => {
   const orders = useSelector((state: any) => state.orders.listOrders);
   const dispathch = useDispatch()
   // const quantity = useSelector((state: any) => state.products.quantity);
+  const customers = useSelector((state: any) => state.clients.listClients)
   const navigation = useNavigation<any>();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [name, setName] = useState('');
   const [add, setAdd] = useState('');
+  const [keyCustomer, setKeyCustomer] = useState('');
   const [ck, setCK] = useState(0);
   const [phiVC, setphiVC] = useState<number>(0);
   const [paramsCustom, setParamsCustom] = useState({
@@ -158,6 +162,8 @@ const TrackingOrder = () => {
   const onTextChange = useCallback((keyName: string, value: string) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
+  let result = debouncedSearchCustomers(keyCustomer, customers);
+  let customerss = keyCustomer.length > 0 ? result : customers;
   const dispatch = useDispatch();
   const handlePlus = (id: number, touch: number, price: number) => {
     dispatch(
@@ -345,9 +351,9 @@ const TrackingOrder = () => {
           ) : null;
         })}
         {products.quantity !== 0 ? <View style={styles.line} /> : null}
-        <ModalConfig visible={show} onOffShow={() => setShow(false)} layout={{ height: '20%', width: '80%' }}>
-          <View style={{}}>
-            <TextInput placeholder='Nhập tên hoặc số điện thoại' />
+        <ModalConfig visible={show} onOffShow={() => setShow(false)} layout={{ height: '25%', width: '80%' }}>
+          <View style={{ marginTop: 15 }}>
+            <TextInput placeholder='Nhập tên hoặc số điện thoại' value={keyCustomer} onChangeText={(t) => setKeyCustomer(t)} />
             <TouchableOpacity onPress={() => {
               setShow(false)
               return navigation.navigate("OnlineSale")
@@ -357,22 +363,28 @@ const TrackingOrder = () => {
                 <Text style={{ color: 'white' }}>+</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
-              setShow(false)
-              setName("Khách lẻ")
-            }} activeOpacity={0.4} style={{ marginTop: 20 }}>
-              <View style={{
-                flexDirection: 'row', alignItems: 'center'
-              }}>
-                <View style={{
-                  padding: 5, borderRadius: 50, borderWidth: 1, borderColor: COLORS.gray1,
-                  marginRight: 10
-                }}>
-                  <Image source={require('assets/icons/png/ic_user.png')} style={{ tintColor: COLORS.gray4, width: 30, height: 30 }} />
-                </View>
-                <Text style={{ color: COLORS.blue3 }}>Khách lẻ</Text>
-              </View>
-            </TouchableOpacity>
+            <ScrollView>
+              {
+                customerss.map((customer: any) => <TouchableOpacity key={customer.id} onPress={() => {
+                  setShow(false)
+                  setName(customer.name)
+                  setAdd(customer.add)
+                }} activeOpacity={0.4} style={{ marginTop: 20 }}>
+                  <View style={{
+                    flexDirection: 'row', alignItems: 'center'
+                  }}>
+                    <View style={{
+                      padding: 5, borderRadius: 50, borderWidth: 1, borderColor: COLORS.gray1,
+                      marginRight: 10
+                    }}>
+                      <Image source={require('assets/icons/png/ic_user.png')} style={{ tintColor: COLORS.gray4, width: 30, height: 30 }} />
+                    </View>
+                    <Text style={{ color: COLORS.blue3 }}>{customer.name}</Text>
+                  </View>
+                </TouchableOpacity>)
+              }
+
+            </ScrollView>
             <View>
             </View>
           </View>
@@ -510,7 +522,8 @@ const TrackingOrder = () => {
               add: add,
               products: productsOrder,
               phivc: phiVC,
-              ck: ck
+              ck: ck,
+              stringDate: `${date.getFullYear()}-${(date.getMonth() + 1)?.toString().padStart(2, '0')}-${date.getDate()?.toString().padStart(2, '0')}`
             }
           }));
           // dispathch(reset({ touch: 0 }))

@@ -13,17 +13,33 @@ import { useNavigation } from '@react-navigation/native';
 import { updateDelivered } from '../../../redux/orderSlice';
 import { debouncedSearchOrders } from 'assets/global/fn_search';
 
+
 const OrderAll = () => {
   let key = useSelector((state: any) => state.orders.searchOrder)
   let orders = useSelector((state: any) => state.orders.listOrders);
+  let start = useSelector((state: any) => state.user.start);
+  let end = useSelector((state: any) => state.user.end);
   const dispatch = useDispatch()
   const navigation = useNavigation<any>()
   const submit = (id: number) => {
     return navigation.navigate("DetailOrder", { id: id });
   }
+  const filterOrdersByDateRange = (orders: any, start: any, end: any) => {
+    const startDate = new Date(start?.yearStart, start?.monthStart, start?.dayStart);
+    const endDate = new Date(end?.yearEnd, end?.monthEnd, end?.dayEnd + 1);
+
+    return orders.filter((order: any) => {
+      const orderDate = new Date(order.date.year, order.date.month, order.date.date);
+      // console.log(startDate < orderDate)
+      return orderDate >= startDate && orderDate < endDate;
+    });
+  };
+  let kqloc = filterOrdersByDateRange(orders, start, end)
   let result = debouncedSearchOrders(key, orders);
   let orderss = key.length > 0 ? result : orders;
-
+  // console.log(kqloc.length)
+  orderss = kqloc
+  start == "" || end == "" ? orderss = orders : null
   return (
     <ScrollView>
       {orderss.map((item: any) => (

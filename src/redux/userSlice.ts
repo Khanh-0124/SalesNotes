@@ -9,13 +9,23 @@ export const userSlice = createSlice({
     avtUrl:
       'https://secure.gravatar.com/avatar/4aa440c98afa8ea4e547c36783e4385b?s=256&d=mm&r=g',
     authStateChanged: null,
+    start: '',
+    end: ''
   },
   reducers: {
     changeStateAuth: (state, action) => {
       state.authStateChanged = action.payload.change;
     },
+    changeDateFilter: (state, action) => {
+      state.start = action.payload.start,
+        state.end = action.payload.end
+    },
+    cancelFilter: (state, action) => {
+      state.start = action.payload.start,
+        state.end = action.payload.start
+    }
   },
 });
 
-export const { changeStateAuth } = userSlice.actions;
+export const { changeStateAuth, changeDateFilter, cancelFilter } = userSlice.actions;
 export default userSlice.reducer;

@@ -10,7 +10,8 @@ export const clientSlice = createSlice({
   initialState: {
   add: '',
   show: false,
-    listClients: []
+    listClients: [
+    ]
   },
   reducers: {
     addClient: (state: any, action) => {

@@ -18,7 +18,8 @@ export const orderSlice = createSlice({
       //   listProducts: [{id: 1, name: "my gao", images: [], sl: 1}],
       // },
     ],
-    searchOrder: ""
+    searchOrder: "",
+    stateFilterShow: false
   },
   reducers: {
       addListOrder: (state: any, action) => {
@@ -35,9 +36,12 @@ export const orderSlice = createSlice({
     search: (state, action) => {
       state.searchOrder = action.payload.search
       // console.log(state.searchOrder)
+    },
+    setSateFilter: (state, action) => {
+      state.stateFilterShow = action.payload.state
       }
   },
 });
 
-export const { addListOrder, updateDelivered, updateGhino, search } = orderSlice.actions;
+export const { addListOrder, updateDelivered, updateGhino, search, setSateFilter } = orderSlice.actions;
 export default orderSlice.reducer;

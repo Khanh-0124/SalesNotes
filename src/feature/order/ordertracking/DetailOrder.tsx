@@ -24,7 +24,7 @@ const DetailOrder = () => {
   }
   const [isVisible, setIsVisible] = useState(false);
   const [paied, setPaied] = useState('');
-  console.log(order.ghino, "ghino")
+  // console.log(order.stringDate, "ghino")
   return (
     <View style={{ flex: 1 }}>
       <HeaderWithMultiIcon title='Chi tiết hoá đơn' firtRightIcon={{}} />

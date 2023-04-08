@@ -5,6 +5,7 @@ import { COLORS } from 'assets/global/colors';
 import firestore from '@react-native-firebase/firestore';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { addData, deleteData, updateData } from '../../servers/firebase/crud';
+import CalendarComponents from 'components/CalendarComponents';
 
 const Profile = () => {
   const ref = firestore().collection('products').doc("khanh1");
@@ -17,6 +18,10 @@ const Profile = () => {
         bgColor={''}
         color={''}
       />
+      {/* <View style={{ height: 300, width: 200 }}>
+
+        <CalendarComponents />
+      </View> */}
       <View style={{ paddingHorizontal: 15 }}>
       <View
         style={{
@@ -32,7 +37,7 @@ const Profile = () => {
               padding: 8,
               backgroundColor: COLORS.white1,
               borderRadius: 50,
-              position: 'absolute',                 
+              position: 'absolute',
               bottom: 0,
               right: 0,
               zIndex: 1,
