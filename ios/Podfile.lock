@@ -1040,6 +1040,14 @@ PODS:
     - glog
   - react-native-blur (4.3.0):
     - React-Core
+  - react-native-camera (4.2.1):
+    - React-Core
+    - react-native-camera/RCT (= 4.2.1)
+    - react-native-camera/RN (= 4.2.1)
+  - react-native-camera/RCT (4.2.1):
+    - React-Core
+  - react-native-camera/RN (4.2.1):
+    - React-Core
   - react-native-date-picker (4.2.9):
     - React-Core
   - react-native-dialogflow (3.2.2):
@@ -1145,6 +1153,8 @@ PODS:
     - FirebaseCoreExtension (= 10.3.0)
     - React-Core
     - RNFBApp
+  - RNFS (2.20.0):
+    - React-Core
   - RNGestureHandler (2.9.0):
     - React-Core
   - RNReanimated (2.14.4):
@@ -1218,6 +1228,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
+  - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-dialogflow (from `../node_modules/react-native-dialogflow`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
@@ -1243,6 +1254,7 @@ DEPENDENCIES:
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
+  - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1323,6 +1335,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-blur:
     :path: "../node_modules/@react-native-community/blur"
+  react-native-camera:
+    :path: "../node_modules/react-native-camera"
   react-native-date-picker:
     :path: "../node_modules/react-native-date-picker"
   react-native-dialogflow:
@@ -1373,6 +1387,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/firestore"
   RNFBMessaging:
     :path: "../node_modules/@react-native-firebase/messaging"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -1436,6 +1452,7 @@ SPEC CHECKSUMS:
   React-jsinspector: bb2605f98aada5d81f3494690da3ef3b4ff3b716
   React-logger: 23a50ef4c18bf9adbb51e2c979318e6b3a2e44a1
   react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
+  react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-date-picker: c063a8967058c58a02d7d0e1d655f0453576fb0d
   react-native-dialogflow: 786714700b825b342c9db519efa0b467aee1cded
   react-native-image-picker: 60f4246eb5bb7187fc15638a8c1f13abd3820695
@@ -1461,6 +1478,7 @@ SPEC CHECKSUMS:
   RNFBAuth: 58ab8f774f9ff45707f2bfbf4fd74e8f7b4220b9
   RNFBFirestore: 7b78ed08507096b83a5329873cb81ba8723a8ba0
   RNFBMessaging: 9c5f10655696f32a8ff779cfdbc512f3615bd204
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNReanimated: ba021107f1dd90cb04c35c5d639392d5da27d065
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f

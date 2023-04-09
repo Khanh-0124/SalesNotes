@@ -24,6 +24,8 @@ import { addImage } from '../../redux/imageSlice';
 import uuid from 'react-native-uuid';
 import { useNavigationParams } from '../../hooks/useNavigationParams';
 import { useNavigation } from 'utilities/global';
+import RNFS from 'react-native-fs';
+import { changeUri } from '../../redux/userSlice';
 
 interface NavigateInterface {
   navigate: string;
@@ -32,9 +34,10 @@ interface NavigationInterface {
   navigate(name: string): void;
 }
 const CameraFiles = () => {
-  const navigation = useNavigation<NavigationInterface>();
+  const navigation = useNavigation<any>();
   const { navigate } = useNavigationParams<NavigateInterface>();
   const devices = useCameraDevices('wide-angle-camera');
+  const [uri, setUri] = useState('')
   const device = devices.back;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,12 +49,18 @@ const CameraFiles = () => {
     if (permission === 'denied') await Linking.openSettings();
   }, []);
 
-  const camera = useRef<Camera>(null);
+  const camera = useRef<any>(null);
 
   const [camLocation, setCamLocation] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
+
+  // const saveImage = async (imageUri) => {
+  //   const destPath = RNFS.DocumentDirectoryPath + '/my-image.jpeg';
+  //   await RNFS.copyFile(imageUri, destPath);
+  //   return destPath;
+  // };
 
   const touchII = async (event: NativeTouchEvent) => {
     let point: Point = {
@@ -63,22 +72,34 @@ const CameraFiles = () => {
       .then(() => {
         console.log('Focus succeeded');
       })
-      .catch(reason => {
+      .catch((reason: any) => {
         console.log('Focus failed!', reason);
       });
   };
 
-  const handelTakeImageFromCamera = useCallback(async () => {
-    await TakePhotoFromCamera(camera).then((res: any) => {
+  const handelTakeImageFromCamera = async () => {
+    if (camera.current != null) {
+      const photo = await camera.current.takePhoto({
+        flash: 'off',
+        enableAutoRedEyeReduction: true
+      });
+      // console.log(photo.path)
+      setUri(photo.path)
+      // const savedImageUri = await saveImage(photo.path);
+      console.log(`file://${photo.path}`)
+      dispatch(changeUri({
+        uri: `file://${photo.path}`
+      }))
+      // console.log(savedImageUri);
       dispatch(
         addImage({
           id: uuid.v4(),
-          uri: `file://${res.path}`,
+          uri: `file://${photo.path}`,
         }),
       );
-      navigation.navigate(navigate);
-    });
-  }, []);
+    }
+    return navigation.goBack()
+  }
 
   if (device == null)
     return (

@@ -5,7 +5,8 @@ import { COLORS } from 'assets/global/colors'
 
 const DebtBookHistory = () => {
   return (
-    <View>
+    <View style=
+      {{ backgroundColor: "#fff", flex: 1 }}>
       <StatusBar
         backgroundColor="#007AFF"
         barStyle="dark-content"

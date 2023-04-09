@@ -16,7 +16,7 @@ interface HeaderBaseProps {
 const HeaderBase = memo(function HeaderBase({
   iconBack = true,
   title,
-  bgColor,
+  bgColor = '#fff',
   color,
   isIconLeft = true,
   clean = false
@@ -24,7 +24,7 @@ const HeaderBase = memo(function HeaderBase({
   const dispath = useDispatch()
   const navigation = useNavigation();
   return (
-    <View style={[styles.container, { backgroundColor: bgColor }, isIconLeft ? null : { marginRight: 26 }]}>
+    <View style={[styles.container, { backgroundColor: bgColor, width: '100%' }, isIconLeft ? null : { paddingRight: 26 }]}>
       {
         iconBack ? (<TouchableOpacity onPress={() => {
           clean ? dispath(reset({ touch: 0 })) : null

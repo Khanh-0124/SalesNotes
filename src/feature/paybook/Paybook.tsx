@@ -31,7 +31,7 @@ const Paybook = () => {
   const [choose, setChoose] = useState(dataTabThuchi)
   const [idchoose, setIdchoose] = useState(2)
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <View style={{ padding: 15, flex: 1 }}>
         <StatusBar barStyle={'dark-content'} />
         <View style={{ flexDirection: 'row' }}>

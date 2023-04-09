@@ -70,5 +70,6 @@ const styles = ScaledSheet.create({
   textAnimation: { fontSize: 28, color: 'red', fontWeight: 'bold' },
   container: {
     flex: 1,
+    backgroundColor: "#fff"
   },
 });

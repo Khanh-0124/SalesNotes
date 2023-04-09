@@ -45,7 +45,7 @@ const OnlineSale = () => {
   }, [client])
   // console.log(client)
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <HeaderBase iconBack={false} title='Khách hàng' isIconLeft={false} bgColor={'#fff'} />
       <View>
         <FlatList

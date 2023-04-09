@@ -6,9 +6,13 @@ import firestore from '@react-native-firebase/firestore';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { addData, deleteData, updateData } from '../../servers/firebase/crud';
 import CalendarComponents from 'components/CalendarComponents';
+import { useSelector } from 'react-redux';
+
+
 
 const Profile = () => {
-  const ref = firestore().collection('products').doc("khanh1");
+  // const ref = firestore().collection('products').doc("khanh1");
+  const uri = useSelector((state: any) => state.user.uri)
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white1 }}>
       <HeaderBase
@@ -32,7 +36,8 @@ const Profile = () => {
         }}>
         <View>
             <TouchableOpacity activeOpacity={0.5} onPress={() => {
-              deleteData("products", 'Test')
+              // deleteData("products", 'Test')
+              console.log(uri)
             }} style={{
               padding: 8,
               backgroundColor: COLORS.white1,
@@ -58,6 +63,9 @@ const Profile = () => {
           </View>
         </View>
         <View>
+          <View>
+            <Image source={{ uri: uri }} style={{ height: 44, width: 44 }} />
+          </View>
           <InputWithTitle title='Tên cửa hàng' onPress={() => { }} placeholder={'Ví dụ: khánh'} value={'Tạp hoá & Bánh mỳ Khánh Vũ'} />
           <InputWithTitle title='Số điện thoại' onPress={() => { }} placeholder={'Ví dụ: 012345678'} value={'012345678'} />
           <InputWithTitle title='Địa chỉ' onPress={() => { }} placeholder={'Thêm địa chỉ'} value={'Trục Ninh, Nam Định'} />

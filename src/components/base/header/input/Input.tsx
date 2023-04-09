@@ -45,6 +45,7 @@ export default ({
       <Text style={styles.text}>{title}</Text>
       <TextInput
         placeholder={placeholder}
+        placeholderTextColor={'#ccc'}
         value={value}
         onChangeText={onChange}
         style={CustomStyleInput}

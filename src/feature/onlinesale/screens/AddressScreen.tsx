@@ -41,7 +41,7 @@ const AddressScreen = () => {
   }, [codetinh, codehuyen]);
   const navigation = useNavigation<any>()
   return (
-    <View style={{ flex: 1, }}>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <HeaderWithMultiIcon title='Thêm địa chỉ' />
       <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 200, flexWrap: 'wrap' }}>
         <TouchableOpacity style={styles.add} onPress={() => {
@@ -64,7 +64,7 @@ const AddressScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={{ alignSelf: 'center', marginTop: 20 }}>
-        <TextInput placeholder='Thêm địa chỉ cụ thể' style={{ fontSize: 18, borderWidth: 1, borderColor: '#ccc', padding: 15, borderRadius: 15, width: 300 }} value={detail} onChangeText={(text) => setDetail(text)} />
+        <TextInput placeholder='Thêm địa chỉ cụ thể' style={{ fontSize: 18, borderWidth: 1, borderColor: '#ccc', padding: 15, borderRadius: 15, width: 300 }} placeholderTextColor={'#ccc'} value={detail} onChangeText={(text) => setDetail(text)} />
       </View>
       <View style={{ alignSelf: 'center', marginTop: 20 }}>
         <ButtonBase title='Done' background onPress={() => {
