@@ -6,6 +6,7 @@ import { COLORS } from 'assets/global/colors';
 import { useDispatch } from 'react-redux';
 import { update } from '../../redux/imageSlice';
 import { reset } from '../../redux/productSlice';
+import { addPro } from '../../redux/userSlice';
 interface HeaderMultiIcons {
   title: string;
   leftIcon?: any;
@@ -61,6 +62,9 @@ const HeaderWithMultiIcon = ({
               ]);
             });
           }
+          dispath(addPro({
+            cancel: true
+          }))
           return navigation.goBack()
         }}>
           <Image source={leftIcon} style={{ height: 24, width: 24 }} />

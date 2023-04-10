@@ -69,10 +69,13 @@ export const productSlice = createSlice({
     },
     cloudProducts: (state, action) => {
       state.listProducts = action.payload.product
-    }
+    },
+    productsByAZ: (state, action) => {
+      state.listProducts = action.payload.newproducts
+    } 
   },
 });
 
-export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct, addCategory, delTickAddToCate, cloudProducts } =
+export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct, addCategory, delTickAddToCate, cloudProducts, productsByAZ } =
   productSlice.actions;
 export default productSlice.reducer;

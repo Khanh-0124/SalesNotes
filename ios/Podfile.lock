@@ -1048,15 +1048,15 @@ PODS:
     - React-Core
   - react-native-camera/RN (4.2.1):
     - React-Core
-  - react-native-date-picker (4.2.9):
+  - react-native-date-picker (4.2.10):
     - React-Core
   - react-native-dialogflow (3.2.2):
     - React
   - react-native-image-picker (4.10.3):
     - React-Core
-  - react-native-pager-view (6.1.4):
+  - react-native-pager-view (6.2.0):
     - React-Core
-  - react-native-safe-area-context (4.5.0):
+  - react-native-safe-area-context (4.5.1):
     - RCT-Folly
     - RCTRequired
     - RCTTypeSafety
@@ -1064,7 +1064,7 @@ PODS:
     - ReactCommon/turbomodule/core
   - react-native-splash-screen (3.3.0):
     - React-Core
-  - react-native-view-shot (3.5.0):
+  - react-native-view-shot (3.6.0):
     - React-Core
   - react-native-voice (0.3.0):
     - React
@@ -1134,7 +1134,7 @@ PODS:
     - React-jsi (= 0.69.3)
     - React-logger (= 0.69.3)
     - React-perflogger (= 0.69.3)
-  - RNCMaskedView (0.2.8):
+  - RNCMaskedView (0.2.9):
     - React-Core
   - RNFBApp (16.7.0):
     - Firebase/CoreOnly (= 10.3.0)
@@ -1143,12 +1143,12 @@ PODS:
     - Firebase/Auth (= 10.3.0)
     - React-Core
     - RNFBApp
-  - RNFBFirestore (17.4.0):
+  - RNFBFirestore (17.4.2):
     - Firebase/Firestore (= 10.3.0)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - React-Core
     - RNFBApp
-  - RNFBMessaging (17.4.1):
+  - RNFBMessaging (17.4.2):
     - Firebase/Messaging (= 10.3.0)
     - FirebaseCoreExtension (= 10.3.0)
     - React-Core
@@ -1157,7 +1157,7 @@ PODS:
     - React-Core
   - RNGestureHandler (2.9.0):
     - React-Core
-  - RNReanimated (2.14.4):
+  - RNReanimated (2.15.0):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -1189,7 +1189,7 @@ PODS:
     - React-RCTImage
   - RNShare (8.2.1):
     - React-Core
-  - RNSVG (13.8.0):
+  - RNSVG (13.9.0):
     - React-Core
   - RNVectorIcons (9.2.0):
     - React-Core
@@ -1453,13 +1453,13 @@ SPEC CHECKSUMS:
   React-logger: 23a50ef4c18bf9adbb51e2c979318e6b3a2e44a1
   react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
-  react-native-date-picker: c063a8967058c58a02d7d0e1d655f0453576fb0d
+  react-native-date-picker: 89c419d88fa8e3c5f2d3cbae0bb7f7454ae8ea55
   react-native-dialogflow: 786714700b825b342c9db519efa0b467aee1cded
   react-native-image-picker: 60f4246eb5bb7187fc15638a8c1f13abd3820695
-  react-native-pager-view: b58cb9e9f42f64e50cab3040815772c1d119a2e2
-  react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
+  react-native-pager-view: 0ccb8bf60e2ebd38b1f3669fa3650ecce81db2df
+  react-native-safe-area-context: f5549f36508b1b7497434baa0cd97d7e470920d4
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
-  react-native-view-shot: 792829857bbb23a9c8acdad9a640554bdee397a3
+  react-native-view-shot: 705f999ac2a24e4e6c909c0ca65c732ed33ca2ff
   react-native-voice: 9829ac5dc9300687c5f215bddf6c9645e82923fc
   React-perflogger: 39d2ba8cbcac54d1bb1d9a980dab348e96aef467
   React-RCTActionSheet: b1ad907a2c8f8e4d037148ca507b7f2d6ab1c66d
@@ -1473,17 +1473,17 @@ SPEC CHECKSUMS:
   React-RCTVibration: dd8099eb46e9cee4692934bc8cbe5e9a4f5e8d31
   React-runtimeexecutor: 607eb048e22a16388c908ee1f6644200e8d1e19b
   ReactCommon: af7636436b382db7cde4583bbd642f0978e6e3ed
-  RNCMaskedView: bc0170f389056201c82a55e242e5d90070e18e5a
+  RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNFBApp: 1ee535dcb7773ca612d3a2e53a1f78f8f2fb6abf
   RNFBAuth: 58ab8f774f9ff45707f2bfbf4fd74e8f7b4220b9
-  RNFBFirestore: 7b78ed08507096b83a5329873cb81ba8723a8ba0
-  RNFBMessaging: 9c5f10655696f32a8ff779cfdbc512f3615bd204
+  RNFBFirestore: 94d699314c3d39eaa7f58c0dbcef79a2d29408af
+  RNFBMessaging: c1a2c9d400ca0e40de52cc498a31e71c32c318d1
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
-  RNReanimated: ba021107f1dd90cb04c35c5d639392d5da27d065
+  RNReanimated: a77f63bcd9717e29089fd61f150447948ce70714
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNShare: eaee3dd5a06dad397c7d3b14762007035c5de405
-  RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
+  RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   VisionCamera: 5fc30ecebdfd0335d11123ec9511dcbc27ee4046
   Yoga: 44c64131616253fa83366295acdbce3d14926041

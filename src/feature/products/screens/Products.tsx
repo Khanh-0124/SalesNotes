@@ -14,17 +14,18 @@ type NavigationType = {
 const Products = () => {
   const dispath = useDispatch()
   const products = useSelector((state: any) => state.products);
+  const proBySort = useSelector((state: any) => state.user.listProBySort);
   const navigation = useNavigation<NavigationType>()
   return (
     <View>
       <FlatGrid
         itemDimension={100}
-        data={products.listProducts}
+        data={proBySort.length > 0 ? proBySort : products.listProducts}
         style={styles.gridView}
         // staticDimension={300}
         // fixed
         spacing={15}
-        renderItem={({ item, index }) => (<TouchableOpacity onPress={() => {
+        renderItem={({ item, index }) => item.remaining != 0 ? (<TouchableOpacity onPress={() => {
           dispath(update({
             imagesList: products.listProducts[item.id]?.image
           }))
@@ -35,7 +36,19 @@ const Products = () => {
           <Text style={{ marginVertical: 5, marginLeft: 10 }}>{item.name}</Text>
           <Text style={{ marginBottom: 5, marginLeft: 10, fontSize: 12 }}>{item.dv}</Text>
           <Text style={{ color: COLORS.red2, marginLeft: 10 }}>{item.price} đ</Text>
-        </TouchableOpacity>)}
+        </TouchableOpacity>) : (<View style={[styles.containerItem]}>
+          <View>
+            <View style={styles.Hh}>
+              <Text>Tạm hết hàng</Text>
+            </View>
+            <Image source={item.image} style={styles.image} resizeMode='cover' />
+          </View>
+          <View style={{ width: '90%', height: 1, backgroundColor: COLORS.gray1, marginTop: 5, alignSelf: 'center' }} />
+          <Text style={{ marginVertical: 5, marginLeft: 10 }}>{item.name}</Text>
+          <Text style={{ marginBottom: 5, marginLeft: 10, fontSize: 12 }}>{item.dv}</Text>
+          <Text style={{ color: COLORS.red2, marginLeft: 10 }}>{item.price} đ</Text>
+        </View>)
+        }
         keyExtractor={item => item.id}
       />
 
@@ -65,5 +78,6 @@ const styles = StyleSheet.create({
     height: 90,
     width: '100%',
     borderRadius: 10
-  }
+  },
+  Hh: { position: 'absolute', zIndex: 1, backgroundColor: '#fff', alignSelf: 'center', borderRadius: 5, top: 25, paddingVertical: 10, paddingHorizontal: 5 }
 })

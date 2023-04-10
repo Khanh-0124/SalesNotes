@@ -48,7 +48,7 @@ const DetailOrder = () => {
                 <Text style={{ fontSize: 12, color: 'white' }}>Gửi hoá đơn</Text>
               </TouchableOpacity>
             </View>
-            <Text style={{ fontSize: 12, color: order.paid ? COLORS.green2 : COLORS.red2 }}>{order.paid ? 'Đã thanh toán' : 'Chưa thanh toán'}</Text>
+            <Text style={{ fontSize: 12, color: order.paid ? COLORS.green2 : COLORS.red2 }}>{order.ghino == 0 ? 'Đã thanh toán' : order.ghino == order.sum ? "Chưa thanh toán" : 'Thanh toán 1 phần'}</Text>
           </View>
 
         </View>
