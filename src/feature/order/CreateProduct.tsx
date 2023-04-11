@@ -31,7 +31,7 @@ const CreateProduct = memo(function CreateProduct() {
   const [price, setPrice] = useState('');
   const [pricev, setPricev] = useState(0);
   const [image, setImage] = useState();
-  const [remain, setRemain] = useState(0);
+  const [remain, setRemain] = useState<number>(0);
   const [dv, setDv] = useState('')
   const GetInputData = (name: string, price: string, uri: any, pricev: number, remain: number, dv: string) => {
     setName(name);

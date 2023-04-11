@@ -52,6 +52,12 @@ export const productSlice = createSlice({
     },
     updateDetail: (state: any, action) => {
       state.listProducts[action.payload.id].image = action.payload.image
+      state.listProducts[action.payload.id].dv = action.payload.dv
+      state.listProducts[action.payload.id].name = action.payload.name
+      state.listProducts[action.payload.id].price = action.payload.price
+      state.listProducts[action.payload.id].pricev = action.payload.pricev
+      state.listProducts[action.payload.id].remaining = action.payload.remain
+      console.log(state.listProducts[action.payload.id].remaining)
     },
     deleteProduct: (state, action) => {
       state.listProducts.splice(action.payload.id, 1);
@@ -72,10 +78,13 @@ export const productSlice = createSlice({
     },
     productsByAZ: (state, action) => {
       state.listProducts = action.payload.newproducts
-    } 
+    },
+    updateRemaining: (state: any, action) => {
+      state.listProducts[action.payload.id].remaining = action.payload.newremain
+    }
   },
 });
 
-export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct, addCategory, delTickAddToCate, cloudProducts, productsByAZ } =
+export const { addProducts, updateProduct, addQuantity, reset, updateDetail, deleteProduct, addCategory, delTickAddToCate, cloudProducts, productsByAZ, updateRemaining } =
   productSlice.actions;
 export default productSlice.reducer;

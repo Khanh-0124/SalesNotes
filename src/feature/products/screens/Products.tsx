@@ -5,7 +5,6 @@ import { COLORS } from 'assets/global/colors';
 import { FlatGrid } from 'react-native-super-grid';
 import { useNavigation } from '@react-navigation/native';
 import { update } from '../../../redux/imageSlice';
-import InputWithTitle from 'components/base/header/input/InputWithTitle';
 
 type NavigationType = {
   navigate(value: string, params: any): void
@@ -25,29 +24,23 @@ const Products = () => {
         // staticDimension={300}
         // fixed
         spacing={15}
-        renderItem={({ item, index }) => item.remaining != 0 ? (<TouchableOpacity onPress={() => {
+        renderItem={({ item, index }) => (<TouchableOpacity onPress={() => {
           dispath(update({
             imagesList: products.listProducts[item.id]?.image
           }))
           return navigation.navigate("ContainerUpdateDeatail", { id: index, idUpdate: item.id })
         }} style={styles.containerItem}>
+          {
+            item.remaining == 0 ? (<View style={{ position: 'absolute', top: 25, zIndex: 1, alignSelf: 'center', paddingVertical: 10, backgroundColor: '#fff', borderRadius: 8, paddingHorizontal: 8 }}>
+              <Text>Tạm hết hàng</Text>
+            </View>) : null
+          }
           <Image source={item.image} style={styles.image} resizeMode='cover' />
           <View style={{ width: '90%', height: 1, backgroundColor: COLORS.gray1, marginTop: 5, alignSelf: 'center' }} />
           <Text style={{ marginVertical: 5, marginLeft: 10 }}>{item.name}</Text>
           <Text style={{ marginBottom: 5, marginLeft: 10, fontSize: 12 }}>{item.dv}</Text>
           <Text style={{ color: COLORS.red2, marginLeft: 10 }}>{item.price} đ</Text>
-        </TouchableOpacity>) : (<View style={[styles.containerItem]}>
-          <View>
-            <View style={styles.Hh}>
-              <Text>Tạm hết hàng</Text>
-            </View>
-            <Image source={item.image} style={styles.image} resizeMode='cover' />
-          </View>
-          <View style={{ width: '90%', height: 1, backgroundColor: COLORS.gray1, marginTop: 5, alignSelf: 'center' }} />
-          <Text style={{ marginVertical: 5, marginLeft: 10 }}>{item.name}</Text>
-          <Text style={{ marginBottom: 5, marginLeft: 10, fontSize: 12 }}>{item.dv}</Text>
-          <Text style={{ color: COLORS.red2, marginLeft: 10 }}>{item.price} đ</Text>
-        </View>)
+        </TouchableOpacity>)
         }
         keyExtractor={item => item.id}
       />

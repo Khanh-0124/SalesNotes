@@ -21,31 +21,33 @@ const ContainerUpdateDeatail = () => {
   const [show, setShow] = useState(false);
   const showInput = useSelector((state: any) => state.categorys.addCategory);
   const dispath = useDispatch();
-  const route = useRoute().params;
+  const route = useRoute<any>().params;
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [pricev, setPricev] = useState(0);
   const [image, setImage] = useState();
-  // const addField = useCallback(()=> {
-  //   if()
-  // }, [])
-  const GetInputData = (name: string, price: string, uri: any, pricev: number) => {
+  const [dv, setDV] = useState('');
+  const [remain, setRemain] = useState(0);
+  const GetInputData = (name: string, price: string, uri: any, pricev: number, dv: string, remain: number) => {
     setName(name);
     setPrice(price);
     setImage(uri);
-    setPricev(pricev)
+    setPricev(pricev);
+    setDV(dv);
+    setRemain(remain)
   };
   const navigation = useNavigation<NavigationType>();
-  const handleUpdate = useCallback(() => {
-    dispath(updateDetail({ id: route?.id, image: image }));
+  const handleUpdate = () => {
+    // console.log(name)
+    dispath(updateDetail({ id: route?.id, image: image, name: name, price: price, pricev: pricev, dv: dv, remain: remain }));
     return navigation.navigate("ManagerProducts");
-  }, [dispath, navigation, route?.id, image]);
+  }
   return (
     <View>
       <DetailProduct onShowBottomSheet={() => {
         setShow(true);
       }}
-        getData={GetInputData} />
+        getData={GetInputData} id={route.idUpdate} />
       {/* footer component */}
       <View style={styles.SButton}>
         <ButtonBase title="Xoá" onPress={() => {

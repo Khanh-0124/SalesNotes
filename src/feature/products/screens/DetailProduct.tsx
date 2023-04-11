@@ -7,7 +7,6 @@ import CollapsibleComponents from 'components/common/collapsible/CollapsibleComp
 import { TakePhotoFromCamera } from 'feature/camera/TakePhotoFromCamera'
 import { TakePhotos } from 'feature/order/components'
 import AddIamgeProduct from 'feature/order/components/AddIamgeProduct'
-import InputProduct from 'feature/order/components/InputProduct'
 import { useDispatch, useSelector } from 'react-redux'
 import { launchImageLibrary } from 'react-native-image-picker'
 import { navigateToCameraFile } from 'utilities/navigation'
@@ -16,11 +15,14 @@ import uuid from 'react-native-uuid';
 import { COLORS } from 'assets/global/colors'
 import AddIamgeProductUpdate from '../components/AddIamgeProductUpdate'
 import { addData } from '../../../servers/firebase/crud'
+import InputProductUpdate from 'feature/order/components/InputProductUpdate'
 interface ProductBodyInterface {
   onShowBottomSheet(): void;
   getData: any;
+  id: number
 }
-const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => {
+const DetailProduct = ({ onShowBottomSheet, getData, id }: ProductBodyInterface) => {
+  const product = useSelector((state: any) => state.products.listProducts[id])
   const dispatch = useDispatch();
   const TakePhotoFromCamera = useCallback(() => {
     navigateToCameraFile({ navigate: 'CreateProduct' });
@@ -46,21 +48,21 @@ const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => 
       }),
     );
   }, []);
+  const [paramsCustom, setParamsCustom] = useState<any>({
+    dv: product.dv,
+    remain: product.remaining,
+  });
+  const onTextChange = useCallback((keyName: string, value: string) => {
+    setParamsCustom((state: any) => ({ ...state, [keyName]: value }));
+  }, []);
   const listImages = useSelector((state: any) => state.images.listImages);
-  const GetDataInput = (name: string, price: string) => {
-    getData(name, price, listImages);
+  const GetDataInput = (name: string, price: string, pricev: any) => {
+    getData(name, price, listImages, pricev, paramsCustom.dv, paramsCustom.remain);
   };
   useEffect(() => {
     if (listImages.length !== 0)
       addData('ClientStack', "ListImages", { ListImages: listImages })
   }, [listImages])
-  const [paramsCustom, setParamsCustom] = useState<any>({
-    dv: '',
-    remain: 0,
-  });
-  const onTextChange = useCallback((keyName: string, value: string) => {
-    setParamsCustom((state: any) => ({ ...state, [keyName]: value }));
-  }, []);
   return (
     <View>
       <HeaderBase title='Chi tiết sản phẩm' isIconLeft={false} />
@@ -81,7 +83,7 @@ const DetailProduct = ({ onShowBottomSheet, getData }: ProductBodyInterface) => 
           </View>
           <AddIamgeProductUpdate />
         </View>
-        <InputProduct onPress={onShowBottomSheet} dataInput={GetDataInput} />
+        <InputProductUpdate onPress={onShowBottomSheet} dataInput={GetDataInput} id={id} />
         <View style={{ padding: 15, backgroundColor: '#fff' }}>
           <InputWithTitle
             title="Tồn kho"

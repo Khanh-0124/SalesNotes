@@ -6,18 +6,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { FlatGrid } from 'react-native-super-grid';
-import { NavigateType } from 'utilities/type/type';
 import { useNavigation } from '@react-navigation/native';
-import { listProducts } from 'utilities/data';
 import { useDispatch, useSelector } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
-import { addQuantity, updateProduct } from '../../redux/productSlice';
-import { Item } from 'react-native-paper/lib/typescript/components/List/List';
+import { addQuantity, updateProduct, updateRemaining } from '../../redux/productSlice';
+import { BottomSheet } from '@rneui/themed';
+import { TextInput } from 'react-native-paper';
+import InputWithTitle from 'components/base/header/input/InputWithTitle';
+import ButtonBase from 'components/base/buttons/ButtonBase';
 
 const GridOder = () => {
-  const navigation = useNavigation<NavigateType>();
+  const navigation = useNavigation<any>();
   const producst = useSelector((state: any) => state.products.listProducts);
   const quantity = useSelector((state: any) => state.products.quantity);
   const dispatch = useDispatch();
@@ -50,6 +51,24 @@ const GridOder = () => {
       }),
     );
   };
+  const [addRemain, setAddRemain] = useState(false)
+  const [paramsCustom, setParamsCustom] = useState<any>({
+    name: '',
+    price: 0,
+    uri: '',
+    input: 0,
+    id: 0
+  });
+  const onTextChange = useCallback((keyName: string, value: any) => {
+    setParamsCustom((state: any) => ({ ...state, [keyName]: value }));
+  }, []);
+  const AddReamain = (id: number, name: string, price: any, uri: any) => {
+    setAddRemain(!addRemain)
+    onTextChange("name", name)
+    onTextChange("price", price)
+    onTextChange("uri", uri)
+    onTextChange("id", id)
+  }
   return (
     <View style={{ flex: 1, paddingHorizontal: 15, backgroundColor: COLORS.white1 }}>
       <TouchableOpacity onPress={() => navigation.navigate("CreateProduct")} style={styles.addProducts}>
@@ -66,7 +85,9 @@ const GridOder = () => {
           return (
             <TouchableOpacity
               onPress={() =>
-                handlePlus(item.id, item.touch, parseInt(item.price))
+              {
+                item.remaining != 0 ? handlePlus(item.id, item.touch, parseInt(item.price)) : AddReamain(item.id, item.name, item.price, item.image[0].uri)
+              }
               }
               activeOpacity={0.5}
               style={[styles.itemContainer]}>
@@ -86,19 +107,27 @@ const GridOder = () => {
                     style={{ padding: 5 }}
                     onPress={() => {
                       handlePlus(item.id, item.touch, parseInt(item.price));
-                      // console.log('a: ', typeof parseInt(item.price));
                     }}>
                     <Text>+</Text>
                   </TouchableOpacity>
                 </View>
               ) : null}
+              {
+                item.remaining == 0 ?
+                  <View style={{
+                    position: 'absolute', top: 10, zIndex: 1, backgroundColor: '#fff', paddingVertical: 5
+                    , paddingHorizontal: 5, borderRadius: 5
+                  }}>
+                    <Text>Tạm hết hàng</Text>
+                  </View> : null
+              }
               <Image
                 source={{ uri: item.image[0]?.uri }}
                 style={styles.Simage}
                 resizeMode="cover"
               />
               <Text style={[styles.itemCode, { marginVertical: 3 }]}>
-                {item.price ? `Còn ${item.remaining} ${item.dv}` : ``}
+                {item.price && item.remaining != 0 ? `Còn ${item.remaining} ${item.dv}` : ``}
               </Text>
               <Text
                 style={
@@ -115,7 +144,32 @@ const GridOder = () => {
           );
         }}
       />
-
+      <View>
+        <BottomSheet backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }} onBackdropPress={() => setAddRemain(!addRemain)} modalProps={{ animationType: 'fade' }} isVisible={addRemain}>
+          <View style={{ padding: 15, backgroundColor: '#fff', height: 350 }}>
+            <Text style={{ alignSelf: 'center', fontWeight: '600', marginBottom: 15, fontSize: 18 }}>Cập nhật tồn kho</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15 }}>
+                <Image source={{ uri: paramsCustom.uri }}
+                  style={{ height: 50, width: 50, borderRadius: 10, marginRight: 15 }}
+                  resizeMode="cover" />
+                <Text>{paramsCustom.name}</Text>
+              </View>
+              <Text>{paramsCustom.price} VND</Text>
+            </View>
+            <InputWithTitle title='Cập nhật tồn kho hiện tại' value={paramsCustom.input} onTextChange={onTextChange} placeholder={'0'} keyName={'input'} type={'number-pad'} />
+            <View style={{ width: '50%', alignSelf: 'center', marginTop: 40 }}>
+              <ButtonBase title='Cập nhật' onPress={() => {
+                setAddRemain(false)
+                dispatch(updateRemaining({
+                  id: paramsCustom.id,
+                  newremain: paramsCustom.input
+                }))
+              }} background />
+            </View>
+          </View>
+        </BottomSheet>
+      </View>
     </View>
   );
 };
