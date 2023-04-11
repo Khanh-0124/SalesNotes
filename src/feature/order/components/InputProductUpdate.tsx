@@ -14,9 +14,9 @@ interface InputProductInterface {
 const InputProductUpdate = ({ onPress, dataInput, id }: InputProductInterface) => {
   const product = useSelector((state: any) => state.products.listProducts[id])
   const [paramsCustom, setParamsCustom] = useState<ParamInputProductInterface>({
-    nameProduct: product.name,
-    price: product.price,
-    costPrice: product.pricev,
+    nameProduct: product?.name || "",
+    price: product?.price || 0,
+    costPrice: product?.pricev || 0
   });
   dataInput(paramsCustom.nameProduct, paramsCustom.price, paramsCustom.costPrice);
   const onTextChange = useCallback((keyName: string, value: string) => {

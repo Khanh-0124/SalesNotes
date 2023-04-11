@@ -35,6 +35,7 @@ export const productSlice = createSlice({
     },
     updateProduct: (state: any, action) => {
       state.listProducts[action.payload.id].touch = action.payload.touch;
+      state.listProducts[action.payload.id].remaining >= 0 ? action.payload.plus && state.listProducts[action.payload.id].remaining >= 0 ? state.listProducts[action.payload.id].remaining = parseInt(state.listProducts[action.payload.id].remaining) - 1 : state.listProducts[action.payload.id].remaining = parseInt(state.listProducts[action.payload.id].remaining) + 1 : null
     },
     addQuantity: (state, action) => {
       state.quantity = action.payload.add;

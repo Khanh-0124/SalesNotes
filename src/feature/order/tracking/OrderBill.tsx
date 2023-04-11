@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { addQuantity, updateProduct, reset } from '../../../redux/productSlice';
+import { addQuantity, updateProduct, reset, updateRemaining } from '../../../redux/productSlice';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import ViewShot from 'react-native-view-shot';
 import HeaderBase from 'components/base/header/HeaderBase';
@@ -35,6 +35,7 @@ const BillPay = ({ title, value }: { title: string; value: number }) => {
 
 const OrderBill = () => {
   const route = useRoute<any>().params;
+  const dispatch = useDispatch();
   const products = useSelector((state: any) => state.products);
   let i = 0;
   const ref = useRef();
@@ -55,6 +56,11 @@ const OrderBill = () => {
     });
   };
   // console.log(route.dateAhours)
+  // useEffect(() => {
+  //   dispatch(updateRemaining({
+
+  //   }))
+  // }, [])
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>

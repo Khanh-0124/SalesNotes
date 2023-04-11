@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
@@ -24,24 +25,36 @@ const GridOder = () => {
   const dispatch = useDispatch();
   // const [items, setItems] = React.useState(producst);
   const handlePlus = (id: number, touch: number, price: number) => {
-    dispatch(
-      updateProduct({
-        id: id,
-        touch: touch + 1,
-      }),
-    );
-    dispatch(
-      addQuantity({
-        add: quantity + 1,
-        pay: price,
-      }),
-    );
+    if (producst[id].remaining == 0) {
+      Alert.alert('', 'Đã đạt giới hạn sản phẩm này', [
+        {
+          text: 'Đã hiểu',
+        }
+      ])
+    }
+    else {
+      dispatch(
+        updateProduct({
+          id: id,
+          touch: touch + 1,
+          plus: true
+        }),
+      );
+      dispatch(
+        addQuantity({
+          add: quantity + 1,
+          pay: price,
+        }),
+      );
+    }
   };
   const handleMinus = (id: number, touch: number, price: number) => {
+    // console.log(producst[id].touch > producst[id].remaining)
     dispatch(
       updateProduct({
         id: id,
         touch: touch - 1,
+        plus: false
       }),
     );
     dispatch(
@@ -69,6 +82,7 @@ const GridOder = () => {
     onTextChange("uri", uri)
     onTextChange("id", id)
   }
+
   return (
     <View style={{ flex: 1, paddingHorizontal: 15, backgroundColor: COLORS.white1 }}>
       <TouchableOpacity onPress={() => navigation.navigate("CreateProduct")} style={styles.addProducts}>
@@ -86,6 +100,7 @@ const GridOder = () => {
             <TouchableOpacity
               onPress={() =>
               {
+
                 item.remaining != 0 ? handlePlus(item.id, item.touch, parseInt(item.price)) : AddReamain(item.id, item.name, item.price, item.image[0].uri)
               }
               }
@@ -127,7 +142,7 @@ const GridOder = () => {
                 resizeMode="cover"
               />
               <Text style={[styles.itemCode, { marginVertical: 3 }]}>
-                {item.price && item.remaining != 0 ? `Còn ${item.remaining} ${item.dv}` : ``}
+                {item.price && item.remaining != 0 ? `Còn ${item.remaining} ${item.dv}` : `Còn ${item.remaining} ${item.dv}`}
               </Text>
               <Text
                 style={

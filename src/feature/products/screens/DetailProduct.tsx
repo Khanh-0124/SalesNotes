@@ -49,8 +49,8 @@ const DetailProduct = ({ onShowBottomSheet, getData, id }: ProductBodyInterface)
     );
   }, []);
   const [paramsCustom, setParamsCustom] = useState<any>({
-    dv: product.dv,
-    remain: product.remaining,
+    dv: product?.dv || "",
+    remain: product?.remaining,
   });
   const onTextChange = useCallback((keyName: string, value: string) => {
     setParamsCustom((state: any) => ({ ...state, [keyName]: value }));

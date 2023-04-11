@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { useNavigation } from '@react-navigation/native';
-import { addQuantity, updateProduct, reset } from '../../../redux/productSlice';
+import { addQuantity, updateProduct, reset, updateRemaining } from '../../../redux/productSlice';
 import DatePicker from 'react-native-date-picker';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import DraggableBottomSheet from 'components/common/BottomSheet';
@@ -159,7 +159,7 @@ const TrackingOrder = () => {
     payClient: 0,
     uri: '',
   });
-  const onTextChange = useCallback((keyName: string, value: string) => {
+  const onTextChange = useCallback((keyName: string, value: any) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
   }, []);
   let result = debouncedSearchCustomers(keyCustomer, customers);
@@ -170,6 +170,7 @@ const TrackingOrder = () => {
       updateProduct({
         id: id,
         touch: touch + 1,
+        newremain: touch + 1
       }),
     );
     dispatch(
