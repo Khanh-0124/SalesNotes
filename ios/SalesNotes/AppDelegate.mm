@@ -38,6 +38,20 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
 
+// Import the Sentry module
+#import <SentryReactNative/SentryReactNative.h>
+
+// Initialize Sentry
+[SentryReactNative initWithOptions:@{@"dsn": @"https://bfa38935e194430e827c3648899a1f2b@o4505002200858624.ingest.sentry.io/4505002202103808"}];
+
+// Disable the red screen of death (RSoD) in development mode
+#if DEBUG
+  RCTSetLogThreshold(RCTLogLevelInfo);
+#else
+  RCTSetLogThreshold(RCTLogLevelError);
+#endif
+
+
 #if RCT_NEW_ARCH_ENABLED
   _contextContainer = std::make_shared<facebook::react::ContextContainer const>();
   _reactNativeConfig = std::make_shared<facebook::react::EmptyReactNativeConfig const>();

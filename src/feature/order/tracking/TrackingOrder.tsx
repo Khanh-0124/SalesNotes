@@ -23,6 +23,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import ModalConfig from 'components/common/ModalConfig';
 import { addListOrder } from '../../../redux/orderSlice';
 import { debouncedSearchCustomers } from 'assets/global/fn_search';
+import { addOutofStockWarning } from '../../../redux/notifySlice';
 
 function generateInvoiceCode() {
   let code = '';
@@ -114,6 +115,7 @@ const PayConfirmSheet = (
                 month: month,
                 year: year,
               },
+                  fulldate: `${datte}/${month}`,
               code: codde,
               delivered: true,
               sum: pay,
@@ -153,7 +155,7 @@ const TrackingOrder = () => {
   const [add, setAdd] = useState('');
   const [keyCustomer, setKeyCustomer] = useState('');
   const [ck, setCK] = useState(0);
-  const [phiVC, setphiVC] = useState<number>(0);
+  const [phiVC, setphiVC] = useState<any>(0);
   const [paramsCustom, setParamsCustom] = useState({
     note: '',
     payClient: 0,
@@ -229,6 +231,8 @@ const TrackingOrder = () => {
   const [year, setYear] = useState<number>()
   let code = generateInvoiceCode()
   let productsOrder = products.listProducts.filter((item: any) => item.touch !== 0)
+  const warningArray = products.listProducts.filter((item: any) => item.remaining < 10)
+
   return (
     <View style={{ flex: 1 }}>
       <HeaderBase title={'Xác nhận đơn hàng'} isIconLeft={false} />
@@ -240,6 +244,11 @@ const TrackingOrder = () => {
         </TouchableOpacity>
         {products.listProducts.map((item: any, index: any) => {
           sum = (parseInt(products.pay) - parseInt(products.pay) * (ck / 100)) + parseInt(phiVC);
+          if (item.remaining < 10) {
+            dispatch(addOutofStockWarning({
+              OutofStockWarning: warningArray
+            }))
+          }
           return item.touch !== 0 ? (
             <View key={index}>
               <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
@@ -514,6 +523,7 @@ const TrackingOrder = () => {
                 month: date.getMonth() + 1,
                 year: date.getFullYear(),
               },
+              fulldate: `${date.getDate()}/${date.getMonth() + 1}`,
               code: code,
               delivered: false,
               sum: sum,

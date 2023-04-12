@@ -25,7 +25,6 @@ const CreateOrderScreen = () => {
   };
   useEffect(() => {
       addData('ClientStack', "Products", { ListProducts: products })
-    // console.log(products)
   }, [products])
   return (
     <View style={styles.container}>

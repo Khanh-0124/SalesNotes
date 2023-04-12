@@ -13,6 +13,7 @@ export const userSlice = createSlice({
     end: '',
     uri: '',
     listProBySort: [],
+    listDate: []
   },
   reducers: {
     changeStateAuth: (state, action) => {
@@ -31,9 +32,12 @@ export const userSlice = createSlice({
     },
     addPro: (state, action) => {
       action.payload?.cancel ? state.listProBySort = [] : state.listProBySort = action.payload.data
+    },
+    addListDate: (state, action) => {
+      state.listDate = action.payload.data
     }
   },
 });
 
-export const { changeStateAuth, changeDateFilter, cancelFilter, changeUri, addPro } = userSlice.actions;
+export const { changeStateAuth, changeDateFilter, cancelFilter, changeUri, addPro, addListDate } = userSlice.actions;
 export default userSlice.reducer;

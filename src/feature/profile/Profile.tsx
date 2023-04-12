@@ -8,11 +8,14 @@ import { addData, deleteData, updateData } from '../../servers/firebase/crud';
 import CalendarComponents from 'components/CalendarComponents';
 import { useSelector } from 'react-redux';
 
+import { dataY } from 'assets/global/filterDateForLineChart';
+
 
 
 const Profile = () => {
-  // const ref = firestore().collection('products').doc("khanh1");
-  const uri = useSelector((state: any) => state.user.uri)
+  // const listOrders = useSelector((state: any) => state.orders.listOrders)
+  
+  // console.log(dataY(listOrders, ['10/4', '12/4', '11/4', '13/4']))
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white1 }}>
       <HeaderBase
@@ -22,10 +25,6 @@ const Profile = () => {
         bgColor={''}
         color={''}
       />
-      {/* <View style={{ height: 300, width: 200 }}>
-
-        <CalendarComponents />
-      </View> */}
       <View style={{ paddingHorizontal: 15 }}>
       <View
         style={{
@@ -36,8 +35,6 @@ const Profile = () => {
         }}>
         <View>
             <TouchableOpacity activeOpacity={0.5} onPress={() => {
-              // deleteData("products", 'Test')
-              console.log(uri)
             }} style={{
               padding: 8,
               backgroundColor: COLORS.white1,
@@ -63,9 +60,6 @@ const Profile = () => {
           </View>
         </View>
         <View>
-          <View>
-            <Image source={{ uri: uri }} style={{ height: 44, width: 44 }} />
-          </View>
           <InputWithTitle title='Tên cửa hàng' onPress={() => { }} placeholder={'Ví dụ: khánh'} value={'Tạp hoá & Bánh mỳ Khánh Vũ'} />
           <InputWithTitle title='Số điện thoại' onPress={() => { }} placeholder={'Ví dụ: 012345678'} value={'012345678'} />
           <InputWithTitle title='Địa chỉ' onPress={() => { }} placeholder={'Thêm địa chỉ'} value={'Trục Ninh, Nam Định'} />

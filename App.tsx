@@ -1,14 +1,15 @@
-import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import React from 'react';
 import RootApp from './src/navigation/scene/RootNavigation';
 import { LogBox } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
+import { NativeModules } from 'react-native';
 
-LogBox.ignoreLogs(['RCTBridge required dispatch_sync to load REAModule']);
-LogBox.ignoreLogs([
-  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
-]);
+NativeModules.DevSettings.setIsDebuggingRemotely(false);
+
+LogBox.ignoreAllLogs();
+
 
 const App = () => {
   return (

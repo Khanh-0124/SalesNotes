@@ -17,7 +17,6 @@ import ButtonBase from 'components/base/buttons/ButtonBase';
 import ViewShot from 'react-native-view-shot';
 import HeaderBase from 'components/base/header/HeaderBase';
 import Share from 'react-native-share';
-import { addListOrder } from '../../../redux/orderSlice';
 
 const BillPay = ({ title, value }: { title: string; value: number }) => {
   return (
