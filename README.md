@@ -34,6 +34,6 @@
 <img src="https://i.imgur.com/xIIGYPE.png" width="150" /> <img src="https://i.imgur.com/6IMrAaY.png" width="150" /> <img src="https://i.imgur.com/F5kXcNe.png" border-radius = "20" width="150" /> <img src="https://i.imgur.com/IdDxurB.png" border-radius = "20" width="150" />
 
 #### Profit report, statistical chart
-<img src="https://i.imgur.com/siLIT2x.png" width="150" /> <img src="https://i.imgur.com/o2cglNn.png" width="150" /> <img src="https://i.imgur.com/9GT2n4t.png" width="150" /> 
+<img src="https://i.imgur.com/siLIT2x.png" width="150" /> <img src="https://i.imgur.com/o2cglNn.png" width="150" /> <img src="https://i.imgur.com/9GT2n4t.png" width="150" /> .................
 
 ### There are many other interfaces that cannot be mentioned ....
