@@ -1,8 +1,8 @@
 # Sales notes
 
-Sales management, electronic sales book
+🐶🍎Sales management, electronic sales book🍏
 
-## Run project in development
+##🫨 Run project in development
 
 - Setting up the development environment: https://reactnative.dev/docs/environment-setup.
 
@@ -15,7 +15,7 @@ Sales management, electronic sales book
 - Run on both Android & iOS: `yarn mobile` (or `npm run mobile`).
 
 - Run server: `yarn start`. Then use app **Expo Go** on your mobile and scan QR code on the terminal.
-## Tech Stack
+## Tech Stack🦯🍉🍇
 
 **Client:** React-Native, Redux-Toolkit, AsyncStorage
 
@@ -35,3 +35,4 @@ Sales management, electronic sales book
 
 #### Profit report, statistical chart
 <img src="https://i.imgur.com/siLIT2x.png" width="150" /> <img src="https://i.imgur.com/o2cglNn.png" width="150" /> <img src="https://i.imgur.com/9GT2n4t.png" width="150" /> 
+###There are many other interfaces that cannot be mentioned ....
