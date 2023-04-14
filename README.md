@@ -10,7 +10,7 @@
 
 - Run on Android: `yarn android` (or `npm run android`).
 
-- Run on iOS: `yarn ios` (or `npm run ios`).
+- Run on iOS: `yarn ios` (or `npm run ios`) then `npx pod-install ios`.
 
 - Run on both Android & iOS: `yarn mobile` (or `npm run mobile`).
 
