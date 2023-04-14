@@ -17,4 +17,10 @@ Sales management, electronic sales book
 - Run server: `yarn start`. Then use app **Expo Go** on your mobile and scan QR code on the terminal.
 
 #### Product home page
-<img src="https://i.imgur.com/NzqSsFJ.png" width="200" alt="Hello World 1" /> <img src="https://i.imgur.com/LtIKFZM.png" width="200" alt="Hello World 2" />
+<img src="https://i.imgur.com/NzqSsFJ.png" width="150" /> <img src="https://i.imgur.com/LtIKFZM.png" width="150" /> 
+
+#### Create products
+<img src="https://i.imgur.com/G4zcoSr.png" width="150" /> <img src="https://i.imgur.com/NZAJ6kh.png" width="150" /> <img src="https://i.imgur.com/zNXxrWK.png" border-radius = "20" width="150" />
+
+#### Order confirmation
+<img src="https://i.imgur.com/xIIGYPE.png" width="150" /> <img src="https://i.imgur.com/6IMrAaY.png" width="150" /> <img src="https://i.imgur.com/F5kXcNe.png" border-radius = "20" width="150" />
