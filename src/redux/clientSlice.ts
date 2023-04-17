@@ -1,10 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getData } from '../servers/firebase/crud';
 
-const printData = async () => {
-  await getData("products", 'customers')
-}
-
 export const clientSlice = createSlice({
   name: 'clients',
   initialState: {

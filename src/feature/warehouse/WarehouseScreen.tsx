@@ -3,8 +3,10 @@ import React from 'react'
 import ButtonBase from 'components/base/buttons/ButtonBase'
 import { COLORS } from 'assets/global/colors'
 import { useNavigation } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
 
 const WarehouseScreen = () => {
+  const customers = useSelector((state: any) => state.clients.listClients)
   const navigation = useNavigation<any>()
   return (
     <View style={{ paddingHorizontal: 15, flex: 1, backgroundColor: '#fff', paddingTop: 65 }}>
@@ -26,13 +28,16 @@ const WarehouseScreen = () => {
         <View style={{ width: '100%', backgroundColor: COLORS.gray2, padding: 10 }}>
           <Text style={styles.textHeader}>Danh sách khách hàng</Text>
         </View>
-        <View style={styles.button}>
-          <Text style={styles.textHeader}>{`khach le`}</Text>
-          <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
-            <Text style={styles.textHeader}>{1000} đ</Text>
-            <Text style={{ marginTop: 10 }}>{`Toi phai tra`}</Text>
-          </View>
-        </View>
+        {
+          customers.map((i: any) => (<TouchableOpacity style={styles.button} onPress={() => navigation.navigate("CustomerDetail")}>
+            <Text style={styles.textHeader}>{i.name}</Text>
+            <View style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+              <Text style={styles.textHeader}>{1000} đ</Text>
+              <Text style={{ marginTop: 10 }}>{`Toi phai tra`}</Text>
+            </View>
+          </TouchableOpacity>))
+        }
+
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', position: 'absolute', bottom: 0, width: '100%', alignSelf: 'center' }}>
         <ButtonBase title='Tôi đã đưa' onPress={() => { }} />

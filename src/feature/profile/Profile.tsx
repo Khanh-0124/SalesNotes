@@ -16,6 +16,34 @@ const Profile = () => {
   // const listOrders = useSelector((state: any) => state.orders.listOrders)
   
   // console.log(dataY(listOrders, ['10/4', '12/4', '11/4', '13/4']))
+  const arr = [
+    { name: 'A', sum: 10, uri: 'url1' },
+    { name: 'B', sum: 20, uri: 'url2' },
+    { name: 'A', sum: 30, uri: 'url3' },
+    { name: 'B', sum: 40, uri: 'url4' },
+    { name: 'C', sum: 50, uri: 'url5' },
+    { name: 'A', sum: 60, uri: 'url6' },
+  ];
+
+  const result = Object.values(
+    arr.reduce((acc, cur) => {
+      if (acc[cur.name]) {
+        acc[cur.name].sum += cur.sum;
+        acc[cur.name].count += 1;
+      } else {
+        acc[cur.name] = {
+          name: cur.name,
+          sum: cur.sum,
+          uri: cur.uri,
+          count: 1,
+        };
+      }
+      return acc;
+    }, {})
+  );
+
+  console.log(result, "a");
+
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white1 }}>
       <HeaderBase

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { search, setSateFilter } from '../../../redux/orderSlice';
 import { BottomSheet } from '@rneui/themed';
 import CalendarComponents from 'components/CalendarComponents';
+import { changeDateFilter } from '../../../redux/userSlice';
 
 const renderScene = SceneMap({
   first: OrderAll,
@@ -58,6 +59,12 @@ const OrderTracking = () => {
     }
   }, [keyword, showSearch])
 
+  useEffect(() => {
+    dispatch(changeDateFilter({
+      start: '',
+      end: ''
+    }))
+  }, [])
   return (
     <View style={styles.container}>
       <StatusBar barStyle={'dark-content'} />

@@ -4,11 +4,13 @@ import { COLORS } from 'assets/global/colors';
 import {
   LineChart,
 } from "react-native-chart-kit";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dataY, filterDateLineChart_X, filterDateLineChart_Y } from 'assets/global/filterDateForLineChart';
+import { listOrdersByDate } from '../../../../../redux/userSlice';
 
 
 const LineChartComponent = ({ labels, data11, data22, multiData }: any) => {
+  const dispatch = useDispatch()
   const start = useSelector((state: any) => state.user.start)
   const end = useSelector((state: any) => state.user.end)
   function getDates(startDate: any, endDate: any) {
@@ -56,7 +58,7 @@ const LineChartComponent = ({ labels, data11, data22, multiData }: any) => {
   // dates.map((i: any) => console.log(i.getDate()))
   let dates = getDates(start, end)
   // console.log(dates, "rs")
-  let a: string[] = [];
+  let a: any = [];
   dates.map((element: any) =>
     a.push(`${element.getDate()}/${element.getMonth()}`)
   )
@@ -65,7 +67,9 @@ const LineChartComponent = ({ labels, data11, data22, multiData }: any) => {
   const lables = useSelector((state: any) => state.user.listDate)
   const listOrders = useSelector((state: any) => state.orders.listOrders)
   const prices = dataY(listOrders, a);
-
+  dispatch(listOrdersByDate({
+    data: listOrders
+  }))
   // month here
   const prices1_1 = dataY(listOrders, lastMonth);
   const prices1_2 = dataY(listOrders, hereMonth);

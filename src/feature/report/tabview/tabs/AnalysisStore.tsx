@@ -9,13 +9,18 @@ import CalendarGlobal from 'components/common/CalendarGlobal'
 import { filterDateLineChart_X } from 'assets/global/filterDateForLineChart'
 import { useDispatch, useSelector } from 'react-redux'
 import { addListDate } from '../../../../redux/userSlice'
+import { indexOf } from 'lodash'
 interface ParamCustomInterface {
   show: boolean,
   fillterArray: any,
   select: number,
   showBottomSheet: boolean,
   labels: any,
-  multiData: boolean
+  multiData: boolean,
+  dt: number,
+  dh: number,
+  kh: number,
+  huy: number
 }
 
 const filter = [
@@ -31,6 +36,8 @@ const filter = [
 
 const AnalysisStore = () => {
   const [touch, setTouch] = useState<number>()
+  const orders = useSelector((state: any) => state.user.listOrdersByDate)
+  // console.log(orders[0].products)
   const dispatch = useDispatch()
   const [paramsCustom, setParamsCustom] = useState<ParamCustomInterface>({
     show: false,
@@ -38,7 +45,11 @@ const AnalysisStore = () => {
     select: 2,
     showBottomSheet: false,
     labels: [],
-    multiData: true
+    multiData: true,
+    dt: 0,
+    dh: 0,
+    kh: 0,
+    huy: 0
   });
   const [show, setShow] = useState(false)
   const setParams = useCallback((keyName: string, value: any) => {
@@ -50,6 +61,33 @@ const AnalysisStore = () => {
     }))
   }
   // console.log(lables)
+  let sum = 0
+  let products: any[] = []
+  // let count = 0
+  orders.map((item: any, index: any) => {
+    sum += item.sum
+    // let tong = item.sum
+    // console.log(item.)
+    item.products.map((i: any) => products.push({ uri: i.image[0].uri, name: i.name, sum: item.sum }))
+  })
+  console.log(products)
+  const result = Object.values(
+    products.reduce((acc, cur) => {
+      if (acc[cur.name]) {
+        acc[cur.name].sum += cur.sum;
+        acc[cur.name].count += 1;
+      } else {
+        acc[cur.name] = {
+          name: cur.name,
+          sum: cur.sum,
+          uri: cur.uri,
+          count: 1,
+        };
+      }
+      return acc;
+    }, {})
+  );
+  console.log(result, "rl")
   useEffect(() => {
     paramsCustom.select == 2 ? setParams("multiData", true) : setParams("multiData", false)
   }, [paramsCustom.select]) 
@@ -65,14 +103,14 @@ const AnalysisStore = () => {
               <Image style={{ height: 20, width: 20, marginRight: 10 }} source={require('../../../../assets/icons/png/pic_ie_chart.png')} />
               <Text style={styles.titleText}>Doanh thu</Text>
             </View>
-            <Text style={{ fontSize: 18, fontWeight: '700' }}>47.733đ</Text>
+            <Text style={{ fontSize: 18, fontWeight: '700' }}>{sum} đ</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.Box, touch == 2 ? { borderColor: COLORS.primary } : null]} onPress={() => setTouch(2)}>
             <View style={{ flexDirection: 'row', marginBottom: 15, alignItems: 'center' }}>
-              <Image style={{ height: 24, width: 24, marginRight: 10 }} source={require('assets/icons/png/ic_box.png')} />
+              <Image style={{ height: 24, width: 24, marginRight: 10 }} source={require('assets/icons/png/ic_box.png')} />   
               <Text style={styles.titleText}>Đơn hàng</Text>
             </View>
-            <Text style={{ fontSize: 18, fontWeight: '700' }}>25</Text>
+            <Text style={{ fontSize: 18, fontWeight: '700' }}>{orders.length}</Text>
           </TouchableOpacity>
         </View>
         {/*  */}
@@ -118,17 +156,20 @@ const AnalysisStore = () => {
             <Text style={styles.text}>{`Doanh thu (đ)`}</Text>
           </View>
           {/* map */}
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 0.7, borderColor: COLORS.gray4, paddingBottom: 15, marginVertical: 10 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={[styles.textItem, { fontWeight: '400', fontSize: 15 }]}>{`1`}</Text>
-              <Image style={{ height: 38, width: 38, marginHorizontal: 10, }} source={require('assets/icons/png/ic_image.png')} />
-              <Text style={styles.textItem}>{`Mỳ gạo`}</Text>
-            </View>
-            <View>
-              <Text style={styles.textItem}>{`250.000`}</Text>
-              <Text style={[styles.textItem, { fontSize: 13, color: COLORS.gray6, marginTop: 5 }]}>{`Số lượng: 5`}</Text>
-            </View>
-          </View>
+          {
+            result.map((i: any, index: any) => <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 0.7, borderColor: COLORS.gray4, paddingBottom: 15, marginVertical: 10 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={[styles.textItem, { fontWeight: '400', fontSize: 15 }]}>{index + 1}</Text>
+                <Image style={{ height: 40, width: 40, marginHorizontal: 10, borderRadius: 8 }} resizeMode='cover' source={{ uri: i.uri }} />
+                <Text style={styles.textItem}>{i.name}</Text>
+              </View>
+              <View>
+                <Text style={styles.textItem}>{i.sum}</Text>
+                <Text style={[styles.textItem, { fontSize: 13, color: COLORS.gray6, marginTop: 5 }]}>{`Số lượng: ${i.count}`}</Text>
+              </View>
+            </View>)
+          }
+
         </View>
       </ScrollView>
 

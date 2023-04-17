@@ -89,6 +89,7 @@ const CalendarGlobal = ({ callbackDate, onPrerss }: any) => {
     start: startDate,
     end: endDate
   }))
+  // console.log(typeof startDate, endDate)
   const today = moment().format('YYYY-MM-DD');
 
   const markedDatess = {

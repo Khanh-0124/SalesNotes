@@ -1,5 +1,5 @@
 import { StatusBar, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { COLORS } from 'assets/global/colors';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
@@ -9,6 +9,8 @@ import {
   WareHouse,
   RevenueAndExpenditure,
 } from './tabview/index';
+import { useDispatch } from 'react-redux';
+import { changeDateFilter } from '../../redux/userSlice';
 
 const renderScene = SceneMap({
   first: ProfitAndLoss,
@@ -17,9 +19,16 @@ const renderScene = SceneMap({
   fourth: RevenueAndExpenditure,
 });
 
+const today = new Date();
+const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+const firstDayOfMonth = firstDay.toISOString().slice(0, 10);
+const lastDayOfMonth = lastDay.toISOString().slice(0, 10);
+
 const ReportScreen = () => {
   const layout = useWindowDimensions();
-
+  const dispatch = useDispatch()
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'first', title: 'Lãi lỗ' },
@@ -27,6 +36,13 @@ const ReportScreen = () => {
     { key: 'third', title: 'Kho hàng' },
     { key: 'fourth', title: 'Thu chi' },
   ]);
+  useEffect(() => {
+    dispatch(changeDateFilter({
+      start: firstDayOfMonth,
+      end: lastDayOfMonth
+    }))
+  }, [])
+  // console.log(firstDayOfMonth)
   const renderTabBar = (props: any) => (
     <TabBar
       {...props}
