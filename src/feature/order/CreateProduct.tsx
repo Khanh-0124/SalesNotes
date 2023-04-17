@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { COLORS } from 'assets/global/colors';
@@ -43,45 +43,58 @@ const CreateProduct = memo(function CreateProduct() {
   };
   const navigation = useNavigation<NavigationType>();
   const handleSubmit = async (id: number, name: string, price: any, image: any, touch: number, nav: boolean) => {
-    dispath(
-      actionProducts(
-        {
-          product: {
-            id: id,
-            name: name,
-            price: price,
-            pricev: pricev,
-            remain: remain,
-            image: image,
-            touch: touch,
-            dv: dv
-          }
-        }
-      )
-    )
-    dispath(
-      addProducts({
-        id: id,
-        name: name,
-        price: price,
-        pricev: pricev,
-        remain: remain,
-        image: image,
-        touch: touch,
-        dv: dv
-      }),
-    );
-    dispath(reset({
-      reset: []
-    }))
-    dispath(resetCate({
-      set: false
-    }))
-    return nav ? navigation.navigate("CreateOrderScreen") : null;
+
+    if (name != "" || price != "" || dv != "") {
+      if (price <= 0 || pricev <= 0)
+        Alert.alert("Giá không được âm")
+      else if (price < pricev)
+        Alert.alert("Giá bán không được nhỏ hơn giá vốn")
+      else {
+        dispath(
+          actionProducts(
+            {
+              product: {
+                id: id,
+                name: name,
+                price: price,
+                pricev: pricev,
+                remain: remain,
+                image: image,
+                touch: touch,
+                dv: dv
+              }
+            }
+          )
+        ),
+          dispath(
+            addProducts({
+              id: id,
+              name: name,
+              price: price,
+              pricev: pricev,
+              remain: remain,
+              image: image,
+              touch: touch,
+              dv: dv
+            }),
+          ),
+          dispath(reset({
+            reset: []
+          })),
+          dispath(resetCate({
+            set: false
+          }))
+        return nav ? navigation.navigate("CreateOrderScreen") : null
+      }
+    }
+    else {
+      Alert.alert("Cần nhập đủ thông tin bắt buộc")
+    }
   }
   useEffect(() => {
     if (categorys.listCategory.length !== 0)
       addData('ClientStack', "ListCategorys", { ListCategorys: categorys })
+    // console.log(pricev)
   }, [categorys])
   return (
     <View

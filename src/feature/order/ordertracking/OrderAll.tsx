@@ -37,7 +37,7 @@ const OrderAll = () => {
   let kqloc = filterOrdersByDateRange(orders, start, end)
   let result = debouncedSearchOrders(key, orders);
   let orderss = key.length > 0 ? result : orders;
-  // console.log(kqloc.length)
+  console.log(result.length, "ss")
   orderss = kqloc
   start == "" || end == "" ? orderss = orders : null
   return (

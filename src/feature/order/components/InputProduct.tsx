@@ -54,6 +54,7 @@ const InputProduct = ({ onPress, dataInput }: InputProductInterface) => {
           request
           placeholder="0.000"
           flex={1}
+          type={'number-pad'}
           keyName={'price'}
           value={paramsCustom.price}
           onTextChange={onTextChange}

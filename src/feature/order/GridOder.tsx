@@ -1,6 +1,7 @@
 import {
   Alert,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   Touchable,
@@ -8,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import React, { useCallback, useState } from 'react';
-import { FlatGrid } from 'react-native-super-grid';
+import { FlatGrid, SimpleGrid } from 'react-native-super-grid';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
@@ -84,7 +85,7 @@ const GridOder = () => {
   }
 
   return (
-    <View style={{ flex: 1, paddingHorizontal: 15, backgroundColor: COLORS.white1 }}>
+    <View style={{ flex: 1 }}>
       <TouchableOpacity onPress={() => navigation.navigate("CreateProduct")} style={styles.addProducts}>
         <Text> {`+ Thêm s.phẩm`}</Text>
       </TouchableOpacity>
@@ -92,15 +93,12 @@ const GridOder = () => {
         itemDimension={100}
         data={producst}
         style={styles.gridView}
-        // staticDimension={300}
-        // fixed
         spacing={15}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
               onPress={() =>
               {
-
                 item.remaining != 0 ? handlePlus(item.id, item.touch, parseInt(item.price)) : AddReamain(item.id, item.name, item.price, item.image[0].uri)
               }
               }
@@ -153,7 +151,7 @@ const GridOder = () => {
                 {item.name}
               </Text>
               <Text style={styles.itemCode}>
-                {item.price ? `${item.price}\n` : ``}
+                {item.price ? `${item.price}` : ``}
               </Text>
             </TouchableOpacity>
           );
@@ -193,9 +191,10 @@ export default GridOder;
 
 const styles = StyleSheet.create({
   gridView: {
+    flex: 1
   },
   itemContainer: {
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
     backgroundColor: COLORS.white1,
