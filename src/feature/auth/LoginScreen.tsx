@@ -113,11 +113,6 @@ const LoginScreen = ({ navigation }: NavigationType) => {
           />
         </View>
         <View style={styles.viewChose}>
-          <CheckboxComponent
-            title={'Ghi nhớ tài khoản'}
-            onPress={() => setCheck(!check)}
-            check={check}
-          />
           <TouchableOpacity activeOpacity={0.6}>
             <Text style={{ color: COLORS.red1, fontSize: normalize(16) }}>
               {`Quên mật khẩu`}
@@ -177,9 +172,10 @@ const styles = StyleSheet.create({
   },
   viewChose: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    marginLeft: -18,
+    marginTop: 20
+
   },
   textFoot: {
     color: 'black',

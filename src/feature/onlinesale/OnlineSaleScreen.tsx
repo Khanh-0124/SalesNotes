@@ -28,7 +28,7 @@ const OnlineSale = () => {
     phone: '',
     show: false,
     add: '',
-    modalAdd: false
+    modalAdd: false,
   });
   const onTextChange = useCallback((keyName: string, value: any) => {
     setParamsCustom(state => ({ ...state, [keyName]: value }));
@@ -40,10 +40,10 @@ const OnlineSale = () => {
     onTextChange("add", add);
   }, [paramsCustom.add])
   useEffect(() => {
-    if (client.length !== 0)
+    // if (client.length !== 0)
       addData('ClientStack', "Customers", { ListOfCustomers: client })
   }, [client])
-  // console.log(client)
+  console.log(client)
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <HeaderBase iconBack={false} title='Khách hàng' isIconLeft={false} bgColor={'#fff'} />
@@ -105,10 +105,14 @@ const OnlineSale = () => {
           <TouchableOpacity style={styles.SinputStyle} onPress={() => {
             dispatch(addClient({
               clientadd: {
-                id: client.length,
+                id: client.length ,
                 name: paramsCustom.name,
                 phone: paramsCustom.phone,
-                add: add
+                add: add,
+                transactionList: [
+                ],
+                sumTake: 0,
+                sumGive: 0
               }
             }))
             dispatch(handleshow({

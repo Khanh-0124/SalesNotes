@@ -6,22 +6,24 @@ import { COLORS } from 'assets/global/colors';
 interface ButtonBaseTypeProps {
   title: string;
   background?: boolean;
-  onPress(): void;
+  onPress?(): void;
+  disable?: boolean
 }
 const ButtonBase = React.memo(function ButtonBase({
   title,
   background = false,
   onPress,
+  disable= false
 }: ButtonBaseTypeProps) {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={onPress}
+      onPress={disable ? () => {} : onPress}
       style={[
-        styles.container,
-        { backgroundColor: background ? COLORS.primary : COLORS.white1 },
+        [styles.container, disable ? {borderWidth: 0}: null],
+        { backgroundColor: disable ? COLORS.gray1 : background ? COLORS.primary : COLORS.white1 },
       ]}>
-      <Text style={{ color: background ? COLORS.white1 : COLORS.primary }}>
+      <Text style={{ color: disable ? COLORS.white1 : background ? COLORS.white1 : COLORS.primary }}>
         {title}
       </Text>
     </TouchableOpacity>
