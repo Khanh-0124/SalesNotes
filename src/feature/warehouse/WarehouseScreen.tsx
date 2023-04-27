@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React from 'react';
-import ButtonBase from 'components/base/buttons/ButtonBase';
 import { COLORS } from 'assets/global/colors';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import HeaderHome from 'components/base/header/HeaderHome';
+import { Image } from '@rneui/base';
 
 const WarehouseScreen = () => {
   const customers = useSelector((state: any) => state.clients.listClients);
@@ -15,8 +14,57 @@ const WarehouseScreen = () => {
         paddingHorizontal: 15,
         flex: 1,
         backgroundColor: '#fff',
-        paddingTop: 65,
+        paddingTop: 50,
       }}>
+      <View>
+        <View
+          style={{
+            backgroundColor: COLORS.gray2,
+            height: 100,
+            marginHorizontal: 20,
+            borderTopRightRadius: 15,
+            borderTopLeftRadius: 15,
+            marginTop: 10,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 1,
+            },
+            shadowOpacity: 0.22,
+            shadowRadius: 2.22,
+            elevation: 3,
+            flexDirection: 'row',
+            // justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <View style={{ flex: 1 }}>
+            <Text style={{ textAlign: 'center' }}>Bạn mượn nợ</Text>
+            <Text style={{ textAlign: 'center', marginTop: 5 }}>Tổng</Text>
+            <Text style={{ textAlign: 'center', marginTop: 5 }}>{`12 d`}</Text>
+          </View>
+          <View style={{ height: '60%', width: 1, backgroundColor: '#ccc' }} />
+          <View style={{ flex: 1 }}>
+            <Text style={{ textAlign: 'center' }}>Bạn cho nợ</Text>
+            <Text style={{ textAlign: 'center', marginTop: 5 }}>Tổng</Text>
+            <Text style={{ textAlign: 'center', marginTop: 5 }}>{`12 d`}</Text>
+          </View>
+        </View>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={
+            () => {}
+            // navigation.navigate('DebtBookHistory')
+          }
+          style={styles.btndownload}>
+          <Image
+            source={require('../../assets/icons/png/ic_download.png')}
+            style={{ height: 20, width: 20, tintColor: '#fff' }}
+          />
+          <Text style={[styles.textHeader, { color: '#fff', marginLeft: 10 }]}>
+            Tải báo cáo
+          </Text>
+        </TouchableOpacity>
+      </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <View style={styles.boxHeader}>
           <Text style={styles.textHeader}>Tôi phải trả</Text>
@@ -30,20 +78,7 @@ const WarehouseScreen = () => {
           <Text style={[styles.textHeader, { color: COLORS.red2 }]}>{1} đ</Text>
         </View>
       </View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('DebtBookHistory')}
-        style={{
-          alignSelf: 'center',
-          marginVertical: 20,
-          borderRadius: 15,
-          borderColor: COLORS.gray4,
-          borderWidth: 1,
-          padding: 10,
-          width: '90%',
-          alignItems: 'center',
-        }}>
-        <Text style={styles.textHeader}>Lịch sử chi tiết</Text>
-      </TouchableOpacity>
+
       <View>
         <View
           style={{ width: '100%', backgroundColor: COLORS.gray2, padding: 10 }}>
@@ -97,7 +132,7 @@ export default WarehouseScreen;
 
 const styles = StyleSheet.create({
   boxHeader: { alignItems: 'center', flex: 1, marginVertical: 10 },
-  textHeader: { fontSize: 17, fontWeight: '600' },
+  textHeader: { fontSize: 17, fontWeight: '500' },
   button: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -106,5 +141,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.gray1,
     paddingBottom: 13,
+  },
+  btndownload: {
+    alignSelf: 'center',
+    marginBottom: 20,
+    borderBottomRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    borderColor: COLORS.gray4,
+    borderWidth: 1,
+    padding: 10,
+    width: '90%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: COLORS.primary,
   },
 });
