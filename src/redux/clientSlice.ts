@@ -40,6 +40,10 @@ export const clientSlice = createSlice({
     cloudData: (state, action) => {
       state.listClients = action.payload.data;
     },
+    deleteDebt: (state: any, action) => {
+      state.listClients[action.payload.id].transactionList.splice(action.payload.idDebt, 1);
+      state.listClients[action.payload.id].sum = action.payload.sum;
+    },
     inputDebt: (state: any, action) => {
       state.listClients[action.payload.id].transactionList.unshift({
         give: action.payload.give,
@@ -47,14 +51,20 @@ export const clientSlice = createSlice({
         description: action.payload.description,
         date: action.payload.date,
       });
-      state.listClients[action.payload.id].sumTake = action.payload.sumTake;
-      state.listClients[action.payload.id].sumGive = action.payload.sumGive;
+      state.listClients[action.payload.id].sum = action.payload.sum;
       console.log(
-        state.listClients[action.payload.id].sumTake,
-        state.listClients[action.payload.id].sumGive,
+        state.listClients[action.payload.id].sum
       );
     },
-  },
+    updateDebt: (state: any, action) => {
+      state.listClients[action.payload.id].transactionList[action.payload.idDebt].give = action.payload.give
+      state.listClients[action.payload.id].transactionList[action.payload.idDebt].take = action.payload.take
+      state.listClients[action.payload.id].transactionList[action.payload.idDebt].description = action.payload.des
+      state.listClients[action.payload.id].transactionList[action.payload.idDebt].date = action.payload.date
+      state.listClients[action.payload.id].sum = action.payload.sum;
+      //  state.listClients[action.payload.id].transactionList.splice(action.payload.idDebt, 0, action.payload.item);
+    }
+  }
 });
 
 export const {
@@ -65,5 +75,7 @@ export const {
   updateCustomer,
   deleteCustomer,
   inputDebt,
+  deleteDebt,
+  updateDebt
 } = clientSlice.actions;
 export default clientSlice.reducer;

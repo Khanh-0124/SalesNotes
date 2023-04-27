@@ -45,7 +45,7 @@ const LoginScreen = ({ navigation }: NavigationType) => {
     getData("ClientStack", 'Customers').then((datta) => {
       dispath(cloudData(
         {
-          data: datta?.ListOfCustomers
+          data: datta?.ListOfCustomers || []
         }
       ))
     })

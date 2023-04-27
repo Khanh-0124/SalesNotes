@@ -27,7 +27,7 @@ const WarehouseScreen = () => {
         <View style={{ height: 50, width: 1, backgroundColor: COLORS.gray1 }} />
         <View style={styles.boxHeader}>
           <Text style={styles.textHeader}>Tôi phải thu</Text>
-          <Text style={[styles.textHeader, { color: COLORS.red2 }]}>{0} đ</Text>
+          <Text style={[styles.textHeader, { color: COLORS.red2 }]}>{1} đ</Text>
         </View>
       </View>
       <TouchableOpacity
@@ -67,24 +67,20 @@ const WarehouseScreen = () => {
                     styles.textHeader,
                     {
                       color:
-                        parseInt(i.sumGive) - parseInt(i.sumTake) == 0
+                        i.sum == 0
                           ? COLORS.red2
-                          : parseInt(i.sumGive) - parseInt(i.sumTake) > 0
+                          : i.sum > 0
                           ? COLORS.red2
                           : COLORS.green2,
                     },
                   ]}>
-                  {' '}
-                  {parseInt(i.sumGive) - parseInt(i.sumTake) > 0
-                    ? parseInt(i.sumGive) - parseInt(i.sumTake)
-                    : (parseInt(i.sumGive) - parseInt(i.sumTake)) * -1}{' '}
-                  đ
+                  {(i.sum > 0 ? i.sum : i.sum * -1) || 0}đ
                 </Text>
                 <Text style={{ marginTop: 10 }}>
                   {' '}
                   {parseInt(i.sumGive) - parseInt(i.sumTake) == 0
                     ? ``
-                    : parseInt(i.sumGive) - parseInt(i.sumTake) > 0
+                    : i.sum > 0
                     ? `Tôi phải thu`
                     : `Tôi phải trả`}
                 </Text>

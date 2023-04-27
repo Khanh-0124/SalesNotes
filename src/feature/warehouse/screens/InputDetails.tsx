@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, ScrollView, TextInput, Keyboard } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TextInput,
+  Keyboard,
+} from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -7,25 +14,21 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS } from 'assets/global/colors';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { inputDebt } from '../../../redux/clientSlice';
+import { deleteDebt, inputDebt, updateDebt } from '../../../redux/clientSlice';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { Calendar } from 'react-native-calendars';
 import { BottomSheet } from '@rneui/themed';
 
 const InputDetails = () => {
   const route = useRoute<any>().params;
-  const give = useSelector(
-    (state: any) => state.clients.listClients[route.id].sumGive,
-  );
-  const take = useSelector(
-    (state: any) => state.clients.listClients[route.id].sumTake,
-  );
-  const [showKey, setShowKey] = useState(false)
+  const sum =
+    useSelector((state: any) => state.clients.listClients[route.id].sum) || 0;
+  const [showKey, setShowKey] = useState(false);
   Keyboard.addListener('keyboardDidShow', () => {
-    setShowKey(true)
-  })
+    setShowKey(true);
+  });
   Keyboard.addListener('keyboardDidHide', () => {
-    setShowKey(false)
+    setShowKey(false);
   });
   // console.log(parseInt(take) + parseInt(give))
   const navigation = useNavigation<any>();
@@ -35,9 +38,9 @@ const InputDetails = () => {
   const day = now.getDate();
   let nowday = `${day}/${month}/${year}`;
   const [choose, setChoose] = useState(!route.giveOrTake || false);
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(route.des);
   const [number, setNumber] = useState<any>(route.pay || 0);
-  const [date, setDate] = useState<any>(nowday);
+  const [date, setDate] = useState<any>(route.date || nowday);
   const dispatch = useDispatch();
   // const
   const textInputRef = useRef<any>(null);
@@ -55,18 +58,35 @@ const InputDetails = () => {
   }
 
   const submit = () => {
-    dispatch(
-      inputDebt({
+    // Cập nhật
+    if (route.update) {
+      dispatch(updateDebt({
         id: route.id,
+        idDebt: route.idDebt,
         give: choose ? number : 0,
         take: choose ? 0 : number,
+        des: description, 
         date: date,
-        description: description,
-        // give: give +
-        sumTake: choose ? parseInt(take) + 0 : parseInt(take) + parseInt(number),
-        sumGive: choose ? parseInt(give) + parseInt(number) : parseInt(give) + 0,
-      }),
-    );
+        sum: choose
+        ? (parseInt(sum) - parseInt(route.pay)) + parseInt(number)
+        : (parseInt(sum) + parseInt(route.pay)) - parseInt(number),
+      }))
+    }
+    // xong
+    else {
+      dispatch(
+        inputDebt({
+          id: route.id,
+          give: choose ? number : 0,
+          take: choose ? 0 : number,
+          date: date,
+          description: description,
+          sum: !choose
+            ? parseInt(sum) - parseInt(number)
+            : parseInt(sum) + parseInt(number),
+        }),
+      );
+    }
     setNumber(0);
     return navigation.goBack();
   };
@@ -111,10 +131,9 @@ const InputDetails = () => {
               paddingVertical: 10,
               borderBottomColor: COLORS.gray1,
               borderBottomWidth: 1,
-              
             }}
             placeholderTextColor={route.tt ? COLORS.black1 : undefined}
-            placeholder={route.tt ?  `${route.pay} VND` : "0"}
+            placeholder={route.tt ? `${route.pay} VND` : '0'}
             keyboardType="number-pad"
             value={number}
             onChangeText={(t: any) => setNumber(t)}
@@ -144,8 +163,8 @@ const InputDetails = () => {
                   borderBottomColor: COLORS.gray1,
                   borderBottomWidth: 1,
                 }}
-                placeholder="0"
-                value={route.tt ? "Thanh toán"  : description}
+                placeholder="Mô tả"
+                value={description}
                 onChangeText={(t: any) => setDescription(t)}
               />
             </View>
@@ -154,17 +173,15 @@ const InputDetails = () => {
       </View>
       <View
         style={{
-          
           bottom: !showKey ? 10 : '33%',
           zIndex: 1,
           position: 'absolute',
           alignSelf: 'center',
           width: '90%',
-
         }}>
         <ButtonBase
           disable={number > 0 ? false : true}
-          title="Xong"
+          title={route.update ? 'Cập  nhật' : 'Xong'}
           background
           onPress={submit}
         />
