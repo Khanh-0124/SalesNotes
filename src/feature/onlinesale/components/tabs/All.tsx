@@ -16,6 +16,7 @@ const All = ({ id }: { id: any }) => {
   });
   return (
     <View>
+      <View style={{ backgroundColor: COLORS.gray2, height: 10 }} />
       <View style={styles.AllBox}>
         <View style={styles.box}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -101,7 +102,7 @@ const All = ({ id }: { id: any }) => {
                     padding: 3,
                     backgroundColor: COLORS.green1,
                     justifyContent: 'center',
-                    alignItems: 'center'
+                    alignItems: 'center',
                   }}>
                   <Text
                     style={{

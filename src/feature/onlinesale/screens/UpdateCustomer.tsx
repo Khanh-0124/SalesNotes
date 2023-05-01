@@ -17,7 +17,7 @@ const UpdateCustomer = () => {
   const layout = useWindowDimensions();
   const renderScene = SceneMap({
     first: (props) => <All  id={id}/>,
-    second: Paybook,
+    second: (props) => <Paybook id={id}/>,
     third: (props) => <Infor id={id} name={name} phone={phone} add={add} />
   });
 
@@ -55,6 +55,7 @@ const UpdateCustomer = () => {
         initialLayout={{ width: layout.width }}
         renderTabBar={renderTabBar}
       />
+     
     </View>
   )
 }

@@ -6,6 +6,7 @@ import { deleteCustomer, updateCustomer } from '../../../../redux/clientSlice';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { COLORS } from 'assets/global/colors';
 
 
 const Infor = ({ name, phone, add, id }: any) => {
@@ -21,7 +22,7 @@ const Infor = ({ name, phone, add, id }: any) => {
   const dispatch = useDispatch()
 
   return (
-    <View style={{ flex: 1, padding: 15 }}>
+    <View style={{ flex: 1, padding: 15, borderTopWidth: 10, borderTopColor: COLORS.gray2 }}>
       <InputWithTitle title={'Tên liên hệ'} placeholder={''} request value={paramsCustom.name} keyName={'name'}
         onTextChange={onTextChange} />
       <InputWithTitle title={'số điện thoại'} placeholder={''} value={paramsCustom.phone} keyName={'phone'}

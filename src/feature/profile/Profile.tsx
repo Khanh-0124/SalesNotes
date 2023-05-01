@@ -19,59 +19,6 @@ const Profile = () => {
     counterRef.current += 1;
     console.log(counterRef.current);
   };
-  //
-  const arr = [
-    { date: '2022-04-30', hour: '10', category: 'income', totalIncome: 100, totalExpense: 0 },
-    { date: '2022-04-30', hour: '11', category: 'expense', totalIncome: 0, totalExpense: 50 },
-    { date: '2022-04-30', hour: '12', category: 'income', totalIncome: 75, totalExpense: 0 },
-    { date: '2022-05-01', hour: '9', category: 'income', totalIncome: 150, totalExpense: 0 },
-    { date: '2022-05-01', hour: '10', category: 'expense', totalIncome: 0, totalExpense: 75 },
-    { date: '2022-05-01', hour: '11', category: 'income', totalIncome: 100, totalExpense: 0 },
-  ];
-  
-  const result = arr.reduce((acc: any, cur: any) => {
-    const { date, hour, category, totalIncome, totalExpense } = cur;
-    const key = date.split('T')[0];
-    const existingItem = acc.find((item: any) => item.date === key);
-  
-    if (existingItem) {
-      existingItem.totalIncome += totalIncome;
-      existingItem.totalExpense += totalExpense;
-      const existingHour = existingItem.hourlyData.find((hourly: any) => hourly.hour === hour);
-      if (existingHour) {
-        existingHour.totalIncome += totalIncome;
-        existingHour.totalExpense += totalExpense;
-      } else {
-        existingItem.hourlyData.push({
-          hour,
-          category,
-          totalIncome,
-          totalExpense,
-        });
-      }
-    } else {
-      acc.push({
-        date: key,
-        totalIncome,
-        totalExpense,
-        hourlyData: [
-          {
-            hour,
-            category,
-            totalIncome,
-            totalExpense,
-          },
-        ],
-      });
-    }
-  
-    return acc;
-  }, []);
-  
-  result.forEach((item: any) => {
-    item.balance = item.totalIncome - item.totalExpense;
-  });
-  // console.log(result[0].hourlyData);
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white1 }}>
       <HeaderBase
