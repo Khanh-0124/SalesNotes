@@ -6,11 +6,9 @@ import { COLORS } from 'assets/global/colors';
 import ModalConfig from 'components/common/ModalConfig';
 import { ParamAddClientInterface } from 'feature/auth/type';
 import InputComponent from 'components/base/header/input/Input';
-import ButtonBase from 'components/base/buttons/ButtonBase';
 import { useNavigation } from '@react-navigation/native';
 import { addClient, address, cloudData, handleshow } from '../../redux/clientSlice';
 import { addData, getData } from '../../servers/firebase/crud';
-import firestore from '@react-native-firebase/firestore';
 
 const OnlineSale = () => {
   const client = useSelector((state: any) => state.clients.listClients)

@@ -16,7 +16,7 @@ const UpdateCustomer = () => {
   const id = useRoute<any>().params.id
   const layout = useWindowDimensions();
   const renderScene = SceneMap({
-    first: All,
+    first: (props) => <All  id={id}/>,
     second: Paybook,
     third: (props) => <Infor id={id} name={name} phone={phone} add={add} />
   });

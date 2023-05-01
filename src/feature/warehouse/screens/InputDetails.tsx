@@ -14,13 +14,20 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS } from 'assets/global/colors';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteDebt, inputDebt, updateDebt } from '../../../redux/clientSlice';
+import {
+  addbc,
+  deleteDebt,
+  inputDebt,
+  updateDebt,
+  updatebc,
+} from '../../../redux/clientSlice';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import { Calendar } from 'react-native-calendars';
 import { BottomSheet } from '@rneui/themed';
 
 const InputDetails = () => {
   const route = useRoute<any>().params;
+  const bc = useSelector((state: any) => state.clients.bc);
   const sum =
     useSelector((state: any) => state.clients.listClients[route.id].sum) || 0;
   const [showKey, setShowKey] = useState(false);
@@ -36,6 +43,7 @@ const InputDetails = () => {
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
   const day = now.getDate();
+  const hours = `${now.getHours()}: ${now.getMinutes()}`;
   let nowday = `${day}/${month}/${year}`;
   const [choose, setChoose] = useState(!route.giveOrTake || false);
   const [description, setDescription] = useState(route.des);
@@ -56,34 +64,60 @@ const InputDetails = () => {
     setDate(`${day.day}/${day.month}/${day.year}`);
     setShowCal(false);
   }
-
+  // console.log(route.idbc, "bomay"
   const submit = () => {
     // Cập nhật
     if (route.update) {
-      dispatch(updateDebt({
-        id: route.id,
-        idDebt: route.idDebt,
-        give: choose ? number : 0,
-        take: choose ? 0 : number,
-        des: description, 
-        date: date,
-        sum: choose
-        ? (parseInt(sum) - parseInt(route.pay)) + parseInt(number)
-        : (parseInt(sum) + parseInt(route.pay)) - parseInt(number),
-      }))
+      dispatch(
+        updateDebt({
+          id: route.id,
+          idDebt: route.idDebt,
+          give: choose ?  parseInt(number) : 0,
+          take: choose ? 0 :  parseInt(number),
+          des: description,
+          date: date,
+          sum: choose
+            ? parseInt(sum) - parseInt(route.pay) + parseInt(number)
+            : parseInt(sum) + parseInt(route.pay) - parseInt(number),
+          category: 'cho',
+        }),
+      );
+      dispatch(
+        updatebc({
+          id: route.idbc,
+          give: choose ? parseInt(number) : 0,
+          take: choose ? 0 : parseInt(number),
+          date: date,
+          category: 'cho',
+          hours: hours,
+        }),
+      );
     }
     // xong
     else {
       dispatch(
         inputDebt({
           id: route.id,
-          give: choose ? number : 0,
-          take: choose ? 0 : number,
+          idbc: bc.length,
+          give: choose ? parseInt(number) : 0,
+          take: choose ? 0 : parseInt(number),
           date: date,
           description: description,
           sum: !choose
             ? parseInt(sum) - parseInt(number)
             : parseInt(sum) + parseInt(number),
+          category: 'cho',
+          hours: hours,
+        }),
+      );
+      dispatch(
+        addbc({
+          idbc: bc.lenght - 1,
+          give: choose ? parseInt(number) : 0,
+          take: choose ? 0 : parseInt(number),
+          date: date,
+          category: 'cho',
+          hours: hours,
         }),
       );
     }

@@ -14,7 +14,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import { useNavigation } from '@react-navigation/native';
-import { addQuantity, updateProduct, reset, updateRemaining } from '../../../redux/productSlice';
+import {
+  addQuantity,
+  updateProduct,
+  reset,
+  updateRemaining,
+} from '../../../redux/productSlice';
 import DatePicker from 'react-native-date-picker';
 import ButtonBase from 'components/base/buttons/ButtonBase';
 import DraggableBottomSheet from 'components/common/BottomSheet';
@@ -49,7 +54,8 @@ const PayConfirmSheet = (
   orders: any,
   products: any,
   vc: number,
-  ck: number
+  ck: number,
+  idCustomer: any,
 ) => {
   let check = false;
   if (pay - payClient > 0) {
@@ -58,7 +64,7 @@ const PayConfirmSheet = (
     check = false;
   }
   let codde = generateInvoiceCode();
-  let productsOrder = products.filter((item: any) => item.touch !== 0)
+  let productsOrder = products.filter((item: any) => item.touch !== 0);
   // console.log(check, "as")
   return (
     <View style={{ paddingHorizontal: 15 }}>
@@ -104,35 +110,49 @@ const PayConfirmSheet = (
         <ButtonBase
           title="Xác nhận"
           onPress={() => {
-            dispathch(addListOrder(
-              {
+            dispathch(
+              addListOrder({
                 data: {
                   id: orders.length,
-              name: name || "Khách lẻ",
-              date: {
-                hours: hours,
-                date: datte,
-                month: month,
-                year: year,
-              },
+                  name: name || 'Khách lẻ',
+                  idCustomer: idCustomer,
+                  date: {
+                    hours: hours,
+                    date: datte,
+                    month: month,
+                    year: year,
+                  },
                   fulldate: `${datte}/${month}`,
-              code: codde,
-              delivered: true,
-              sum: pay,
+                  code: codde,
+                  delivered: true,
+                  sum: pay,
                   payClient: payClient,
-              paid: true,
-                  ghino: (pay - payClient),
-              add: add,
+                  paid: true,
+                  ghino: pay - payClient,
+                  add: add,
 
                   products: productsOrder,
                   phivc: vc,
                   ck: ck,
-                  stringDate: `${year}-${month?.toString().padStart(2, '0')}-${datte?.toString().padStart(2, '0')}`
-                }
-            }))
+                  stringDate: `${year}-${month
+                    ?.toString()
+                    .padStart(2, '0')}-${datte?.toString().padStart(2, '0')}`,
+                },
+              }),
+            );
             // console.log("Khanh name")
             // dispathch(reset({ touch: 0 }))
-            return navigation.replace('OrderBill', { pay, payClient, name, hours, datte, month, year, add, code: codde });
+            return navigation.replace('OrderBill', {
+              pay,
+              payClient,
+              name,
+              hours,
+              datte,
+              month,
+              year,
+              add,
+              code: codde,
+            });
           }}
           background
         />
@@ -144,14 +164,15 @@ const TrackingOrder = () => {
   const [showSheet, setShowSheet] = useState(false);
   const products = useSelector((state: any) => state.products);
   const orders = useSelector((state: any) => state.orders.listOrders);
-  const dispathch = useDispatch()
+  const dispathch = useDispatch();
   // const quantity = useSelector((state: any) => state.products.quantity);
-  const customers = useSelector((state: any) => state.clients.listClients)
+  const customers = useSelector((state: any) => state.clients.listClients);
   const navigation = useNavigation<any>();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [name, setName] = useState('');
+  const [idCustomer, setIdCustomer] = useState(0);
   const [add, setAdd] = useState('');
   const [keyCustomer, setKeyCustomer] = useState('');
   const [ck, setCK] = useState(0);
@@ -172,7 +193,7 @@ const TrackingOrder = () => {
       updateProduct({
         id: id,
         touch: touch + 1,
-        newremain: touch + 1
+        newremain: touch + 1,
       }),
     );
     dispatch(
@@ -209,29 +230,33 @@ const TrackingOrder = () => {
   const TakePhotoFromLibrary = useCallback(async () => {
     const result = await launchImageLibrary(options);
     let url = result.assets[0].uri;
-    setParamsCustom((state: any) => ({ ...state, ["uri"]: url }));
+    setParamsCustom((state: any) => ({ ...state, ['uri']: url }));
   }, []);
-    const createThreeButtonAlert = () =>
+  const createThreeButtonAlert = () =>
     Alert.alert('Chọn ảnh', 'Chọn ảnh ghi chú', [
       {
         text: 'Chọn ảnh có sẵn',
         onPress: () => TakePhotoFromLibrary(),
       },
-      {   
+      {
         text: 'Huỷ',
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      {text: 'Chụp ảnh mới', onPress: () => console.log('OK Pressed')},
+      { text: 'Chụp ảnh mới', onPress: () => console.log('OK Pressed') },
     ]);
   // let dateAhours = '';
   const [hours, setHours] = useState('');
   const [datee, setDatee] = useState<number>();
-  const [month, setMonth] = useState<number>()
-  const [year, setYear] = useState<number>()
-  let code = generateInvoiceCode()
-  let productsOrder = products.listProducts.filter((item: any) => item.touch !== 0)
-  const warningArray = products.listProducts.filter((item: any) => item.remaining < 10)
+  const [month, setMonth] = useState<number>();
+  const [year, setYear] = useState<number>();
+  let code = generateInvoiceCode();
+  let productsOrder = products.listProducts.filter(
+    (item: any) => item.touch !== 0,
+  );
+  const warningArray = products.listProducts.filter(
+    (item: any) => item.remaining < 10,
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -243,11 +268,16 @@ const TrackingOrder = () => {
           <Text style={{ color: COLORS.blue3 }}>+ Thêm sản phẩm</Text>
         </TouchableOpacity>
         {products.listProducts.map((item: any, index: any) => {
-          sum = (parseInt(products.pay) - parseInt(products.pay) * (ck / 100)) + parseInt(phiVC);
+          sum =
+            parseInt(products.pay) -
+            parseInt(products.pay) * (ck / 100) +
+            parseInt(phiVC);
           if (item.remaining < 10) {
-            dispatch(addOutofStockWarning({
-              OutofStockWarning: warningArray
-            }))
+            dispatch(
+              addOutofStockWarning({
+                OutofStockWarning: warningArray,
+              }),
+            );
           }
           return item.touch !== 0 ? (
             <View key={index}>
@@ -361,75 +391,144 @@ const TrackingOrder = () => {
           ) : null;
         })}
         {products.quantity !== 0 ? <View style={styles.line} /> : null}
-        <ModalConfig visible={show} onOffShow={() => setShow(false)} layout={{ height: '25%', width: '80%' }}>
+        <ModalConfig
+          visible={show}
+          onOffShow={() => setShow(false)}
+          layout={{ height: '25%', width: '80%' }}>
           <View style={{ marginTop: 15 }}>
-            <TextInput placeholder='Nhập tên hoặc số điện thoại' value={keyCustomer} onChangeText={(t) => setKeyCustomer(t)} />
-            <TouchableOpacity onPress={() => {
-              setShow(false)
-              return navigation.navigate("OnlineSale")
-            }} style={{ flexDirection: 'row', marginTop: 20 }}>
+            <TextInput
+              placeholder="Nhập tên hoặc số điện thoại"
+              value={keyCustomer}
+              onChangeText={t => setKeyCustomer(t)}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                setShow(false);
+                return navigation.navigate('OnlineSale');
+              }}
+              style={{ flexDirection: 'row', marginTop: 20 }}>
               <Text style={{ color: COLORS.blue3 }}>Tạo mới</Text>
-              <View style={{ backgroundColor: COLORS.blue3, justifyContent: 'center', alignItems: 'center', borderRadius: 20, marginLeft: 200, paddingHorizontal: 5, padding: 1 }}>
+              <View
+                style={{
+                  backgroundColor: COLORS.blue3,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 20,
+                  marginLeft: 200,
+                  paddingHorizontal: 5,
+                  padding: 1,
+                }}>
                 <Text style={{ color: 'white' }}>+</Text>
               </View>
             </TouchableOpacity>
             <ScrollView>
-              {
-                customerss.map((customer: any) => <TouchableOpacity key={customer.id} onPress={() => {
-                  setShow(false)
-                  setName(customer.name)
-                  setAdd(customer.add)
-                }} activeOpacity={0.4} style={{ marginTop: 20 }}>
-                  <View style={{
-                    flexDirection: 'row', alignItems: 'center'
-                  }}>
-                    <View style={{
-                      padding: 5, borderRadius: 50, borderWidth: 1, borderColor: COLORS.gray1,
-                      marginRight: 10
+              {customerss.map((customer: any) => (
+                <TouchableOpacity
+                  key={customer.id}
+                  onPress={() => {
+                    setShow(false);
+                    setName(customer.name);
+                    setAdd(customer.add);
+                    setIdCustomer(parseInt(customer.id));
+                  }}
+                  activeOpacity={0.4}
+                  style={{ marginTop: 20 }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
                     }}>
-                      <Image source={require('assets/icons/png/ic_user.png')} style={{ tintColor: COLORS.gray4, width: 30, height: 30 }} />
+                    <View
+                      style={{
+                        padding: 5,
+                        borderRadius: 50,
+                        borderWidth: 1,
+                        borderColor: COLORS.gray1,
+                        marginRight: 10,
+                      }}>
+                      <Image
+                        source={require('assets/icons/png/ic_user.png')}
+                        style={{
+                          tintColor: COLORS.gray4,
+                          width: 30,
+                          height: 30,
+                        }}
+                      />
                     </View>
                     <Text style={{ color: COLORS.blue3 }}>{customer.name}</Text>
                   </View>
-                </TouchableOpacity>)
-              }
-
+                </TouchableOpacity>
+              ))}
             </ScrollView>
-            <View>
-            </View>
+            <View></View>
           </View>
-        </ModalConfig >
+        </ModalConfig>
         <View style={{ paddingBottom: 10 }}>
-          {
-            !name ? (<InputWithTitle
+          {!name ? (
+            <InputWithTitle
               title="Khách hàng"
               placeholder={'Chọn khách hàng'}
               onPress={() => setShow(true)}
               editable={false}
               leftIcon={require('assets/icons/png/ic_add_image.png')}
-            />) : <View>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+            />
+          ) : (
+            <View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginTop: 10,
+                }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image style={{ tintColor: COLORS.gray4, width: 30, height: 30, marginRight: 10 }} source={require('assets/icons/png/ic_user.png')} />
+                  <Image
+                    style={{
+                      tintColor: COLORS.gray4,
+                      width: 30,
+                      height: 30,
+                      marginRight: 10,
+                    }}
+                    source={require('assets/icons/png/ic_user.png')}
+                  />
                   <View>
-                    <Text style={{ fontSize: 16, fontWeight: '500' }}>{name}</Text>
+                    <Text style={{ fontSize: 16, fontWeight: '500' }}>
+                      {name}
+                    </Text>
                     {/* <View style={{ flexDirection: 'row' }}>
                       <Text>Phải thu: </Text>
                       <Text style={{ color: COLORS.red2 }}>{'1000'} đ</Text>
                     </View> */}
                   </View>
                 </View>
-                <TouchableOpacity onPress={() => setName("")} style={{ marginRight: 15, alignSelf: 'center', borderRadius: 50, borderWidth: 1, borderColor: COLORS.gray3, paddingHorizontal: 5 }}>
+                <TouchableOpacity
+                  onPress={() => setName('')}
+                  style={{
+                    marginRight: 15,
+                    alignSelf: 'center',
+                    borderRadius: 50,
+                    borderWidth: 1,
+                    borderColor: COLORS.gray3,
+                    paddingHorizontal: 5,
+                  }}>
                   <Text style={{ alignSelf: 'center' }}>x</Text>
                 </TouchableOpacity>
               </View>
               <View style={{ paddingHorizontal: 0, marginTop: 10 }}>
                 <Text style={{ fontSize: 15, fontWeight: '500' }}>Địa chỉ</Text>
-                  <TextInput placeholder='Nhập địa chỉ cụ thể' style={{ borderBottomWidth: 1, borderBottomColor: COLORS.gray1, paddingBottom: 10, marginTop: 10 }} value={add} onChangeText={(text) => setAdd(text)} />
+                <TextInput
+                  placeholder="Nhập địa chỉ cụ thể"
+                  style={{
+                    borderBottomWidth: 1,
+                    borderBottomColor: COLORS.gray1,
+                    paddingBottom: 10,
+                    marginTop: 10,
+                  }}
+                  value={add}
+                  onChangeText={text => setAdd(text)}
+                />
               </View>
             </View>
-          }
-
+          )}
         </View>
         <View style={styles.line} />
         <View>
@@ -447,19 +546,31 @@ const TrackingOrder = () => {
           </View>
           <View style={styles.BoxItem}>
             <Text>Phí vận chuyển</Text>
-            <TextInput placeholder='VD: 12000' keyboardType='number-pad' value={phiVC} onChangeText={(t) => setphiVC(t)} />
+            <TextInput
+              placeholder="VD: 12000"
+              keyboardType="number-pad"
+              value={phiVC}
+              onChangeText={t => setphiVC(t)}
+            />
             {/* <Text style={{ color: COLORS.blue3, fontWeight: '700' }}>
               {products.quantity !== 0 ? 12000 : 0}
             </Text> */}
           </View>
           <View style={styles.BoxItem}>
             <Text>Chiết khấu</Text>
-            <TextInput placeholder='VD: 10%' keyboardType='number-pad' value={ck} onChangeText={(t) => setCK(t)} />
+            <TextInput
+              placeholder="VD: 10%"
+              keyboardType="number-pad"
+              value={ck}
+              onChangeText={t => setCK(t)}
+            />
             {/* <Text style={{ color: COLORS.blue3, fontWeight: '700' }}>10%</Text> */}
           </View>
           <View style={styles.BoxItem}>
             <Text>Tổng cộng</Text>
-            <Text style={{ color: COLORS.red1, fontWeight: '700' }}>{Math.round(sum).toLocaleString('vi-VN')}</Text>
+            <Text style={{ color: COLORS.red1, fontWeight: '700' }}>
+              {Math.round(sum).toLocaleString('vi-VN')}
+            </Text>
           </View>
         </View>
         <View style={styles.line} />
@@ -467,7 +578,9 @@ const TrackingOrder = () => {
           <View style={{ width: '80%' }}>
             <InputWithTitle title="" placeholder={'Ghi chú đơn hàng'} />
           </View>
-          <TouchableOpacity style={styles.imageSelect} onPress ={createThreeButtonAlert}>
+          <TouchableOpacity
+            style={styles.imageSelect}
+            onPress={createThreeButtonAlert}>
             <Image
               style={{ height: 34, width: 34, tintColor: COLORS.blue3 }}
               source={require('assets/icons/png/ic_image.png')}
@@ -475,19 +588,26 @@ const TrackingOrder = () => {
           </TouchableOpacity>
         </View>
         <View>
-          { paramsCustom.uri !== '' ? (<Image style={{height: 24, width: 24}} source={{uri: paramsCustom.uri}}/>) : null
-          }
+          {paramsCustom.uri !== '' ? (
+            <Image
+              style={{ height: 24, width: 24 }}
+              source={{ uri: paramsCustom.uri }}
+            />
+          ) : null}
         </View>
         <View style={{ marginVertical: 15 }}>
-          <TouchableOpacity onPress={() => {
-            setOpen(true);
-          }}>
+          <TouchableOpacity
+            onPress={() => {
+              setOpen(true);
+            }}>
             <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-              <Text style={{ fontSize: 15, color: COLORS.blue3 }}>Ngày tạo: </Text>
               <Text style={{ fontSize: 15, color: COLORS.blue3 }}>
-                {date.getHours()}:{date.getMinutes()}  {date.getDate()}/{date.getMonth() + 1}/
-              {date.getFullYear()}
-            </Text>
+                Ngày tạo:{' '}
+              </Text>
+              <Text style={{ fontSize: 15, color: COLORS.blue3 }}>
+                {date.getHours()}:{date.getMinutes()} {date.getDate()}/
+                {date.getMonth() + 1}/{date.getFullYear()}
+              </Text>
             </View>
           </TouchableOpacity>
           <DatePicker
@@ -512,34 +632,54 @@ const TrackingOrder = () => {
           backgroundColor: COLORS.white1,
           paddingTop: 20,
         }}>
-        <ButtonBase title="Giao sau" onPress={() => {
-          dispatch(addListOrder({
-            data: {
-              id: orders.length,
-              name: name || "Khách lẻ",
-              date: {
-                hours: `${date.getHours()}:${date.getMinutes()}`,
-                date: date.getDate(),
-                month: date.getMonth() + 1,
-                year: date.getFullYear(),
-              },
-              fulldate: `${date.getDate()}/${date.getMonth() + 1}`,
+        <ButtonBase
+          title="Giao sau"
+          onPress={() => {
+            dispatch(
+              addListOrder({
+                data: {
+                  id: orders.length,
+                  name: name || 'Khách lẻ',
+                  idCustomer: idCustomer,
+                  date: {
+                    hours: `${date.getHours()}:${date.getMinutes()}`,
+                    date: date.getDate(),
+                    month: date.getMonth() + 1,
+                    year: date.getFullYear(),
+                  },
+                  fulldate: `${date.getDate()}/${date.getMonth() + 1}`,
+                  code: code,
+                  delivered: false,
+                  sum: sum,
+                  paid: false,
+                  payClient: paramsCustom.payClient,
+                  ghino: sum - paramsCustom.payClient,
+                  add: add,
+                  products: productsOrder,
+                  phivc: phiVC,
+                  ck: ck,
+                  stringDate: `${date.getFullYear()}-${(date.getMonth() + 1)
+                    ?.toString()
+                    .padStart(2, '0')}-${date
+                    .getDate()
+                    ?.toString()
+                    .padStart(2, '0')}`,
+                },
+              }),
+            );
+            // dispathch(reset({ touch: 0 }))
+            navigation.replace('OrderBill', {
+              pay: sum,
+              name,
+              hours,
+              datte: date.getDate(),
+              month: date.getMonth() + 1,
+              year: date.getFullYear(),
+              add,
               code: code,
-              delivered: false,
-              sum: sum,
-              paid: false,
-              payClient: paramsCustom.payClient,
-              ghino: sum - paramsCustom.payClient,
-              add: add,
-              products: productsOrder,
-              phivc: phiVC,
-              ck: ck,
-              stringDate: `${date.getFullYear()}-${(date.getMonth() + 1)?.toString().padStart(2, '0')}-${date.getDate()?.toString().padStart(2, '0')}`
-            }
-          }));
-          // dispathch(reset({ touch: 0 }))
-          navigation.replace('OrderBill', { pay: sum, name, hours, datte: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear(), add, code: code, temp: true });
-        }}
+              temp: true,
+            });
+          }}
         />
         <ButtonBase
           title="Bán nhanh"
@@ -547,9 +687,9 @@ const TrackingOrder = () => {
           onPress={() => {
             setShowSheet(true);
             setDatee(date.getDate());
-            setHours(`${date.getHours()}:${date.getMinutes()}`)
-            setMonth(date.getMonth() + 1)
-            setYear(date.getFullYear())
+            setHours(`${date.getHours()}:${date.getMinutes()}`);
+            setMonth(date.getMonth() + 1);
+            setYear(date.getFullYear());
           }}
         />
       </View>
@@ -570,7 +710,8 @@ const TrackingOrder = () => {
             orders,
             products.listProducts,
             phiVC,
-            ck
+            ck,
+            idCustomer,
           )}
           title="Xác nhận thanh toán"
           height={500}

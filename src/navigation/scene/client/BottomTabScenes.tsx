@@ -66,7 +66,7 @@ const BottomTabScenes = () => {
         }}
       />
 
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="Thu chi"
         component={Paybook}
         options={{
@@ -79,7 +79,7 @@ const BottomTabScenes = () => {
             />
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="Cá nhân"
         component={Profile}

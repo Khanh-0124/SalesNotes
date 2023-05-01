@@ -8,20 +8,28 @@ import { BottomSheet } from '@rneui/themed';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addData } from '../../../servers/firebase/crud';
-import { inputDebt, deleteDebt } from '../../../redux/clientSlice';
+import { inputDebt, deleteDebt, setSum } from '../../../redux/clientSlice';
 
+let sumgive = 0,
+  sumtake = 0;
 const CustomerDetail = () => {
   const route = useRoute<any>().params;
-  const dispatch = useDispatch();
-  const sum = useSelector(
-    (state: any) => state.clients.listClients[route.id].sum,
-  );
-  const client = useSelector((state: any) => state.clients.listClients);
-  const [showBottom, setShowBottom] = useState(false);
-  const navigation = useNavigation<any>();
   const transactionList = useSelector(
     (state: any) => state.clients.listClients[route.id].transactionList,
   );
+  const dispatch = useDispatch();
+  (sumgive = 0), (sumtake = 0);
+  transactionList.forEach((item: any) => {
+    item.balance = item.give - item.take;
+    sumgive += item.give;
+    sumtake += item.take;
+  });
+  
+  const sum: number = sumgive - sumtake
+  const bc = useSelector((state: any) => state.clients.bc);
+  const client = useSelector((state: any) => state.clients.listClients);
+  const [showBottom, setShowBottom] = useState(false);
+  const navigation = useNavigation<any>();
   useEffect(() => {
     addData('ClientStack', 'Customers', { ListOfCustomers: client });
   }, [client]);
@@ -31,12 +39,19 @@ const CustomerDetail = () => {
   const day = now.getDate();
   let nowday = `${day}/${month}/${year}`;
   const [id, setId] = useState(-1);
+  const [idbc, setIdbc] = useState(-1);
   const [idDebt, setIdBebt] = useState(-1);
   const [delGive, setDelGive] = useState<any>(0);
   const [delTake, setDelTake] = useState<any>(0);
+  useEffect(() => { 
+    dispatch(setSum({
+      id: route.id,
+      sum: sum
+    }))
+  }, [sum])
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <HeaderBase title={route.name} isIconLeft={false} />
+      <HeaderBase title={route.name} isIconLeft={false}  />
       <View style={{ padding: 15 }}>
         <View
           style={{
@@ -109,10 +124,10 @@ const CustomerDetail = () => {
                 key={index}
                 onPress={() => {
                   setId(index);
-                  // console.log(delGive, delTake, sum);
                   setDelGive(i.give);
                   setDelTake(i.take);
                   setShowBottom(true);
+                  setIdbc(parseInt(i.idbc));
                 }}
                 style={styles.BoxItem}>
                 <View style={{ width: '60%' }}>
@@ -200,8 +215,8 @@ const CustomerDetail = () => {
                           idDebt: id,
                           sum:
                             delGive > 0
-                              ? parseInt(sum) - parseInt(delGive)
-                              : parseInt(sum) + parseInt(delTake),
+                              ? sum- parseInt(delGive)
+                              : sum + parseInt(delTake),
                         }),
                       );
                     },
@@ -234,7 +249,7 @@ const CustomerDetail = () => {
               background
               onPress={() => {
                 // console.log(delGive > delTake)
-                setShowBottom(false)
+                setShowBottom(false);
                 return navigation.navigate('InputDetails', {
                   name: route.name,
                   phone: route.phone,
@@ -244,7 +259,8 @@ const CustomerDetail = () => {
                   date: transactionList[id].date,
                   pay: delGive > delTake ? delGive : delTake,
                   des: transactionList[id].description,
-                  update: true
+                  update: true,
+                  idbc,
                 });
               }}
             />

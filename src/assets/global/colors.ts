@@ -10,8 +10,10 @@ export const COLORS = {
   gray6: '#66686A',
   gray7: "#F4F9FC",
   gray8: "#E5EAED",
+  gray9: '#DCDFE4',
   red1: '#FB344F',
   red2: '#CC4D22',
+  red3: "#F2E7E3",
   orange1: '#F9E7CF',
   orange2: '#E49B00',
   blue1: '#DBEAF9',
@@ -22,5 +24,6 @@ export const COLORS = {
   black2: '#2B343D',
   green1: '#DAECDF',
   green2: '#016F1F',
-  green3: '#33B968'
+  green3: '#33B968',
+  green4: "#DFF2EE"
 };

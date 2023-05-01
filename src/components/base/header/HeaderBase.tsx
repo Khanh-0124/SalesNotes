@@ -11,6 +11,7 @@ interface HeaderBaseProps {
   color?: string;
   isIconLeft?: boolean;
   clean?: boolean
+  onpressPlus?: () => void
 }
 
 const HeaderBase = memo(function HeaderBase({
@@ -19,7 +20,7 @@ const HeaderBase = memo(function HeaderBase({
   bgColor = '#fff',
   color,
   isIconLeft = true,
-  clean = false
+  clean = false,
 }: HeaderBaseProps) {
   const dispath = useDispatch()
   const navigation = useNavigation();
