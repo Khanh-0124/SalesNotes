@@ -13,7 +13,7 @@ import { COLORS } from 'assets/global/colors';
 
 const Paybook = ({ id }: any) => {
   const transactionList = useSelector(
-    (state: any) => state.clients.listClients[id].transactionList,
+    (state: any) => state.clients.listClients[id]?.transactionList,
   );
   const customer = useSelector((state: any) => state.clients.listClients[id]);
   // console.log(customer.sum);

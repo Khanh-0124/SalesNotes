@@ -110,9 +110,9 @@ const SignUp = ({ navigation }: NavigationType) => {
           />
         </View>
         {/* footer */}
-        <Footer.FooterAuth title="SIGN UP" handleSubmit={submit} />
+        <Footer.FooterAuth title="Đăng kí" handleSubmit={submit} />
         <View
-          style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20 }}>
+          style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 0 }}>
           <Text style={styles.textFoot}>You have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <Text style={{ fontSize: normalize(16), color: COLORS.primary }}>
@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     backgroundColor: COLORS.white1,
+    paddingTop: 100
   },
   TitleStyle: {
     color: 'black',

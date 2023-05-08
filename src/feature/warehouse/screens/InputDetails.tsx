@@ -43,7 +43,7 @@ const InputDetails = () => {
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
   const day = now.getDate();
-  const hours = `${now.getHours()}: ${now.getMinutes()}`;
+  const hours = `${now.getHours()}:${now.getMinutes()}`;
   let nowday = `${day}/${month}/${year}`;
   const [choose, setChoose] = useState(!route.giveOrTake || false);
   const [description, setDescription] = useState(route.des);

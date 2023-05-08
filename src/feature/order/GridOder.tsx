@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.82,
     elevation: 3,
+    paddingBottom: 10
   },
   Simage: {
     height: '40%',

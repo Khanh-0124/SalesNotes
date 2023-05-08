@@ -61,5 +61,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     color: 'black',
     fontSize: normalize(16),
+    marginLeft: 10
   },
 });

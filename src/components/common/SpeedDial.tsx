@@ -33,7 +33,7 @@ const SpeedDialButton = () => {
       />
       <SpeedDial.Action
         icon={{ name: 'edit', color: '#fff' }}
-        title="Tạo giao dịch thu chi"
+        title="Tạo giao dịch sổ nợ"
         color={COLORS.primary}
         onPress={() => {
           console.log('Delete Something');

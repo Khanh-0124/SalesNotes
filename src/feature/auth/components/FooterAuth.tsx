@@ -7,7 +7,7 @@ import * as layout from 'assets/global/layout';
 import { ThemeContextProvider, useTheme } from 'utilities/context/ThemeContext';
 
 const FooterAuth = ({
-  title = 'LOGIN',
+  title = 'Đăng nhập',
   handleSubmit,
 }: {
   title?: string;
@@ -23,20 +23,7 @@ const FooterAuth = ({
           onPress={handleSubmit}>
           <Text style={styles.titleButton}>{title}</Text>
         </TouchableOpacity>
-        <Svg.Width width={'100%'} style={styles.otherWith} />
-        {/* View social button */}
         <View style={styles.viewSocialButton}>
-          {/* fb login */}
-          <TouchableOpacity activeOpacity={0.7} style={styles.socialkButton}>
-            <Svg.FB width={layout.WIDTH * 0.05} height={layout.WIDTH * 0.05} />
-            <Text style={styles.textButton}>Facbook</Text>
-          </TouchableOpacity>
-          <View style={{ width: layout.WIDTH * 0.08 }} />
-          {/* google login */}
-          <TouchableOpacity activeOpacity={0.7} style={styles.socialkButton}>
-            <Svg.GG width={layout.WIDTH * 0.05} height={layout.WIDTH * 0.05} />
-            <Text style={styles.textButton}>Google</Text>
-          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -52,6 +39,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     borderRadius: 10,
+    marginBottom: layout.HEIGHT * 0.20
   },
   titleButton: {
     color: COLORS.white1,
@@ -59,13 +47,12 @@ const styles = StyleSheet.create({
   },
   footer: {
     marginTop:
-      layout.HEIGHT > 700 ? layout.HEIGHT * 0.14 : layout.HEIGHT * 0.03,
+      layout.HEIGHT > 700 ? layout.HEIGHT * 0.05 : layout.HEIGHT * 0.03,
   },
   otherWith: {
-    marginVertical: layout.HEIGHT * 0.04,
+    marginVertical: layout.HEIGHT * 0.07,
   },
   socialkButton: {
-    // backgroundColor: '#ccc',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -83,5 +70,6 @@ const styles = StyleSheet.create({
     fontSize: normalize(16),
     color: 'black',
     marginLeft: layout.WIDTH * 0.03,
+
   },
 });

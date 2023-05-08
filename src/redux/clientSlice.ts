@@ -30,6 +30,9 @@ export const clientSlice = createSlice({
         }
       });
     },
+    cloudBc: (state, action) => {
+      state.bc = action.payload.bc
+    },
     deleteCustomer: (state, action) => {
       state.listClients.splice(action.payload.id, 1);
       state.listClients.map((item: any) => {
@@ -57,8 +60,6 @@ export const clientSlice = createSlice({
         hours: action.payload.hours,
         category: action.payload.category,
       });
-      // state.listClients[action.payload.id].sum = action.payload.sum;
-      // console.log(state.listClients[action.payload.id].sum);
     },
     updatebc: (state: any, action) => {
       state.bc[action.payload.id].give = action.payload.give;
@@ -115,6 +116,7 @@ export const {
   updateDebt,
   addbc,
   updatebc,
-  setSum
+  setSum,
+  cloudBc
 } = clientSlice.actions;
 export default clientSlice.reducer;
