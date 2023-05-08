@@ -82,7 +82,7 @@ export const clientSlice = createSlice({
       state.listClients[action.payload.id].sum = action.payload.sum;
       console.log(state.listClients[action.payload.id].sum);
     },
-    setSum: (state, action) => {
+    setSum: (state: any, action) => {
       state.listClients[action.payload.id].sum = action.payload.sum
     },
     updateDebt: (state: any, action) => {
@@ -117,6 +117,6 @@ export const {
   addbc,
   updatebc,
   setSum,
-  cloudBc
+  cloudBc,
 } = clientSlice.actions;
 export default clientSlice.reducer;

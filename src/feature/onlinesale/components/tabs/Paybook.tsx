@@ -32,22 +32,22 @@ const Paybook = ({ id }: any) => {
           style={{
             height: 20,
             width: 20,
-            tintColor: customer.sum > 0 ? COLORS.red2 : COLORS.green2,
+            tintColor: customer?.sum > 0 ? COLORS.red2 : COLORS.green2,
           }}
         />
         <Text style={{ fontWeight: '600', marginLeft: 5, color: COLORS.gray6 }}>
-          Tôi phải {customer.sum > 0 ? 'thu' : 'trả'}{' '}
+          Tôi phải {customer?.sum > 0 ? 'thu' : 'trả'}{' '}
         </Text>
       </View>
       <Text
         style={{
-          color: customer.sum > 0 ? COLORS.red2 : COLORS.green2,
+          color: customer?.sum > 0 ? COLORS.red2 : COLORS.green2,
           fontWeight: '600',
           fontSize: 17,
           textAlign: 'center',
           marginTop: 10,
         }}>
-        {customer.sum < 0 ? customer.sum * -1 : customer.sum} đ
+        {customer?.sum < 0 ? customer?.sum * -1 : customer?.sum} đ
       </Text>
       <View
         style={{ backgroundColor: COLORS.gray2, padding: 10, marginTop: 20 }}>
@@ -74,7 +74,7 @@ const Paybook = ({ id }: any) => {
       </View>
       {/*  map */}
       <ScrollView style={{ height: '90%' }}>
-        {transactionList.map((i: any, index: any) => {
+        {transactionList?.map((i: any, index: any) => {
           return (
             <TouchableOpacity key={index} style={styles.BoxItem}>
               <View style={{ width: '40%' }}>

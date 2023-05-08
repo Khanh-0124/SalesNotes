@@ -41,7 +41,7 @@ const OnlineSale = () => {
     // if (client.length !== 0)
       addData('ClientStack', "Customers", { ListOfCustomers: client })
   }, [client])
-  console.log(client)
+  // console.log(client)
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <HeaderBase iconBack={false} title='Khách hàng' isIconLeft={false} bgColor={'#fff'} />

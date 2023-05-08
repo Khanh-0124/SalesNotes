@@ -21,7 +21,7 @@ import { ParamLoginInterface } from '../auth/type';
 import auth from '@react-native-firebase/auth';
 import { changeStateAuth } from '../../redux/userSlice';
 import { getData } from '../../servers/firebase/crud';
-import { cloudData } from '../../redux/clientSlice';
+import { cloudBc, cloudData } from '../../redux/clientSlice';
 import { cloudProducts } from '../../redux/productSlice';
 import { cloudImages } from '../../redux/imageSlice';
 
@@ -54,6 +54,14 @@ const LoginScreen = ({ navigation }: NavigationType) => {
       pr ? dispath(cloudProducts(
         {
           product: pr,
+        }
+      )) : null
+    })
+    getData("ClientStack", 'Debits').then((datta) => {
+      let bc = datta?.DataDebit
+      bc ? dispath(cloudBc(
+        {
+          bc: bc,
         }
       )) : null
     })

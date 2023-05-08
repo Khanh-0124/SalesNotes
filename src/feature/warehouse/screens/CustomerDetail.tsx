@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BottomSheet } from '@rneui/themed';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addData } from '../../../servers/firebase/crud';
+import { addData, updateData } from '../../../servers/firebase/crud';
 import { inputDebt, deleteDebt, setSum } from '../../../redux/clientSlice';
 
 let sumgive = 0,
@@ -24,15 +24,12 @@ const CustomerDetail = () => {
     sumgive += item.give;
     sumtake += item.take;
   });
-  
-  const sum: number = sumgive - sumtake
+
+  const sum: number = sumgive - sumtake;
   const bc = useSelector((state: any) => state.clients.bc);
   const client = useSelector((state: any) => state.clients.listClients);
   const [showBottom, setShowBottom] = useState(false);
   const navigation = useNavigation<any>();
-  useEffect(() => {
-    addData('ClientStack', 'Customers', { ListOfCustomers: client });
-  }, [client]);
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
@@ -43,15 +40,22 @@ const CustomerDetail = () => {
   const [idDebt, setIdBebt] = useState(-1);
   const [delGive, setDelGive] = useState<any>(0);
   const [delTake, setDelTake] = useState<any>(0);
-  useEffect(() => { 
-    dispatch(setSum({
-      id: route.id,
-      sum: sum
-    }))
-  }, [sum])
+  useEffect(() => {
+    dispatch(
+      setSum({
+        id: route.id,
+        sum: sum,
+      }),
+    );
+  }, [sum]);
+  useEffect(() => {
+    updateData('ClientStack', 'Customers', { ListOfCustomers: client });
+  }, [client]);
+  // console.log(client[0])
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <HeaderBase title={route.name} isIconLeft={false}  />
+      <HeaderBase title={route.name} isIconLeft={false} />
+
       <View style={{ padding: 15 }}>
         <View
           style={{
@@ -215,7 +219,7 @@ const CustomerDetail = () => {
                           idDebt: id,
                           sum:
                             delGive > 0
-                              ? sum- parseInt(delGive)
+                              ? sum - parseInt(delGive)
                               : sum + parseInt(delTake),
                         }),
                       );

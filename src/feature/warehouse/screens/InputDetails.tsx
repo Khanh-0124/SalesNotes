@@ -74,7 +74,7 @@ const InputDetails = () => {
           idDebt: route.idDebt,
           give: choose ?  parseInt(number) : 0,
           take: choose ? 0 :  parseInt(number),
-          des: description,
+          des: description || "Thanh toán",
           date: date,
           sum: choose
             ? parseInt(sum) - parseInt(route.pay) + parseInt(number)
@@ -102,7 +102,7 @@ const InputDetails = () => {
           give: choose ? parseInt(number) : 0,
           take: choose ? 0 : parseInt(number),
           date: date,
-          description: description,
+          description: description || "Thanh toán",
           sum: !choose
             ? parseInt(sum) - parseInt(number)
             : parseInt(sum) + parseInt(number),

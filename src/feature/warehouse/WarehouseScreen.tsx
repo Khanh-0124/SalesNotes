@@ -4,10 +4,12 @@ import { COLORS } from 'assets/global/colors';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { Image } from '@rneui/base';
+import { addData } from '../../servers/firebase/crud';
 let tra = 0,
   thu = 0;
 const WarehouseScreen = () => {
   const customers = useSelector((state: any) => state.clients.listClients);
+  // const bc = useSelector((state: any) => state.clients.bc)
   const arrs = useSelector((state: any) => state.clients.bc);
   const navigation = useNavigation<any>();
   // const transactionList = useSelector(
@@ -64,7 +66,11 @@ const WarehouseScreen = () => {
   useEffect(() => {
     setThu(thu);
     setTra(tra);
+    addData('ClientStack', 'Debits', { DataDebit: arrs });
   });
+  // useEffect (() => {
+
+  // }, [])
   return (
     <View
       style={{
@@ -77,7 +83,7 @@ const WarehouseScreen = () => {
         <View
           style={{
             backgroundColor: COLORS.gray2,
-            height: 100,
+            height: 100,  
             marginHorizontal: 20,
             borderTopRightRadius: 15,
             borderTopLeftRadius: 15,
@@ -169,10 +175,11 @@ const WarehouseScreen = () => {
           }}>
           <Text style={styles.textHeader}>Danh sách khách hàng</Text>
         </View>
-        {customers.map((i: any) => {
+        {customers.map((i: any, index: any) => {
           i.sum < 0 ? (tra += i.sum) : (thu += i.sum);
           return (
             <TouchableOpacity
+              key={index}
               style={styles.button}
               onPress={() =>
                 navigation.navigate('CustomerDetail', {
