@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS } from 'assets/global/colors';
+import { formatVND } from 'assets/global/formatMoney';
 
 interface ContentsCollapsibaleInterface {
   dataList: any;
@@ -13,7 +14,7 @@ const ContentsCollapsibale = ({
   const [data, setData] = useState(dataList);
   return (
     <View style={styles.container}>
-      {data.map(item => (
+      {data.map((item: any) => (
         <View
           key={item.id}
           style={{
@@ -21,20 +22,9 @@ const ContentsCollapsibale = ({
             justifyContent: 'space-between',
           }}>
           <Text style={styles.Stext}>{item.name}</Text>
-          <Text style={[styles.Stext, { marginRight: 22 }]}>{item.sum}</Text>
+          <Text style={[styles.Stext, { marginRight: 22 }]}>{formatVND(item.sum)}</Text>
         </View>
       ))}
-      <TouchableOpacity>
-        <Text
-          style={{
-            color: 'blue',
-            textAlign: 'center',
-            marginVertical: 10,
-            fontSize: 15,
-          }}>
-          + {addItem}
-        </Text>
-      </TouchableOpacity>
     </View>
   );
 };

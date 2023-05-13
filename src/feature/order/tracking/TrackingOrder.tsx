@@ -82,7 +82,8 @@ const PayConfirmSheet = (
           <InputWithTitle
             request={false}
             title="Khách trả"
-            placeholder="0.00đ"
+            placeholderStyle={'#333'}
+            placeholder={'0 đ'}
             keyName="payClient"
             value={payClient}
             onTextChange={onTextChange}
@@ -110,49 +111,52 @@ const PayConfirmSheet = (
         <ButtonBase
           title="Xác nhận"
           onPress={() => {
-            dispathch(
-              addListOrder({
-                data: {
-                  id: orders.length,
-                  name: name || 'Khách lẻ',
-                  idCustomer: idCustomer,
-                  date: {
-                    hours: hours,
-                    date: datte,
-                    month: month,
-                    year: year,
+            if (payClient < 0) {
+              Alert.alert('Nhập đủ các trường');
+            } else {
+              dispathch(
+                addListOrder({
+                  data: {
+                    id: orders.length,
+                    name: name || 'Khách lẻ',
+                    idCustomer: idCustomer,
+                    date: {
+                      hours: hours,
+                      date: datte,
+                      month: month,
+                      year: year,
+                    },
+                    fulldate: `${datte}/${month}`,
+                    code: codde,
+                    delivered: true,
+                    sum: pay,
+                    payClient: payClient,
+                    paid: true,
+                    ghino: parseInt(pay) - parseInt(payClient),
+                    add: add,
+                    products: productsOrder,
+                    phivc: vc,
+                    ck: ck,
+                    stringDate: `${year}-${month
+                      ?.toString()
+                      .padStart(2, '0')}-${datte?.toString().padStart(2, '0')}`,
                   },
-                  fulldate: `${datte}/${month}`,
-                  code: codde,
-                  delivered: true,
-                  sum: pay,
-                  payClient: payClient,
-                  paid: true,
-                  ghino: pay - payClient,
-                  add: add,
-
-                  products: productsOrder,
-                  phivc: vc,
-                  ck: ck,
-                  stringDate: `${year}-${month
-                    ?.toString()
-                    .padStart(2, '0')}-${datte?.toString().padStart(2, '0')}`,
-                },
-              }),
-            );
+                }),
+              );
+              return navigation.replace('OrderBill', {
+                pay,
+                payClient,
+                name,
+                hours,
+                datte,
+                month,
+                year,
+                add,
+                code: codde,
+              });
+            }
             // console.log("Khanh name")
             // dispathch(reset({ touch: 0 }))
-            return navigation.replace('OrderBill', {
-              pay,
-              payClient,
-              name,
-              hours,
-              datte,
-              month,
-              year,
-              add,
-              code: codde,
-            });
           }}
           background
         />
@@ -160,6 +164,7 @@ const PayConfirmSheet = (
     </View>
   );
 };
+
 const TrackingOrder = () => {
   const [showSheet, setShowSheet] = useState(false);
   const products = useSelector((state: any) => state.products);
@@ -279,6 +284,7 @@ const TrackingOrder = () => {
               }),
             );
           }
+        
           return item.touch !== 0 ? (
             <View key={index}>
               <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
@@ -574,7 +580,7 @@ const TrackingOrder = () => {
           </View>
         </View>
         <View style={styles.line} />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ width: '80%' }}>
             <InputWithTitle title="" placeholder={'Ghi chú đơn hàng'} />
           </View>
@@ -586,7 +592,7 @@ const TrackingOrder = () => {
               source={require('assets/icons/png/ic_image.png')}
             />
           </TouchableOpacity>
-        </View>
+        </View> */}
         <View>
           {paramsCustom.uri !== '' ? (
             <Image
@@ -713,7 +719,7 @@ const TrackingOrder = () => {
             ck,
             idCustomer,
           )}
-          title="Xác nhận thanh toán"
+          title="Khách cần thanh toán"
           height={500}
           bottom={0}
           onPress={() => setShowSheet(false)}

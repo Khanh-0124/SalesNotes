@@ -9,11 +9,11 @@ import ButtonBase from 'components/base/buttons/ButtonBase'
 import { updateDelivered, updateGhino } from '../../../redux/orderSlice'
 import { BottomSheet } from '@rneui/themed';
 
-const InputPaied = () => {
-  return <View>
-    <Text>a</Text>
-  </View>
-}
+// const InputPaied = () => {
+//   return <View>
+//     <Text>a</Text>
+//   </View>
+// }
 const DetailOrder = () => {
   const route = useRoute<any>().params
   const dispatch = useDispatch()
@@ -24,7 +24,7 @@ const DetailOrder = () => {
   }
   const [isVisible, setIsVisible] = useState(false);
   const [paied, setPaied] = useState('');
-  // console.log(order.stringDate, "ghino")
+  // console.log(order.ghino, "ghino")
   return (
     <View style={{ flex: 1 }}>
       <HeaderWithMultiIcon title='Chi tiết hoá đơn' firtRightIcon={{}} />

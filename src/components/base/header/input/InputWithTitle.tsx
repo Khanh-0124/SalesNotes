@@ -14,6 +14,7 @@ interface InputTypeProp {
   onPress?: () => void;
   keyName?: string;
   type?: any;
+  placeholderStyle?: any
 }
 const InputWithTitle = memo(function InputWithTitle({
   title,
@@ -27,6 +28,7 @@ const InputWithTitle = memo(function InputWithTitle({
   onTextChange,
   keyName,
   type,
+  placeholderStyle
 }: InputTypeProp) {
   // const [nameproduct, setNameproduct] = useState('');
   const onChange = useCallback(
@@ -53,6 +55,7 @@ const InputWithTitle = memo(function InputWithTitle({
           !check ? { borderBottomColor: COLORS.red1 } : null,
         ]}
         placeholder={placeholder}
+        placeholderTextColor={placeholderStyle}
         // selectTextOnFocus={false}
         editable={editable}
         onPressIn={onPress}

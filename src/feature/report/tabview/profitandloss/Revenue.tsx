@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
-import { listRevenue } from 'utilities/data';
+// import { listRevenue } from 'utilities/data';
 import { COLORS } from 'assets/global/colors';
 import ContentsCollapsibale from 'feature/report/components/ContentsCollapsibale';
 
-const Revenue = () => {
+const Revenue = ({listRevenue}: any) => {
+  // console.log(listRevenue)
   return (
     <ContentsCollapsibale
       addItem="Thêm doanh thu khác"

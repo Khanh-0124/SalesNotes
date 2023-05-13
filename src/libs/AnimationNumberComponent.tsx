@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TextStyle } from 'react-native';
 import React, { useState } from 'react';
 import { ScaledSheet } from 'react-native-size-matters';
 import AnimateNumber from 'react-native-animate-number';
+import { formatVND } from 'assets/global/formatMoney';
 
 interface AnimationType {
   number: number;
@@ -17,7 +18,7 @@ const AnimationNumberComponent = ({
   return (
     <View>
       {isShow && unit ? (
-        <Text style={customTextStyle}>{number}</Text>
+        <Text style={customTextStyle}>{formatVND(number)} đ</Text>
       ) : (
         <AnimateNumber
           value={number}

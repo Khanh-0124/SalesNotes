@@ -10,6 +10,7 @@ import { filterDateLineChart_X } from 'assets/global/filterDateForLineChart'
 import { useDispatch, useSelector } from 'react-redux'
 import { addListDate } from '../../../../redux/userSlice'
 import { indexOf } from 'lodash'
+import { formatVND } from 'assets/global/formatMoney'
 interface ParamCustomInterface {
   show: boolean,
   fillterArray: any,
@@ -70,7 +71,7 @@ const AnalysisStore = () => {
     // console.log(item.)
     item.products.map((i: any) => products.push({ uri: i.image[0].uri, name: i.name, sum: item.sum }))
   })
-  console.log(products)
+  // console.log(products)
   const result = Object.values(
     products.reduce((acc, cur) => {
       if (acc[cur.name]) {
@@ -87,7 +88,7 @@ const AnalysisStore = () => {
       return acc;
     }, {})
   );
-  console.log(result, "rl")
+  // console.log(result, "rl")
   useEffect(() => {
     paramsCustom.select == 2 ? setParams("multiData", true) : setParams("multiData", false)
   }, [paramsCustom.select]) 
@@ -103,7 +104,7 @@ const AnalysisStore = () => {
               <Image style={{ height: 20, width: 20, marginRight: 10 }} source={require('../../../../assets/icons/png/pic_ie_chart.png')} />
               <Text style={styles.titleText}>Doanh thu</Text>
             </View>
-            <Text style={{ fontSize: 18, fontWeight: '700' }}>{sum} đ</Text>
+            <Text style={{ fontSize: 18, fontWeight: '700' }}>{formatVND(sum)} đ</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.Box, touch == 2 ? { borderColor: COLORS.primary } : null]} onPress={() => setTouch(2)}>
             <View style={{ flexDirection: 'row', marginBottom: 15, alignItems: 'center' }}>

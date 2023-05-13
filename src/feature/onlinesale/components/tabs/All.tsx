@@ -2,6 +2,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { COLORS } from 'assets/global/colors';
+import { formatVND } from 'assets/global/formatMoney';
 let SUM = 0,
   numberPaid = 0;
 const All = ({ id }: { id: any }) => {
@@ -26,7 +27,7 @@ const All = ({ id }: { id: any }) => {
             />
             <Text>Doanh thu</Text>
           </View>
-          <Text style={styles.textBox}>{SUM} đ</Text>
+          <Text style={styles.textBox}>{formatVND(SUM)} đ</Text>
         </View>
         <View style={{ height: 70, width: 1, backgroundColor: COLORS.gray1 }} />
         <View style={styles.box}>

@@ -7,7 +7,6 @@ import { COLORS } from 'assets/global/colors';
 const WareHouse = () => {
   return (
     <View style={{ flex: 1 }}>
-      <Text>WareHouse</Text>
       <TouchTabView image={false} dataTab={dataTabKhohang} headerStyle={{ alignSelf: 'center', backgroundColor: COLORS.gray8, borderRadius: 10 }} />
     </View>
   );

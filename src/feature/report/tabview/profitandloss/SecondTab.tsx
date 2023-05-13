@@ -6,8 +6,47 @@ import ButtonBase from 'components/base/buttons/ButtonBase';
 import CollapsibleComponents from 'components/common/collapsible/CollapsibleComponents';
 import Revenue from './Revenue';
 import Cost from './Cost';
+import { useSelector } from 'react-redux';
+import { formatVND } from 'assets/global/formatMoney';
 
 const SecondTab = () => {
+  const orders: Array<any> = useSelector(
+    (state: any) => state.orders.listOrders,
+  );
+  // console.log(orders)
+  let sum = 0;
+  let pricev: number = 0;
+  let price: number = 0,
+    phivc: number = 0,
+    ck: number = 0;
+  orders.forEach((i: any, index: any) => {
+    // console.log(i);
+    pricev += parseInt(i.products[0].pricev);
+    // price += parseInt(i.products[0].price);
+    phivc += parseInt(i.phivc);
+    sum += i.sum;
+    ck += (parseInt(i.ck) / 100) * sum;
+    // pricev += parseInt(i.pricev);
+  });
+  // console.log(ck);
+  // console.log(formatVND(12454403293))
+  const listRevenue = [
+    {
+      id: 1,
+      name: 'Tổng giá bán',
+      sum: sum,
+    },
+    {
+      id: 2,
+      name: 'Thu phí vận chuyển',
+      sum: phivc,
+    },
+    {
+      id: 3,
+      name: 'Triết khấu',
+      sum: `-${ck}`,
+    },
+  ];
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.wrapperHeader}>
@@ -19,7 +58,7 @@ const SecondTab = () => {
           <Text>Lợi nhuận</Text>
         </View>
         <AnimationNumberComponent
-          number={32000}
+          number={sum + phivc - ck - pricev}
           unit={true}
           customTextStyle={{
             color: COLORS.primary,
@@ -28,37 +67,23 @@ const SecondTab = () => {
           }}
         />
       </View>
-      <TouchableOpacity style={styles.wrapperButton}>
-        <ButtonBase title="Lợi nhuận theo sản phẩm >" onPress={() => {}} />
-      </TouchableOpacity>
       <View style={{ backgroundColor: COLORS.white1, padding: 10 }}>
         <Text style={styles.STitleItems}>Chi tiết báo cáo</Text>
         <CollapsibleComponents
           title={'Doanh thu'}
           leftComponents
-          number={'40.000'}
+          number={` ${formatVND(sum + phivc - ck)} đ`}
           customStyles={{
             backgroundColor: COLORS.gray5,
             marginHorizontal: 10,
             borderRadius: 10,
           }}
-          Contents={() => <Revenue />}
+          Contents={() => <Revenue listRevenue={listRevenue} />}
         />
         <View style={styles.wrapperItem}>
           <Text>Giá vốn bán hàng</Text>
-          <Text style={{ color: COLORS.red1, marginRight: 20 }}>8.000</Text>
+          <Text style={{ color: COLORS.red1, marginRight: 20 }}>{formatVND(pricev)}</Text>
         </View>
-        <CollapsibleComponents
-          title={'Chi phí'}
-          leftComponents
-          number={'0'}
-          customStyles={{
-            backgroundColor: COLORS.gray5,
-            marginHorizontal: 10,
-            borderRadius: 10,
-          }}
-          Contents={() => <Cost />}
-        />
       </View>
     </View>
   );

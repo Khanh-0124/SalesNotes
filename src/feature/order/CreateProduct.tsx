@@ -28,12 +28,12 @@ const CreateProduct = memo(function CreateProduct() {
   const dispath = useDispatch();
   const listProduct = useSelector((state: any) => state.products.listProducts);
   const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
   const [pricev, setPricev] = useState(0);
   const [image, setImage] = useState();
   const [remain, setRemain] = useState<number>(0);
   const [dv, setDv] = useState('')
-  const GetInputData = (name: string, price: string, uri: any, pricev: number, remain: number, dv: string) => {
+  const GetInputData = (name: string, price: number, uri: any, pricev: number, remain: number, dv: string) => {
     setName(name);
     setPrice(price);
     setImage(uri);
@@ -45,9 +45,9 @@ const CreateProduct = memo(function CreateProduct() {
   const handleSubmit = async (id: number, name: string, price: any, image: any, touch: number, nav: boolean) => {
 
     if (name != "" || price != "" || dv != "") {
-      if (price <= 0 || pricev <= 0)
-        Alert.alert("Giá không được âm")
-      else if (price < pricev)
+      // if (price <= 0 || pricev <= 0)
+      //   Alert.alert("Giá không được âm")
+      if (parseInt(price) < parseInt(pricev))
         Alert.alert("Giá bán không được nhỏ hơn giá vốn")
       else {
         dispath(
