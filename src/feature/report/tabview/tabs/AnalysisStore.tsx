@@ -104,7 +104,7 @@ const AnalysisStore = () => {
               <Image style={{ height: 20, width: 20, marginRight: 10 }} source={require('../../../../assets/icons/png/pic_ie_chart.png')} />
               <Text style={styles.titleText}>Doanh thu</Text>
             </View>
-            <Text style={{ fontSize: 18, fontWeight: '700' }}>{formatVND(sum)} đ</Text>
+            <Text style={{ fontSize: 18, fontWeight: '700' }}>{formatVND(sum) || 0} đ</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.Box, touch == 2 ? { borderColor: COLORS.primary } : null]} onPress={() => setTouch(2)}>
             <View style={{ flexDirection: 'row', marginBottom: 15, alignItems: 'center' }}>
@@ -128,7 +128,7 @@ const AnalysisStore = () => {
               <Image style={{ height: 24, width: 24, marginRight: 10 }} source={require('assets/icons/png/ic_checklist.png')} />
               <Text style={styles.titleText}>Đơn huỷ</Text>
             </View>
-            <Text style={{ fontSize: 18, fontWeight: '700' }}>26</Text>
+            <Text style={{ fontSize: 18, fontWeight: '700' }}>6</Text>
           </TouchableOpacity>
         </View>
         <Text style={{ fontSize: 18, fontWeight: '600', color: COLORS.gray3, marginVertical: 15 }}>Tổng thu theo tháng</Text>

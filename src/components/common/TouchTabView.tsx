@@ -13,7 +13,7 @@ const TouchTabView = ({ dataTab, image = true, headerStyle }: TouchTabInterface)
   return (
     <View style={[styles.container]}>
       <View style={[styles.wrapperHeader, headerStyle]}>
-        {
+        {/* {
           image ? <View style={styles.wrapperCalender}>
 
             <Image
@@ -21,9 +21,9 @@ const TouchTabView = ({ dataTab, image = true, headerStyle }: TouchTabInterface)
               style={{ height: 24, width: 24 }}
             />
           </View> : null
-        }
+        } */}
 
-        <View style={[styles.wrapper, headerStyle, {}]}>
+        {/* <View style={[styles.wrapper, headerStyle, {}]}>
           {data.map((item: any, index: any) => (
             <TouchableOpacity
               key={item.id}
@@ -49,7 +49,7 @@ const TouchTabView = ({ dataTab, image = true, headerStyle }: TouchTabInterface)
               </Text>
             </TouchableOpacity>
           ))}
-        </View>
+        </View> */}
       </View>
       {data.map((item: any) =>
         item.isChoose ? (

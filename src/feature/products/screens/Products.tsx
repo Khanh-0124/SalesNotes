@@ -5,6 +5,7 @@ import { COLORS } from 'assets/global/colors';
 import { FlatGrid } from 'react-native-super-grid';
 import { useNavigation } from '@react-navigation/native';
 import { update } from '../../../redux/imageSlice';
+import { formatVND } from 'assets/global/formatMoney';
 
 type NavigationType = {
   navigate(value: string, params: any): void
@@ -39,7 +40,7 @@ const Products = () => {
           <View style={{ width: '90%', height: 1, backgroundColor: COLORS.gray1, marginTop: 5, alignSelf: 'center' }} />
           <Text style={{ marginVertical: 5, marginLeft: 10 }}>{item.name}</Text>
           <Text style={{ marginBottom: 5, marginLeft: 10, fontSize: 12 }}>{item.dv}</Text>
-          <Text style={{ color: COLORS.red2, marginLeft: 10 }}>{item.price} đ</Text>
+          <Text style={{ color: COLORS.red2, marginLeft: 10 }}>{formatVND(item.price)} đ</Text>
         </TouchableOpacity>)
         }
         keyExtractor={item => item.id}

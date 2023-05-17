@@ -40,6 +40,7 @@ const boxPlus2 = {
 }
 
 const ThuChi = () => {
+  const tongvay = 0, tongcho = 0;
   const [touch, setTouch] = useState<number>()
   const [paramsCustom, setParamsCustom] = useState<ParamCustomInterface>({
     show: false,
@@ -59,12 +60,12 @@ const ThuChi = () => {
         <View style={{ height: 0.7, backgroundColor: COLORS.gray4, marginTop: 15 }} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TouchableOpacity onPress={() => { setParams("tab", 0) }} style={[styles.boxHeader, paramsCustom.tab == 0 ? boxPlus1 : boxPlus2]}>
-            <Text>{`Nhập kho`}</Text>
+            <Text>{`Tổng cho vay`}</Text>
             <Text>{`0 đ`}</Text>
           </TouchableOpacity>
           <View style={{ height: 50, width: 0.7, backgroundColor: COLORS.gray4 }} />
           <TouchableOpacity onPress={() => { setParams("tab", 2) }} style={[styles.boxHeader, paramsCustom.tab == 2 ? boxPlus1 : boxPlus2]}>
-            <Text>{`Xuất kho`}</Text>
+            <Text>{`Tổng vay`}</Text>
             <Text>{`0 đ`}</Text>
           </TouchableOpacity>
         </View>

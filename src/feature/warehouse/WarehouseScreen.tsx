@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { Image } from '@rneui/base';
 import { addData } from '../../servers/firebase/crud';
+import { formatVND } from 'assets/global/formatMoney';
 let tra = 0,
   thu = 0;
 const WarehouseScreen = () => {
@@ -83,7 +84,7 @@ const WarehouseScreen = () => {
         <View
           style={{
             backgroundColor: COLORS.gray2,
-            height: 100,  
+            height: 100,
             marginHorizontal: 20,
             borderTopRightRadius: 15,
             borderTopLeftRadius: 15,
@@ -113,7 +114,7 @@ const WarehouseScreen = () => {
                 color: COLORS.red2,
                 fontWeight: '600',
               }}>
-              {sumtake < 0 ? sumtake * -1 : sumtake} đ
+              {formatVND(sumtake < 0 ? sumtake * -1 : sumtake) || 0} đ
             </Text>
           </View>
           <View style={{ height: '60%', width: 1, backgroundColor: '#ccc' }} />
@@ -130,7 +131,7 @@ const WarehouseScreen = () => {
                 color: COLORS.green2,
                 fontWeight: '600',
               }}>
-              {sumgive} đ
+              {formatVND(sumgive) || 0} đ
             </Text>
           </View>
         </View>
@@ -153,14 +154,14 @@ const WarehouseScreen = () => {
         <View style={styles.boxHeader}>
           <Text style={styles.textHeader}>Tôi phải trả</Text>
           <Text style={[styles.textHeader, { color: COLORS.green2 }]}>
-            {Tra < 0 ? Tra * -1 : Tra} đ
+            {formatVND(Tra < 0 ? Tra * -1 : Tra) || 0} đ
           </Text>
         </View>
         <View style={{ height: 50, width: 1, backgroundColor: COLORS.gray1 }} />
         <View style={styles.boxHeader}>
           <Text style={styles.textHeader}>Tôi phải thu</Text>
           <Text style={[styles.textHeader, { color: COLORS.red2 }]}>
-            {Thu < 0 ? Thu * -1 : Thu || 0} đ
+            {formatVND(Thu < 0 ? Thu * -1 : Thu || 0)} đ
           </Text>
         </View>
       </View>
@@ -202,7 +203,7 @@ const WarehouseScreen = () => {
                           : COLORS.green2,
                     },
                   ]}>
-                  {(i.sum > 0 ? i.sum : i.sum * -1) || 0}đ
+                  {formatVND(i.sum > 0 ? i.sum : i.sum * -1) || 0}đ
                 </Text>
                 <Text style={{ marginTop: 10 }}>
                   {i.sum == 0

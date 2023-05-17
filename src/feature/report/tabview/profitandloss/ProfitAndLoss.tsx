@@ -7,7 +7,7 @@ import { dataTabProfitAndLoss } from 'utilities/data';
 
 const ProfitAndLoss = () => {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#fff'}}>
       <TouchTabView dataTab={dataTabProfitAndLoss} />
       {/* <EmptyTab /> */}
     </ScrollView>

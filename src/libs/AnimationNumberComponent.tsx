@@ -18,11 +18,11 @@ const AnimationNumberComponent = ({
   return (
     <View>
       {isShow && unit ? (
-        <Text style={customTextStyle}>{formatVND(number)} đ</Text>
+        <Text style={customTextStyle}>{formatVND(number) || 0} đ</Text>
       ) : (
         <AnimateNumber
           value={number}
-          countBy={707}
+          countBy={2370}
           timing="linear"
           onFinish={() => setIsShow(true)}
           style={customTextStyle}

@@ -28,8 +28,6 @@ const SecondTab = () => {
     ck += (parseInt(i.ck) / 100) * sum;
     // pricev += parseInt(i.pricev);
   });
-  // console.log(ck);
-  // console.log(formatVND(12454403293))
   const listRevenue = [
     {
       id: 1,
@@ -58,7 +56,7 @@ const SecondTab = () => {
           <Text>Lợi nhuận</Text>
         </View>
         <AnimationNumberComponent
-          number={sum + phivc - ck - pricev}
+          number={sum + phivc - ck - pricev || 0}
           unit={true}
           customTextStyle={{
             color: COLORS.primary,
@@ -72,7 +70,7 @@ const SecondTab = () => {
         <CollapsibleComponents
           title={'Doanh thu'}
           leftComponents
-          number={` ${formatVND(sum + phivc - ck)} đ`}
+          number={` ${formatVND(sum + phivc - ck) || 0} đ`}
           customStyles={{
             backgroundColor: COLORS.gray5,
             marginHorizontal: 10,
@@ -82,7 +80,9 @@ const SecondTab = () => {
         />
         <View style={styles.wrapperItem}>
           <Text>Giá vốn bán hàng</Text>
-          <Text style={{ color: COLORS.red1, marginRight: 20 }}>{formatVND(pricev)}</Text>
+          <Text style={{ color: COLORS.red1, marginRight: 20 }}>
+            {formatVND(pricev)}
+          </Text>
         </View>
       </View>
     </View>

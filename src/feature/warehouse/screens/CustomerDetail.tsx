@@ -9,6 +9,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { addData, updateData } from '../../../servers/firebase/crud';
 import { inputDebt, deleteDebt, setSum } from '../../../redux/clientSlice';
+import { formatVND } from 'assets/global/formatMoney';
 
 let sumgive = 0,
   sumtake = 0;
@@ -83,7 +84,7 @@ const CustomerDetail = () => {
                 fontWeight: '600',
                 marginVertical: 10,
               }}>
-              {(sum > 0 ? sum : sum * -1) || 0} đ
+              {formatVND(sum > 0 ? sum : sum * -1) || 0} đ
             </Text>
           </View>
           {sum == 0 ? null : (
@@ -154,7 +155,7 @@ const CustomerDetail = () => {
                         color: COLORS.red2,
                         fontWeight: '600',
                       }}>
-                      {i?.give > 0 ? i?.give : ' '}
+                      {i?.give > 0 ? formatVND(i?.give) : ' '}
                     </Text>
                   </View>
                   <View style={{ flex: 1 }}>
@@ -164,7 +165,7 @@ const CustomerDetail = () => {
                         color: COLORS.green2,
                         fontWeight: '600',
                       }}>
-                      {i?.take > 0 ? i?.take : ' '}
+                      {i?.take > 0 ? formatVND(i?.take) : ' '}
                     </Text>
                   </View>
                 </View>

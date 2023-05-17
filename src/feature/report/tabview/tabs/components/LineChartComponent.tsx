@@ -63,7 +63,6 @@ const LineChartComponent = ({ labels, data11, data22, multiData }: any) => {
     a.push(`${element.getDate()}/${element.getMonth()}`)
   )
   // console.log(a, "s");
-
   const lables = useSelector((state: any) => state.user.listDate)
   const listOrders = useSelector((state: any) => state.orders.listOrders)
   const prices = dataY(listOrders, a);

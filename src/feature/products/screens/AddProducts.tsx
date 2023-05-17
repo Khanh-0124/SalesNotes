@@ -8,6 +8,7 @@ import { CheckBox, Icon } from '@rneui/themed';
 import { addCategory, delTickAddToCate } from '../../../redux/productSlice'
 import ButtonBase from 'components/base/buttons/ButtonBase'
 import { addCatePr } from '../../../redux/categorySlice'
+import { formatVND } from 'assets/global/formatMoney'
 
 const AddProducts = () => {
   const products = useSelector((state: any) => state.products.listProducts);
@@ -50,7 +51,7 @@ const AddProducts = () => {
             <Image source={{ uri: item.image[0]?.uri }} style={{ height: 54, width: 54, borderRadius: 10 }} />
             <View style={{ marginLeft: 10, justifyContent: 'space-between' }}>
               <Text>{item.name}</Text>
-              <Text style={{ color: COLORS.red2, fontWeight: '600' }}>{item.price} đ</Text>
+              <Text style={{ color: COLORS.red2, fontWeight: '600' }}>{formatVND(item.price)} đ</Text>
             </View>
           </View>
         })

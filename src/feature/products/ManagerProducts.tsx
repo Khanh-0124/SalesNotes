@@ -109,7 +109,6 @@ const ManagerProducts = () => {
                 <View style={{ width: 10, height: 10, backgroundColor: choose == item.id ? COLORS.primary : COLORS.white1, borderRadius: 20 }} />
               </View>
             }
-
             <Text>{item.name}</Text>
           </TouchableOpacity>)}
         </ScaleInView>) : null
@@ -122,7 +121,6 @@ const ManagerProducts = () => {
             <Text style={{ color: select ? COLORS.primary : COLORS.gray3, fontWeight: '500', fontSize: 15 }}>Sản phẩm</Text>
             {select ? (<View style={styles.lineColor} />) : <View style={styles.lineUncolor} />}
           </TouchableOpacity>
-
           <View style={{ height: 35, width: 1, backgroundColor: COLORS.gray4, alignSelf: 'center', marginHorizontal: '25%' }} />
           <TouchableOpacity onPress={() => { setSelect(false) }} style={{ alignSelf: 'center' }}>
             <Text style={{ color: !select ? COLORS.primary : COLORS.gray3, fontWeight: '500', fontSize: 15 }}>Danh mục</Text>

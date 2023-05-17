@@ -7,6 +7,7 @@ import { COLORS } from 'assets/global/colors'
 import { deleteCate, edit } from '../../../redux/categorySlice'
 import ModalConfig from 'components/common/ModalConfig'
 import ButtonBase from 'components/base/buttons/ButtonBase'
+import { formatVND } from 'assets/global/formatMoney'
 
 const CategoryDetail = () => {
   const route = useRoute<any>().params
@@ -69,7 +70,7 @@ const CategoryDetail = () => {
             <Image source={{ uri: item.image[0]?.uri }} style={{ height: 54, width: 54, borderRadius: 10 }} />
             <View style={{ marginLeft: 10, justifyContent: 'space-between' }}>
               <Text>{item.name}</Text>
-              <Text style={{ color: COLORS.red2, fontWeight: '600' }}>{item.price} đ</Text>
+              <Text style={{ color: COLORS.red2, fontWeight: '600' }}>{formatVND(item.price)} đ</Text>
             </View>
           </View>
         })

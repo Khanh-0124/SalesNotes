@@ -8,6 +8,7 @@ import { COLORS } from 'assets/global/colors'
 import ButtonBase from 'components/base/buttons/ButtonBase'
 import { updateDelivered, updateGhino } from '../../../redux/orderSlice'
 import { BottomSheet } from '@rneui/themed';
+import { formatVND } from 'assets/global/formatMoney'
 
 // const InputPaied = () => {
 //   return <View>
@@ -67,7 +68,7 @@ const DetailOrder = () => {
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '80%' }}>
                     <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
                       <Text>{item.name}</Text>
-                      <Text>{item.price} đ</Text>
+                      <Text>{formatVND(item.price)} đ</Text>
                     </View>
                     <Text style={{ marginTop: 15 }}>SL: {item.touch}</Text>
                   </View>

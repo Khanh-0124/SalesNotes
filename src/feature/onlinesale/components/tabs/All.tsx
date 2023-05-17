@@ -27,7 +27,7 @@ const All = ({ id }: { id: any }) => {
             />
             <Text>Doanh thu</Text>
           </View>
-          <Text style={styles.textBox}>{formatVND(SUM)} đ</Text>
+          <Text style={styles.textBox}>{formatVND(SUM) || 0} đ</Text>
         </View>
         <View style={{ height: 70, width: 1, backgroundColor: COLORS.gray1 }} />
         <View style={styles.box}>

@@ -28,7 +28,7 @@ const Profile = () => {
         bgColor={''}
         color={''}
       />
-      <Button title="Increment" onPress={handleButtonClick} />
+      {/* <Button title="Increment" onPress={handleButtonClick} /> */}
       <View style={{ paddingHorizontal: 15 }}>
         <View
           style={{

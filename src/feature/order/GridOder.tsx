@@ -18,6 +18,7 @@ import { BottomSheet } from '@rneui/themed';
 import { TextInput } from 'react-native-paper';
 import InputWithTitle from 'components/base/header/input/InputWithTitle';
 import ButtonBase from 'components/base/buttons/ButtonBase';
+import { formatVND } from 'assets/global/formatMoney';
 
 const GridOder = () => {
   const navigation = useNavigation<any>();
@@ -151,7 +152,7 @@ const GridOder = () => {
                 {item.name}
               </Text>
               <Text style={styles.itemCode}>
-                {item.price ? `${item.price}` : ``}
+                {item.price ? ` ${formatVND(item.price)}` : ``}
               </Text>
             </TouchableOpacity>
           );

@@ -10,6 +10,7 @@ import React, { useRef, useState } from 'react';
 import HeaderBase from 'components/base/header/HeaderBase';
 import { COLORS } from 'assets/global/colors';
 import { useSelector } from 'react-redux';
+import { formatVND } from 'assets/global/formatMoney';
 
 const DebtBookHistory = () => {
   const arrs = useSelector((state: any) => state.clients.bc);
@@ -66,9 +67,9 @@ const DebtBookHistory = () => {
       <HeaderBase title="Báo cáo chi tiết" isIconLeft={false} />
       <View style={{ paddingHorizontal: 15 }}>
         <View>
-          <Text style={{ textAlign: 'center', fontSize: 12, marginBottom: 10 }}>
+          {/* <Text style={{ textAlign: 'center', fontSize: 12, marginBottom: 10 }}>
             01/04/2023 - 05/04/2023
-          </Text>
+          </Text> */}
           <View
             style={{
               flexDirection: 'row',
@@ -86,7 +87,7 @@ const DebtBookHistory = () => {
                   styles.textcontent,
                   { marginTop: 5, fontWeight: '600', color: COLORS.green2 },
                 ]}>
-                {sumtake} đ
+                {formatVND(sumtake) || 0} đ
               </Text>
             </View>
             <View>
@@ -99,7 +100,7 @@ const DebtBookHistory = () => {
                   styles.textcontent,
                   { marginTop: 5, fontWeight: '600', color: COLORS.red2 },
                 ]}>
-                {sumgive} đ
+                {formatVND(sumgive) || 0} đ
               </Text>
             </View>
             <View>
@@ -117,8 +118,8 @@ const DebtBookHistory = () => {
                   },
                 ]}>
                 {sumtake - sumgive < 0
-                  ? -1 * (sumtake - sumgive)
-                  : sumtake - sumgive}{' '}
+                  ?formatVND(-1 * (sumtake - sumgive)) || 0
+                  : formatVND(sumtake - sumgive) || 0}{' '}
                 đ
               </Text>
             </View>
@@ -223,7 +224,7 @@ const DebtBookHistory = () => {
                           backgroundColor: '#DCE7E3',
                         },
                       ]}>
-                      <Text style={[styles.textcontent]}>{i.take} đ</Text>
+                      <Text style={[styles.textcontent]}>{formatVND(i.take) || 0} đ</Text>
                     </View>
                     <View
                       style={[
@@ -232,7 +233,7 @@ const DebtBookHistory = () => {
                           backgroundColor: '#E8E0DE',
                         },
                       ]}>
-                      <Text style={styles.textcontent}>{i.give} đ</Text>
+                      <Text style={styles.textcontent}>{formatVND(i.give) ||0} đ</Text>
                     </View>
                     <View style={styles.boxHeader2}>
                       <Text
@@ -242,7 +243,7 @@ const DebtBookHistory = () => {
                             color: i.balance > 0 ? COLORS.red2 : COLORS.green2,
                           },
                         ]}>
-                        {i.balance < 0 ? i.balance * -1 : i.balance} đ
+                        {formatVND(i.balance < 0 ? i.balance * -1 : i.balance) || 0} đ
                       </Text>
                     </View>
                   </View>
@@ -279,7 +280,7 @@ const DebtBookHistory = () => {
                                 },
                               ]}>
                               <Text style={[styles.textcontent]}>
-                                {i.take} đ
+                                {formatVND(i.take) ||0} đ
                               </Text>
                             </View>
                             <View
@@ -291,7 +292,7 @@ const DebtBookHistory = () => {
                                     : COLORS.red3,
                                 },
                               ]}>
-                              <Text style={styles.textcontent}>{i.give} đ</Text>
+                              <Text style={styles.textcontent}>{formatVND(i.give) || 0} đ</Text>
                             </View>
                             <View style={styles.boxHeader2}>
                               <Text
@@ -304,7 +305,7 @@ const DebtBookHistory = () => {
                                         : COLORS.green2,
                                   },
                                 ]}>
-                                {i.balance < 0 ? i.balance * -1 : i.balance} đ
+                                {formatVND(i.balance < 0 ? i.balance * -1 : i.balance) ||0} đ
                               </Text>
                             </View>
                           </View>
