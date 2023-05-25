@@ -4,6 +4,7 @@
   - React Native 0.69.3
   - TypeScript, JavaScript
   - IOS 11+
+
 🐶🍎Sales management, electronic sales book🍏
 
 ##🫨 Run project in development
