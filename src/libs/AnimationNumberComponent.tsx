@@ -22,7 +22,7 @@ const AnimationNumberComponent = ({
       ) : (
         <AnimateNumber
           value={number}
-          countBy={2370}
+          countBy={25370}
           timing="linear"
           onFinish={() => setIsShow(true)}
           style={customTextStyle}

@@ -105,5 +105,5 @@ const OrderTracking = () => {
 export default OrderTracking;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: COLORS.gray2 },
 });

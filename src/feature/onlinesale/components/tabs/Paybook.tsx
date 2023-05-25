@@ -10,6 +10,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import { COLORS } from 'assets/global/colors';
+import { formatVND } from 'assets/global/formatMoney';
 
 const Paybook = ({ id }: any) => {
   const transactionList = useSelector(
@@ -47,7 +48,7 @@ const Paybook = ({ id }: any) => {
           textAlign: 'center',
           marginTop: 10,
         }}>
-        {customer?.sum < 0 ? customer?.sum * -1 : customer?.sum} đ
+        {customer?.sum < 0 ? formatVND(customer?.sum * -1) : formatVND(customer?.sum)} đ
       </Text>
       <View
         style={{ backgroundColor: COLORS.gray2, padding: 10, marginTop: 20 }}>
@@ -97,17 +98,17 @@ const Paybook = ({ id }: any) => {
                       color: COLORS.red2,
                       fontWeight: '600',
                     }}>
-                    {i?.give > 0 ? i?.give : ' '}
+                    {i?.give > 0 ? formatVND(i?.give) : ' '}
                   </Text>
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text
                     style={{
-                      marginLeft: '67%',
+                      marginLeft: '40%',
                       color: COLORS.green2,
                       fontWeight: '600',
                     }}>
-                    {i?.take > 0 ? i?.take : ' '}
+                    {i?.take > 0 ? formatVND(i?.take) : ' '}
                   </Text>
                 </View>
               </View>

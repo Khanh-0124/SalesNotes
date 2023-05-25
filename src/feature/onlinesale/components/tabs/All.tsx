@@ -57,7 +57,7 @@ const All = ({ id }: { id: any }) => {
       </View>
       <ScrollView style={{ padding: 15 }}>
         {newOrder.map((i: any) => (
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', paddingRight: 25}}>
             <View>
               <Text>{`${i.date.date}/${i.date.month}/${i.date.year}`}</Text>
               <Text
